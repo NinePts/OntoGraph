@@ -1,0 +1,25 @@
+@prefix ninepts:    	<http://purl.org/ninepts/test#> .
+@prefix owl:    		<http://www.w3.org/2002/07/owl#> .
+@prefix rdf:        	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Ontology defined
+# One datatype property with undefined range
+# The domain of the datatype property is an intersection-of declaration
+
+<http://purl.org/ninepts/test>
+	rdf:type			owl:Ontology ;
+	owl:versionInfo		"1.0" .
+
+<http://purl.org/ninepts/test#class1>
+	rdf:type			owl:Class .
+
+<http://purl.org/ninepts/test#class2>
+	rdf:type				owl:Class .
+
+<http://purl.org/ninepts/test#property1DataIntersection>
+	rdf:type			owl:DatatypeProperty ;
+	rdfs:domain				[
+								rdf:type			owl:Class ; 
+								owl:intersectionOf	( ninepts:class1
+												      ninepts:class2 )
+							].

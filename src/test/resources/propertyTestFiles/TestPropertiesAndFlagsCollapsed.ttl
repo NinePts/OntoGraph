@@ -1,0 +1,38 @@
+@prefix ninepts:    	<http://purl.org/ninepts/test#> .
+@prefix owl:    		<http://www.w3.org/2002/07/owl#> .
+@prefix rdf:        	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Ontology defined
+# One datatype and one object property with defined domains and ranges,
+#   both are functional properties.
+# Other object properties just test the flags.
+# 
+
+<http://purl.org/ninepts/test>
+	rdf:type			owl:Ontology ;
+	owl:versionInfo		"1.0" .
+
+<http://purl.org/ninepts/test#class1>
+	rdf:type			owl:Class .
+
+<http://purl.org/ninepts/test#class2>
+	rdf:type				owl:Class .
+
+<http://purl.org/ninepts/test#property1Data>
+	rdf:type			owl:DatatypeProperty, owl:FunctionalProperty ;
+	rdfs:domain			ninepts:class1 ;
+	rdfs:range			xsd:string .
+
+<http://purl.org/ninepts/test#property2Object>
+	rdf:type				owl:ObjectProperty, owl:FunctionalProperty ;
+	rdfs:domain				ninepts:class1 ;
+	rdfs:range				ninepts:class2 .
+
+<http://purl.org/ninepts/test#property3ObjectInvRef>
+	rdf:type				owl:ObjectProperty, owl:InverseFunctionalProperty, owl:ReflexiveProperty .
+
+<http://purl.org/ninepts/test#property4ObjectIrrefAsym>
+	rdf:type				owl:ObjectProperty, owl:IrreflexiveProperty, rdf:AsymmetricProperty .
+
+<http://purl.org/ninepts/test#property5ObjectSymTrans>
+	rdf:type				owl:ObjectProperty, owl:SymmetricProperty, owl:TransitiveProperty .

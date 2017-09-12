@@ -1,0 +1,24 @@
+@prefix ninepts:    	<http://purl.org/ninepts/test#> .
+@prefix owl:    		<http://www.w3.org/2002/07/owl#> .
+@prefix rdf:        	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Ontology defined
+# One datatype and one object property with undefined domains and ranges
+# Both properties are functional
+
+<http://purl.org/ninepts/test>
+	rdf:type					owl:Ontology ;
+	owl:versionInfo				"1.0" .
+
+<http://purl.org/ninepts/test#class1>
+	rdf:type				owl:Class .
+
+<http://purl.org/ninepts/test#class2>
+	rdf:type				owl:Class .
+
+<http://purl.org/ninepts/test#property1Data>
+	rdf:type			owl:DatatypeProperty, owl:FunctionalProperty .
+
+<http://purl.org/ninepts/test#property2Object>
+	rdf:type				owl:ObjectProperty, owl:FunctionalProperty .
+

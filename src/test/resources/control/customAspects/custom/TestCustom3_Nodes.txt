@@ -1,0 +1,9 @@
+// node id attribute, y:Fill color attribute, y:BorderStyle color attribute, y:BorderStyle type attribute, 
+//   y:NodeLabel value, y:Shape type attribute
+//
+ninepts:class1, #FFFFFF, #000000, dotted, Class 1 (ninepts:class1), diamond
+test:class2External, #FFFFFF, #000000, dotted, Class 2 External (test:class2External), diamond
+test:class3External-1, #FFFFFF, #000000, dotted, test:class3External-1, diamond
+ninepts:class4-3Missing, #FFFFFF, #000000, dotted, ninepts:class4-3Missing, diamond
+ninepts:class5-1andExternal2, #FFFFFF, #000000, dotted, Class 5 Multiple (ninepts:class5-1andExternal2), diamond
+ninepts:class3Missing, #FFFFFF, #000000, dotted, ninepts:class3Missing, diamond

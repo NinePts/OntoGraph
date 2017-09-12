@@ -1,0 +1,32 @@
+@prefix ninepts:    	<http://purl.org/ninepts/test#> .
+@prefix test:			<http://purl.org/test/test#> .
+@prefix rdf:        	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       	<http://www.w3.org/2000/01/rdf-schema#> .
+
+# TestClassesA with labels
+
+<http://purl.org/ninepts/test>
+	rdf:type					owl:Ontology ;
+	owl:versionInfo				"1.0" .
+	
+<http://purl.org/ninepts/test#class1>
+	rdf:type			owl:Class ;
+	rdfs:label          "Class 1" .
+
+<http://purl.org/test/test#class2External>
+	rdf:type			owl:Class ;
+	rdfs:label          "Class 2 External" .
+
+<http://purl.org/test/test#class3External-1>
+	rdf:type			owl:Class ;
+	rdfs:subClassOf		ninepts:class1 .
+
+<http://purl.org/ninepts/test#class4-3Missing>
+	rdf:type			owl:Class ;
+	rdfs:subClassOf		ninepts:class3Missing .
+	
+<http://purl.org/ninepts/test#class5-1andExternal2>
+	rdf:type			owl:Class ;
+	rdfs:label          "Class 5 Multiple" ;
+	rdfs:subClassOf     <http://purl.org/test/test#class2External> ;
+	rdfs:subClassOf		ninepts:class1 .

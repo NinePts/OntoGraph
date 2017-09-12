@@ -1,0 +1,1 @@
+// node id attribute, y:Fill color attribute, y:BorderStyle color attribute, y:BorderStyle type attribute, //   y:NodeLabel value, y:Shape type attribute//ninepts:class1, #AACCFF, #000000, line, class1, ellipse// Blank Nodebnode_##1, #FFFFFF, #000000, dashed, Restriction:NEW_LINEowl:onDatatype xsd:integerNEW_LINExsd:minInclusive 0NEW_LINExsd:maxInclusive 10, NULL

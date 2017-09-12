@@ -1,0 +1,9 @@
+// node id attribute, y:Fill color attribute, y:BorderStyle color attribute, y:BorderStyle type attribute, 
+//   y:NodeLabel value, y:Shape type attribute
+//
+ninepts:class1, #FFFFFF, #000000, line, Class 1 (ninepts:class1), hexagon
+test:class2External, #FFFFFF, #000000, line, Class 2 External (test:class2External), hexagon
+test:class3External-1, #FFFFFF, #000000, line, test:class3External-1, hexagon
+ninepts:class4-3Missing, #FFFFFF, #000000, line, ninepts:class4-3Missing, hexagon
+ninepts:class5-1andExternal2, #FFFFFF, #000000, line, Class 5 Multiple (ninepts:class5-1andExternal2), hexagon
+ninepts:class3Missing, #FFFFFF, #000000, line, ninepts:class3Missing, hexagon

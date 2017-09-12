@@ -1,0 +1,9 @@
+// node id attribute, y:Fill color attribute, y:BorderStyle color attribute, y:BorderStyle type attribute, 
+//   y:NodeLabel value, y:Shape type attribute
+//
+ninepts:class1, #FFFFFF, #000000, dashed, Class 1 (ninepts:class1), rectangle
+test:class2External, #FFFFFF, #000000, dashed, Class 2 External (test:class2External), rectangle
+test:class3External-1, #FFFFFF, #000000, dashed, test:class3External-1, rectangle
+ninepts:class4-3Missing, #FFFFFF, #000000, dashed, ninepts:class4-3Missing, rectangle
+ninepts:class5-1andExternal2, #FFFFFF, #000000, dashed, Class 5 Multiple (ninepts:class5-1andExternal2), rectangle
+ninepts:class3Missing, #FFFFFF, #000000, dashed, ninepts:class3Missing, rectangle

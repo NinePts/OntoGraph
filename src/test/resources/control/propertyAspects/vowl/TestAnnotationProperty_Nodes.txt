@@ -1,0 +1,1 @@
+// node id attribute, y:Fill color attribute, y:BorderStyle color attribute, y:BorderStyle type attribute, //   y:NodeLabel value, y:Shape type attribute//owl:Thing, #FFFFFF, #000000, dashed, Thing, ellipseninepts:annotationPropertyrdfs:Literal, #FFCC33, #000000, dashed, Literal, roundrectangle

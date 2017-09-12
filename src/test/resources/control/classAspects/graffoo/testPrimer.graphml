@@ -1,0 +1,1229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd"> 
+
+<key attr.name="Description" attr.type="string" for="graph" id="d0"/><key for="port" id="d1" yfiles.type="portgraphics"/>
+<key for="port" id="d2" yfiles.type="portgeometry"/>
+<key for="port" id="d3" yfiles.type="portuserdata"/>
+<key attr.name="url" attr.type="string" for="node" id="d4"/>
+<key attr.name="description" attr.type="string" for="node" id="d5"/>
+<key for="node" id="d6" yfiles.type="nodegraphics"/>
+<key for="graphml" id="d7" yfiles.type="resources"/>
+<key attr.name="url" attr.type="string" for="edge" id="d8"/>
+<key attr.name="description" attr.type="string" for="edge" id="d9"/>
+<key for="edge" id="d10" yfiles.type="edgegraphics"/>
+
+<graph edgedefault="directed" id="G">
+  <data key="d0"/>
+<node id="title" yfiles.foldertype="group">
+  <data key="d4"/>
+  <data key="d6">
+    <y:ProxyAutoBoundsNode>
+      <y:Realizers active="0">
+        <y:GroupNode>
+          <y:Geometry height="112.2" width="449.12" x="123.59" y="878.39"/>
+          <y:Fill color="#FFFFFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="21.67" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="449.12" x="0.0" y="0.0">Graph Information   </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+          <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
+          <y:State closed="false" closedHeight="74.51" closedWidth="387.83" innerGraphDisplayEnabled="false"/>
+          <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+          <y:BorderInsets bottom="0" bottomF="0.0" left="4" leftF="4.47" right="0" rightF="0.0" top="0" topF="0.0"/>
+        </y:GroupNode>
+        <y:GroupNode>
+          <y:Geometry height="50.0" width="50.0" x="-25.0" y="-25.0"/>
+          <y:Fill color="#F2F0D8" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.67" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.76" x="-6.88" y="0.0"> </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+          <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
+          <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+          <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+          <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+        </y:GroupNode>
+      </y:Realizers>
+    </y:ProxyAutoBoundsNode>
+  </data>
+  <graph edgedefault="directed" id="title:">
+    <node id="title::n0">
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="25.0" width="150.0" x="310.0" y="934.20"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="90.53" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="140.44" x="-5.04" y="-19.145">Title:  Test Classes
+
+Ontology URI:  http://example.com/owl/families
+
+Generated:  Tue Aug 29 18:09:38 EDT 2017</y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+  </graph>
+</node>
+<node id="prefixes" yfiles.foldertype="group">
+  <data key="d4"/>
+  <data key="d6">
+    <y:ProxyAutoBoundsNode>
+      <y:Realizers active="0">
+        <y:GroupNode>
+          <y:Geometry height="112.2" width="449.12" x="123.59" y="878.39"/>
+          <y:Fill color="#FFFFFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="21.67" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="449.12" x="0.0" y="0.0">Prefixes   </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+          <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
+          <y:State closed="false" closedHeight="74.51" closedWidth="387.83" innerGraphDisplayEnabled="false"/>
+          <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+          <y:BorderInsets bottom="0" bottomF="0.0" left="4" leftF="4.47" right="0" rightF="0.0" top="0" topF="0.0"/>
+        </y:GroupNode>
+        <y:GroupNode>
+          <y:Geometry height="50.0" width="50.0" x="-25.0" y="-25.0"/>
+          <y:Fill color="#F2F0D8" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.67" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.76" x="-6.88" y="0.0"> </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+          <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
+          <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+          <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+          <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+        </y:GroupNode>
+      </y:Realizers>
+    </y:ProxyAutoBoundsNode>
+  </data>
+  <graph edgedefault="directed" id="prefixes:">
+    <node id="prefixes::n0">
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="25.0" width="150.0" x="310.0" y="934.20"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="90.53" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="140.44" x="-5.04" y="-19.145">f
+g
+owl
+owl2
+rdf
+rdfs
+xsd
+</y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="prefixes::n1">
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="25.0" width="430.0" x="148.09" y="934.20"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="90.53" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="140.44" x="-66.3" y="-19.145">http://example.com/owl/families#
+http://example.com/owl2/families#
+http://www.w3.org/2002/07/owl#
+http://www.w3.org/2006/12/owl2#
+http://www.w3.org/1999/02/22-rdf-syntax-ns#
+http://www.w3.org/2000/01/rdf-schema#
+http://www.w3.org/2001/XMLSchema#
+</y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+  </graph>
+</node>
+<node id="f:Person">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="104.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:Person</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="f:Parent">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="104.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:Parent</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOff:Parentf:Parent" source="f:Parent" target="f:Parent">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">rdfs:subClassOf</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="f:Woman">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="91.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:Woman</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOff:Womanf:Parent" source="f:Woman" target="f:Parent">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">rdfs:subClassOf</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="f:Man">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="65.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:Man</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOff:Manf:Parent" source="f:Man" target="f:Parent">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">rdfs:subClassOf</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="f:Adult">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="91.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:Adult</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="f:Child">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="91.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:Child</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="f:CivilMarriage">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="195.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:CivilMarriage</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="f:Marriage">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="130.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:Marriage</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="f:ReligiousMarriage">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="247.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:ReligiousMarriage</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="f:Narcissist">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="156.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:Narcissist</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="f:Teenager">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="130.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:Teenager</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="f:YoungChild">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="156.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:YoungChild</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="g:Grownup">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="117.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">g:Grownup</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="x19">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="208.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">OneOf Definition</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="x35">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="208.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFF00" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">OneOf Definition</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="x23">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="153.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Intersection of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="intersectionOff:Personx23" source="f:Person" target="x23">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">rdfs:subClassOf</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x21">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="75.0" width="280.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onProperty f:hasGender
+owl:cardinality 1</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="restrictionx23x21" source="x23" target="x21">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x20">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="60.0" width="280.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onProperty f:hasGender</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="restrictionx23x20" source="x23" target="x20">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="allValuesFromx20x19" source="x20" target="x19">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">allValuesFrom</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x22">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="75.0" width="250.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onProperty f:hasAge
+owl:cardinality 1</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="restrictionx23x22" source="x23" target="x22">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x26">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="153.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Intersection of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="intersectionOff:Teenagerx26" source="f:Teenager" target="x26">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="interx26f:Person" source="x26" target="f:Person">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x25">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="60.0" width="250.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onProperty f:hasAge</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="restrictionx26x25" source="x26" target="x25">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x24">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="90.0" width="280.0" x="385.3" y="187.0"/>
+      <y:Fill color="#ECFFEC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onDatatype xsd:integer
+owl:minInclusive 13
+owl:maxExclusive 20</y:NodeLabel>
+      <y:Shape type="parallelogram"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="someValuesFromx25x24" source="x25" target="x24">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">someValuesFrom</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="disjointf:ReligiousMarriagef:CivilMarriage" source="f:ReligiousMarriage" target="f:CivilMarriage">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:disjointWith</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x7">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="153.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Intersection of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="intersectionOff:Adultx7" source="f:Adult" target="x7">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="interx7f:Person" source="x7" target="f:Person">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x6">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="60.0" width="250.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onProperty f:hasAge</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="restrictionx7x6" source="x7" target="x6">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x5">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="75.0" width="280.0" x="385.3" y="187.0"/>
+      <y:Fill color="#ECFFEC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onDatatype xsd:integer
+owl:minInclusive 21</y:NodeLabel>
+      <y:Shape type="parallelogram"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="someValuesFromx6x5" source="x6" target="x5">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">someValuesFrom</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="equivf:Adultg:Grownup" source="f:Adult" target="g:Grownup">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x19OneOf">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="279.0" x="385.3" y="187.0"/>
+      <y:Fill color="#ECFFEC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Enumeration Individuals (OneOf)</y:NodeLabel>
+      <y:Shape type="parallelogram"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="f:female">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="20.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FF7FC1" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="eight_pos" modelPosition="e" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:female</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="oneOfx19OneOff:female" source="x19OneOf" target="f:female">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="f:male">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="20.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FF7FC1" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="eight_pos" modelPosition="e" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">f:male</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="oneOfx19OneOff:male" source="x19OneOf" target="f:male">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="oneOfx19x19OneOf" source="x19" target="x19OneOf">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x16">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="153.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Intersection of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="intersectionOff:Narcissistx16" source="f:Narcissist" target="x16">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="interx16f:Person" source="x16" target="f:Person">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x15">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="75.0" width="240.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onProperty f:loves
+owl:hasSelf true</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="restrictionx16x15" source="x16" target="x15">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x14">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="90.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Union of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="unionOff:Marriagex14" source="f:Marriage" target="x14">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="unx14f:ReligiousMarriage" source="x14" target="f:ReligiousMarriage">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="unx14f:CivilMarriage" source="x14" target="f:CivilMarriage">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x35OneOf">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="279.0" x="385.3" y="187.0"/>
+      <y:Fill color="#ECFFEC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Enumeration Individuals (OneOf)</y:NodeLabel>
+      <y:Shape type="parallelogram"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="39">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="20.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FF7FC1" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="eight_pos" modelPosition="e" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">39</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="oneOfx35OneOf39" source="x35OneOf" target="39">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="49">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="20.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FF7FC1" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="eight_pos" modelPosition="e" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">49</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="oneOfx35OneOf49" source="x35OneOf" target="49">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="oneOfx35x35OneOf" source="x35" target="x35OneOf">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x28">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="153.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Intersection of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="intersectionOff:Womanx28" source="f:Woman" target="x28">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="interx28f:Person" source="x28" target="f:Person">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x27">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="75.0" width="280.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onProperty f:hasGender
+owl:hasValue f:female</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="restrictionx28x27" source="x28" target="x27">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x11">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="153.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Intersection of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="intersectionOff:Childx11" source="f:Child" target="x11">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="interx11f:Person" source="x11" target="f:Person">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x10">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="135.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Complement of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="complementOfx11x10" source="x11" target="x10">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x9">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="60.0" width="250.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onProperty f:hasAge</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="restrictionx10x9" source="x10" target="x9">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x8">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="75.0" width="280.0" x="385.3" y="187.0"/>
+      <y:Fill color="#ECFFEC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onDatatype xsd:integer
+owl:minInclusive 21</y:NodeLabel>
+      <y:Shape type="parallelogram"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="someValuesFromx9x8" source="x9" target="x8">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">someValuesFrom</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x13">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="153.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Intersection of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="intersectionOff:Manx13" source="f:Man" target="x13">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="interx13f:Person" source="x13" target="f:Person">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x12">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="75.0" width="280.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onProperty f:hasGender
+owl:hasValue f:male</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="restrictionx13x12" source="x13" target="x12">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x18">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="153.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Intersection of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="intersectionOff:Parentx18" source="f:Parent" target="x18">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="interx18f:Person" source="x18" target="f:Person">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x17">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="90.0" width="310.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Restriction:
+owl:onProperty f:hasChild
+owl:onClass f:Person
+owl:minQualifiedCardinality 1</y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="restrictionx18x17" source="x18" target="x17">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x31">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="153.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Intersection of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="intersectionOff:YoungChildx31" source="f:YoungChild" target="x31">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">owl:equivalentClass</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="interx31f:Person" source="x31" target="f:Person">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x30">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="135.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Complement of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="complementOfx31x30" source="x31" target="x30">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="x29">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="50.0" width="90.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFAA" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58"> Union of </y:NodeLabel>
+      <y:Shape type="roundrectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="unionOfx30x29" source="x30" target="x29">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="unx29f:Teenager" source="x29" target="f:Teenager">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="unx29f:Adult" source="x29" target="f:Adult">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dashed" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+</graph>
+<data key="d7">
+   <y:Resources/>
+</data>
+</graphml>

@@ -1,0 +1,22 @@
+# No ontology defined (all "external" VOWL entities)
+# No prefixes defined
+# Five nodes, multiple levels of inheritance, multiple inheritance
+
+<http://purl.org/ninepts/test#class1>
+	rdf:type			owl:Class .
+
+<http://purl.org/test/test#class2>
+	rdf:type	owl:Class .
+
+<http://purl.org/test/test#class3-1>
+	rdf:type			owl:Class ;
+	rdfs:subClassOf		<http://purl.org/ninepts/test#class1> .
+
+<http://purl.org/ninepts/test#class4-3>
+	rdf:type			owl:Class ;
+	rdfs:subClassOf		<http://purl.org/ninepts/test#class3> .
+	
+<http://purl.org/ninepts/test#class5-1and2>
+	rdf:type			owl:Class ;
+	rdfs:subClassOf     <http://purl.org/test/test#class2> ;
+	rdfs:subClassOf		<http://purl.org/ninepts/test#class1> .

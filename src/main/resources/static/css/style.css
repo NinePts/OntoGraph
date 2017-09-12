@@ -1,0 +1,48 @@
+.main-title {
+    color: #337ab7;
+    font-size: 130%;
+}
+
+.customization-title {
+    color: #337ab7;
+    font-size: 115%;
+}
+
+.graph-container {
+    box-sizing: border-box;
+    padding-left: 2%;
+    width: 98%;
+}
+
+hr {
+    box-sizing: border-box;
+    border: 1px dashed #337ab7;
+    width: 50%;
+}
+
+.hover-over {
+    cursor: default;
+}
+
+
+/*--------------------------------------------------------------
+# Forms
+--------------------------------------------------------------*/
+textarea {
+    box-sizing: border-box;
+    padding-left: 3px;
+    width: 100%;
+}
+
+/*--------------------------------------------------------------
+## Links
+--------------------------------------------------------------*/
+a {
+    color: #337ab7;
+}
+
+a:hover,
+a:focus,
+a:active {
+    color: cornflowerblue;
+}

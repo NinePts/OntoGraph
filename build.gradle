@@ -1,0 +1,113 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+      		url "https://plugins.gradle.org/m2/"
+    	}
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5")
+    }
+}
+
+apply plugin: "org.springframework.boot"
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.sonarqube'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+mainClassName = 'graph.Application'
+
+jar {
+    baseName = 'OntoGraph'
+    version = "1.0.0"
+}
+
+bootRun {
+	jvmArgs = [
+		'-Xdebug',
+		'-Xrunjdwp:server=y,transport=dt_socket,address=8181,suspend=n' 
+	]
+}
+		
+
+sonarqube {
+    properties {
+        // CHANGEME
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.sources", "src/main"
+        property "sonar.test.inclusions", "src/test/java/graph/**"
+        property "sonar.exclusions", "src/main/resources/static/lib/**"
+    }
+} 
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpDir = file("$buildDir/jacoco/classpathdumps")
+    }
+}
+
+repositories {
+	jcenter()
+	maven {
+		url "http://maven.stardog.com"
+	}
+    mavenCentral()
+    mavenLocal()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations {
+	// Spring Boot includes Logback and Slf4j, so exclude from other package
+    all*.exclude module : "slf4j-jdk14"
+    all*.exclude module : "httpmime"
+}
+
+ext {	
+	commonsIoVersion = "2.5"
+	commonsLangVersion = "3.5"
+	httpClientVersion = "4.5.3"
+	jacksonVersion = "2.8.9"
+	lombokVersion = "1.16.16"
+	springBootVersion = "1.5.6.RELEASE"
+	stardogVersion = "5.0.3"
+	stardogSpringVersion = "5.0.1"
+}
+
+dependencies {
+
+    compile ("com.complexible.stardog:client-http:${stardogVersion}@pom") {
+    	exclude module : "httpmime"
+    	exclude module : "httpclient"
+    }
+    compile "org.apache.httpcomponents:httpclient:$httpClientVersion"
+    
+    compile "com.complexible.stardog:server:${stardogVersion}@pom"
+    compile "com.complexible.stardog:stardog-spring:$stardogSpringVersion"
+    compile "org.projectlombok:lombok:$lombokVersion"
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion" 
+    
+    compile ("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion") {
+    	exclude module : "jackson-annotations"
+    } 
+    compile "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+    
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.0.1'
+}
+
+task copyJar(type: Copy) {
+    from jar 
+    into 'release'
+}
+
+build.dependsOn copyJar

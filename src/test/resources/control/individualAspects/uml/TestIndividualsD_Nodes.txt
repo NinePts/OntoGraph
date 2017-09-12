@@ -1,0 +1,8 @@
+// node id attribute, y:Fill color attribute, y:BorderStyle color attribute, y:BorderStyle type attribute, 
+//   y:NodeLabel value for alignment "center" (individual label : type), 
+//   y:NodeLabel value for alignment "left" (datatypes' property : value)
+//
+// Individual
+ninepts:individual1, #FFFFFF, #000000, line, ninepts:individual1 : ninepts:class, ninepts:datatypeProperty : string = literal
+ninepts:individual2, #FFFFFF, #000000, line, ninepts:individual2 : ninepts:class, EMPTY_STRING
+test:individual3, #FFFFFF, #000000, line, test:individual3 : Unknown, EMPTY_STRING

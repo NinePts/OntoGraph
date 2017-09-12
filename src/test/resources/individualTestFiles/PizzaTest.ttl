@@ -1,0 +1,56 @@
+@prefix ex: <http://www.ninepts.com/external#> .
+@prefix pz: <http://www.ninepts.com/test#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.ninepts.com/test#hasTopping
+pz:hasTopping rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.ninepts.com/test#hasCalories
+pz:hasCalories rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.ninepts.com/test#pepperoni
+pz:pepperoni rdf:type owl:Class ;
+           rdfs:subClassOf pz:topping .
+
+
+###  http://www.ninepts.com/test#pizza
+pz:pizza rdf:type owl:Class .
+
+
+###  http://www.ninepts.com/test#topping
+pz:topping rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.ninepts.com/test#pepperoni-pizza
+pz:pepperoni-pizza rdf:type owl:NamedIndividual ,
+                          pz:pizza ;
+                          pz:hasTopping pz:pepperoni-topping, ex:mushroom-topping ;
+                   		  pz:hasCalories "1000.0"^^xsd:float .
+
+
+###  http://www.ninepts.com/test#pepperoni-topping
+pz:pepperoni-topping rdf:type owl:NamedIndividual ,
+                            pz:topping .
+

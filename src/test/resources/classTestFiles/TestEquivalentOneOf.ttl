@@ -1,0 +1,28 @@
+@prefix ninepts:    	<http://purl.org/ninepts/test#> .
+@prefix owl:    		<http://www.w3.org/2002/07/owl#> .
+@prefix rdf:        	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Ontology defined
+# One class that is equivalent to a list of 3 individuals
+
+<http://purl.org/ninepts/test>
+	rdf:type					owl:Ontology ;
+	owl:versionInfo				"1.0" .
+
+<http://purl.org/ninepts/test#class1>
+	rdf:type				owl:Class ;
+	owl:equivalentClass  	[
+   								rdf:type   owl:Class ;
+   							 	owl:oneOf  ( ninepts:ind1 ninepts:ind2 
+									         ninepts:ind3) 
+							] .
+
+<http://purl.org/ninepts/test#ind1>
+	rdf:type				owl:NamedIndividual, ninepts:class1 .
+
+<http://purl.org/ninepts/test#ind2>
+	rdf:type				owl:NamedIndividual, ninepts:class1 .
+	
+<http://purl.org/ninepts/test#ind3>
+	rdf:type				owl:NamedIndividual, ninepts:class1 ;
+	rdfs:label				"Individual 3".

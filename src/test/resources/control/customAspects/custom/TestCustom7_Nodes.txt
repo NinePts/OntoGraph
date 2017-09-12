@@ -1,0 +1,9 @@
+// node id attribute, y:Fill color attribute, y:BorderStyle color attribute, y:BorderStyle type attribute, 
+//   y:NodeLabel value, y:Shape type attribute
+//
+ninepts:class1, #FFFFFF, #000000, dotted, Class 1 (ninepts:class1), parallelogram2
+test:class2External, #FFFFFF, #000000, dotted, Class 2 External (test:class2External), parallelogram2
+test:class3External-1, #FFFFFF, #000000, dotted, test:class3External-1, parallelogram2
+ninepts:class4-3Missing, #FFFFFF, #000000, dotted, ninepts:class4-3Missing, parallelogram2
+ninepts:class5-1andExternal2, #FFFFFF, #000000, dotted, Class 5 Multiple (ninepts:class5-1andExternal2), parallelogram2
+ninepts:class3Missing, #FFFFFF, #000000, dotted, ninepts:class3Missing, parallelogram2

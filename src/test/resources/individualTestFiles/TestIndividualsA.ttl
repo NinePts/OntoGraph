@@ -1,0 +1,29 @@
+@prefix ninepts:    	<http://purl.org/ninepts/test#> .
+@prefix test:			<http://purl.org/test/test#> .
+@prefix rdf:        	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       	<http://www.w3.org/2000/01/rdf-schema#> .
+
+# Two defined individuals and one (external) individual referenced
+# Datatype and object properties defined
+
+<http://purl.org/ninepts/test>
+	rdf:type					owl:Ontology ;
+	owl:versionInfo				"1.0" .
+	
+<http://purl.org/ninepts/test#class>
+	rdf:type			owl:Class .
+
+<http://purl.org/ninepts/test#datatypeProperty>
+	rdf:type			owl:DatatypeProperty ;
+	rdfs:range          xsd:string .
+
+<http://purl.org/ninepts/test#objectProperty>
+	rdf:type			owl:ObjectProperty .
+
+<http://purl.org/ninepts/test#individual1>
+	rdf:type					owl:NamedIndividual, ninepts:class ;
+	ninepts:datatypeProperty 	"literal"^^xsd:string .
+
+<http://purl.org/ninepts/test#individual2>
+	rdf:type					owl:NamedIndividual, ninepts:class ;
+	ninepts:objectProperty 		ninepts:individual1, test:individual3 .

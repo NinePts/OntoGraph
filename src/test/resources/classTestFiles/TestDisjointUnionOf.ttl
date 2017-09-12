@@ -1,0 +1,24 @@
+@prefix ninepts:    	<http://purl.org/ninepts/test#> .
+@prefix owl:    		<http://www.w3.org/2002/07/owl#> .
+@prefix rdf:        	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Ontology defined
+# Three classes, one class is disjoint with the union of the other two
+
+<http://purl.org/ninepts/test>
+	rdf:type					owl:Ontology ;
+	owl:versionInfo				"1.0" .
+
+<http://purl.org/ninepts/test#class1>
+	rdf:type				owl:Class ;
+	owl:disjointWith		[
+								rdf:type	owl:Class ;
+								owl:unionOf	(ninepts:class2
+											 ninepts:class3 )
+							] .
+
+<http://purl.org/ninepts/test#class2>
+	rdf:type				owl:Class .
+
+<http://purl.org/ninepts/test#class3>
+	rdf:type				owl:Class .

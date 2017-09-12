@@ -1,0 +1,46 @@
+@prefix ninepts:    	<http://purl.org/ninepts/test#> .
+@prefix test:    		<http://purl.org/test/test#> .
+@prefix owl:    		<http://www.w3.org/2002/07/owl#> .
+@prefix rdf:        	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Ontology defined
+# Six classes, one class is equivalent to the union of the interestion of two and the union of two
+# Embedded union and intersection classes were chosen to ease the XMLUnit testing definitions - to
+#    avoid having to account for 1 (for complement) vs 2+ (for intersection and union) 
+#.   connected nodes and edges
+# Plus one additional class that is external
+
+<http://purl.org/ninepts/test>
+	rdf:type					owl:Ontology ;
+	owl:versionInfo				"1.0" .
+
+<http://purl.org/ninepts/test#class1>
+	rdf:type				owl:Class ;
+	owl:equivalentClass		[
+								rdf:type	owl:Class ;
+								owl:unionOf	([
+												rdf:type			owl:Class ;
+												owl:intersectionOf 	(ninepts:class2
+																	 ninepts:class3)
+											]
+											[
+												rdf:type			owl:Class ;
+												owl:unionOf			(ninepts:class4
+																	 ninepts:class5)
+											])
+							] .
+
+<http://purl.org/ninepts/test#class2>
+	rdf:type				owl:Class .
+
+<http://purl.org/ninepts/test#class3>
+	rdf:type				owl:Class .
+
+<http://purl.org/ninepts/test#class4>
+	rdf:type				owl:Class .
+	
+<http://purl.org/ninepts/test#class5>
+	rdf:type				owl:Class .
+	
+<http://purl.org/test/test#class6External>
+	rdf:type				owl:Class .

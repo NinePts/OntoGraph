@@ -1,0 +1,1 @@
+// node id attribute, y:Fill color attribute, y:BorderStyle color attribute, y:BorderStyle type attribute, //   y:NodeLabel value, y:Shape type attribute//owl:Thing, #FFFF99, #000000, line, owl:Thing, roundrectanglexsd:float, #FFFFFF, #FFFFFF, line, xsd:float, rectanglexsd:integer, #FFFFFF, #FFFFFF, line, xsd:integer, rectangle
