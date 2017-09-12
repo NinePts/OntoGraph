@@ -486,7 +486,6 @@ public class GraphDAO {
         }
         
         // Add individuals that are referenced as domain or object property ranges but do not have an rdf:type
-        // TODO Capture if an individual is defined, does not have a type, and is never referenced
         models.addAll(getUntypedIndividuals(snarlTemplate, referencedIndividuals, definedIndividuals, prefixes));
         return models;
     }

@@ -68,7 +68,7 @@ public class GraphController extends RestExceptionHandler {
 	//   deprecated, disjoint union (pairwise disjoint), negative datatype/object property assertion, 
 	//   individual with a negative property assertion, inverse object property, equivalent and 
 	//   disjoint property, sub-property and sub-annotation-property, ontology details (versionInfo, 
-	//   imports, backwardCompatibleWith, incompatibleWith), priorVersion,  differentFrom, AllDifferent, 
+	//   imports, backwardCompatibleWith, incompatibleWith, priorVersion), differentFrom, AllDifferent, 
 	//   distinct members, annotatedSource, annotatedTarget, annotatedProperty
 	// Other concepts not yet supported: SWRL rules
     
