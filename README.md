@@ -12,7 +12,7 @@ Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/
 <br><br>
 
 ### Overview
-OntoGraph is a Spring Boot application for graphing OWL ontologies. The code consists of a Java-based REST API that creates various GraphML outputs of a user-provided OWL ontology file (or zip file of a set of ontology files) that can be input programmatically or using a simple GUI. The program stores the ontologies in a triple store ([Stardog](http://www.stardog.com/)), then runs a series of queries to return the necessary information (classes, properties, individuals...) to be diagrammed. For more information on OntoGraph and why it was created, see a pre-print of the paper, [Ontology Development by Domain Experts (Without Using the "O" Word)]().
+OntoGraph is a Spring Boot application for graphing OWL ontologies. The code consists of a Java-based REST API that creates various GraphML outputs of a user-provided OWL ontology file (or zip file of a set of ontology files) that can be input programmatically or using a simple GUI. The program stores the ontologies in a triple store ([Stardog](http://www.stardog.com/)), then runs a series of queries to return the necessary information (classes, properties, individuals...) to be diagrammed. For more information on OntoGraph and why it was created, click 'Download' for the paper, [Ontology Development by Domain Experts (Without Using the "O" Word)](https://github.com/NinePts/OntoGraph/blob/master/OntologyDevelopmentByDomainExperts.pdf). 
 
 Four visualizations of ontology data can be generated:
 
@@ -36,9 +36,9 @@ Please note that OntoGraph uses Java 8 and Stardog 5.x. These must be installed 
 
 To check your Java version, go to the command line in Linux, OSX or Windows, and type `java -version`. If your version is not "build 1.8.x", please update it. To update Java, go to the [Oracle Free Java Download page](https://www.java.com/en/download/), and follow the directions there.
 
-To download Stardog, go to the [Stardog Knowledge Graph page](http://stardog.com/) and click the 'DOWNLOAD' button.  Then, complete the form with your information, select either the Stardog community or enterprise trial version, and click download. (Note that the community edition of Stardog is free and can be used with OntoGraph. The enterprise trial version can also be used, but the license expires 30 days from download.) After receiving an email with your download details (which is sent very quickly after clicking 'download'), get the Stardog zip file and unpack it. Details on installing Stardog for Linux, OSX or Windows can be found in the [Stardog Quick Start Guide](http://www.stardog.com/docs/#_quick_start_guide).
+To download Stardog, go to [Stardog Knowledge Graph](http://stardog.com/) and click the 'DOWNLOAD' button.  Then, complete the form with your information, select either the Stardog community or enterprise trial version, and click download. (Note that the community edition of Stardog is free and can be used with OntoGraph. The enterprise trial version can also be used, but the license expires 30 days from download.) After receiving an email with your download details (which is sent very quickly after clicking 'download'), get the Stardog zip file and unpack it. Details on installing Stardog for Linux, OSX or Windows can be found in the [Stardog Quick Start Guide](http://www.stardog.com/docs/#_quick_start_guide).
 
-OntoGraph can be run directly from its jar file, which is downloaded (along with a few other files) from [Nine Points Solutions' OntoGraph release directory](https://github.com/NinePts/OntoGraph/tree/master/release) in GitHub. Make sure to download the "Raw" version of the file, ontograph.zip, and then unzip it. Then, execute `java -jar OntoGraph.jar` from the command line, in the directory where you unzipped the file. Please note that Stardog MUST have been started (`./stardog-admin server start` or on Windows, `stardog-admin.bat server start`) before requesting any graph output from OntoGraph.
+OntoGraph can be run directly from its jar file, which is downloaded (along with a few other files) from [Nine Points Solutions' OntoGraph release directory](https://github.com/NinePts/OntoGraph/blob/master/release/ontograph.zip) in GitHub. After downloading ontograph.zip, unzip it in your desired directory. Then, execute `java -jar OntoGraph.jar` from the command line, in the directory where you unzipped the file. Please note that Stardog MUST have been started (`./stardog-admin server start` or on Windows, `stardog-admin.bat server start`) before requesting any graph output from OntoGraph.
 
 After starting Ontograph, access its GUI from your web browser at the URI, `http://localhost:8181`. Using the GUI, you can specify the ontology file to be diagrammed, a graph title, the visualization (custom, Graffoo, UML-like or VOWL) and the type of graph (class, property or individual). The output file will be available from a dialog box allowing you to open or save the file (it is saved in your 'Downloads' directory). For more details about the GUI interface, see the [Graphical Inteface](#graphical-interface) section below.
 
@@ -197,5 +197,5 @@ All issues and improvements for OntoGraph are listed in the project's [Issues]()
 Please create Github issues for any bugs or improvement suggestions, or feel free to fork the repository, make changes and create pull requests.
 <br><br>
 
-Thanks for using OntoGraph!
+Thanks for using OntoGraph!  
 The Nine Points Solutions Dev Team
