@@ -160,7 +160,7 @@ The response corresponding to the above request is:
 * graphTitle:	Test Graph
 * visualization:	custom
 * graphType:	class
-* graphML:	<?xml version="1.0" encoding="..esources/> </data> </graphml>
+* graphML:	`<?xml version="1.0" encoding="..esources/> </data> </graphml>`
 <br><br>
 
 ### Code details
@@ -188,11 +188,178 @@ Note that Stardog has many configurable parameters, but these do not need to be 
 <br><br>
 
 ### Testing and testcases
-In-progress.
-<br><br>
+The OntoGraph test directory (`src/test/java/graph`) contains a series of jUnit- and Spring-backed test methods that generate a graph given certain parameters, and compare it to a control file containing details about expected node and edge attributes and values. The graphs that are generated are based on various test ontologies found in `src/test/resources` and are organized based on graph type ('class', 'individual', 'property' or 'both' class and property). All control files can be found in `src/test/resources/control`. The tests have been designed to cover a large majority of graph and node combinations possible with OWL and OWL 2. To ensure the most complete coverage possible, we also include tests of the [Turtle RDF Primer](https://www.w3.org/2007/02/turtle/primer/) and [Friend of a Friend](http://www.foaf-project.org/).
+
+The test cases vary with each graph type, but are the same for each visualization within the graph type. In the case of individual graphs, VOWL is not included as individuals are not represented in (not supported by) VOWL 2.0. The UML visualization tests are only defined for the 'class' and 'individual' graph types, because the UML visualization for 'class' is the same as for 'property' or 'both' class and property (given how UML class diagrams are rendered).
+
+##### Writing test control files
+
+There are two types of CSV control files for each test case - one defining the "expected" attributes and values for nodes, and the other for edges. The node files are defined for either UML customization nodes or for 'custom', 'graffoo' or 'vowl' visualization nodes, whereas the edge files are the same for all visualizations. Each file is designated by `TestName_Edges.txt` or `TestName_Nodes.txt`.
+
+OntoGraph's tests validate the following:
+  * The generated GraphML output is valid XML
+  * All node and edge ids in the control files are present
+  * There no other node or edge ids besides those that are described in the control files
+  * No attribute values are set to "null" or an empty string (meaning that the attribute value was not set to a valid input)
+  * Each node and edge described in the control files uses the specified element and attribute values
+
+The 'Edge' files match against the following information for each "expected" edge in a generated graph:
+
+* <edge> element, 'id' attribute
+* <edge> element 'source' attribute
+* <edge> element 'target' attribute
+* <edge> element ... <y:Arrows> sub-element's 'source' attribute value 
+* <edge> element ... <y:Arrows> sub-element's 'target' attribute value 
+* <edge> element ... <y:LineStyle> sub-element's 'color' attribute value 
+* <edge> element ... <y:LineStyle> sub-element's 'type' attribute value 
+* <edge> element ... <y:EdgeLabel> sub-element's 'backgrounColor' attribute value
+* <edge> element ... <y:EdgeLabel> sub-element's value 
+
+These values are listed in order, on a single line, separated by the text, ", " (without the double quotes). Comments can be added to a control file by beginning the line with double forward slashes ("//").
+
+For example, here is a edge check from a control file for a custom visualization of a 'class' graph type for FOAF:  
+`subClassOffoaf:Personfoaf:Agent, foaf:Person, foaf:Agent, none, white_delta, #000000, line, #FFFFFF, rdfs:subClassOf`  
+
+It validates the following GraphML output:  
+
+    <edge id="subClassOffoaf:Personfoaf:Agent" source="foaf:Person" target="foaf:Agent">  
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="white_delta"/>
+          <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">rdfs:subClassOf</y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>`
+
+Note that the values of the arrow source and target types and the line style type are the values required by yEd. These are translated from the OntoGraph's validated inputs by the program, since the yEd values are not intuitive. The correspondences are provided in the section, [Mapping to yEd](#mapping-to-yed), below.
+
+The 'custom', 'graffoo' or 'vowl' node files contain the following checks for each "expected" node:
+
+* <node> element's 'id' attribute value
+* <node> element ... <y:Fill> sub-element's 'fill' attribute value
+* <node> element ... <y:BorderStyle> sub-element's 'color' attribute value
+* <node> element ... <y:BorderStyle> sub-element's 'type' attribute value
+* <node> element ... <y:NodeLabel> sub-element's value
+* <node> element ... <y:Shape> sub-element's 'type' attribute value
+	
+As above, these values are listed in order, on a single line, separated by the text, ", " (without the double quotes). For example, here is a node check from a control file for a custom visualization of a 'class' graph type for FOAF:  
+`foaf:Person, #FFFF99, #000000, line, Person (foaf:Person), roundrectangle`  
+
+It validates the following GraphML output:  
+
+    <node id="foaf:Person">
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="50.0" width="260.0" x="385.3" y="187.0"/>
+          <y:Fill color="#FFFF99" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Person (foaf:Person)</y:NodeLabel>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    
+Also as above, the values of the border style type are the values required by yEd. These are translated from the OntoGraph's validated values by the program. The correspondences are provided in the section, [Mapping to yEd](#mapping-to-yed), below.
+
+The 'uml' node files contain the following checks for each "expected" node:
+
+* <node> element's 'id' attribute value
+* <node> element ... <y:Fill> sub-element's 'fill' attribute value
+* <node> element ... <y:BorderStyle> sub-element's 'color' attribute value
+* <node> element ... <y:BorderStyle> sub-element's 'type' attribute value
+* <node> element ... <y:NodeLabel alignment="center"> sub-element's value (the title of the UML class or individual)
+* <node> element ... <y:NodeLabel alignment="left"> sub-element's value (the attributes of the UML class or individual)
+	
+As above, these values are listed in order, on a single line, separated by the text, ", " (without the double quotes). For example, here is a node check from a control file for a custom visualization of a 'class' graph type for FOAF:  
+`foaf:Person, #FFFFFF, #000000, line, Person (foaf:Person), foaf:geekcode : xsd:StringNEW_LINEfoaf:firstName : xsd:StringNEW_LINEfoaf:lastName : xsd:StringNEW_LINEfoaf:surname : xsd:StringNEW_LINEfoaf:family_name : xsd:StringNEW_LINEfoaf:familyName : xsd:StringNEW_LINEfoaf:plan : xsd:StringNEW_LINEfoaf:myersBriggs : xsd:String`  
+
+It validates the following GraphML output:  
+
+    <node id="foaf:Person">
+      <data key="d5"/>
+      <data key="d6">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="170.0" width="261.0" x="385.30" y="187.01"/>
+          <y:Fill color="#FFFFFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#FFFFFF" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasLineColor="false" height="18.13" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="36.67" x="21.67" y="4.0">Person (foaf:Person)</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="46.40" modelName="custom" textColor="#000000" visible="true" width="65.54" x="2.0" y="30.13">foaf:geekcode : xsd:String
+    foaf:firstName : xsd:String
+    foaf:lastName : xsd:String
+    foaf:surname : xsd:String
+    foaf:family_name : xsd:String
+    foaf:familyName : xsd:String
+    foaf:plan : xsd:String
+    foaf:myersBriggs : xsd:String
+            <y:LabelModel>
+              <y:ErdAttributesNodeLabelModel/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:ErdAttributesNodeLabelModelParameter/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="false"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+
+##### Special strings in the test attribute and value checks
+
+As seen in the UML example above where NEW_LINE is added to the expected text (and also in many of the other control files), there are a few 'special' strings. In general, any entered text is compared as-is, but a simple replaceAlsl is done for the following strings:
+
+  * `NULL` to ignore an attribute check  
+    * For example, there is no Shape element for a UML 'note' (yEd's <y:UMLNoteNode> element)
+  * `EMPTY_STRING` if a label is blank
+  * `NEW_LINE` if the label contains a line break
+  * `COMMA_SPACE` in place of a comma-space in a value, which would instead be interpreted as a separator when breaking apart the control file line
+
+##### Running tests
+
+All tests can be executed from the command line by entering `gradle test`. Over 200 tests are defined, and the results can be found in `build/reports/test/test/index.html`.
+
+Additionally, each test in the `src/test/java/graph` directory can be individually executed in (for example) Eclipse, by right-clicking the test name and selecting "Run As" ... "JUnit Test".
+
+##### Mapping to yEd
+
+The following mapping applies to translate OntoGraph's inputs to yEd GraphML definitions:
+
+  * Arrow types  
+    * angleBracket => plain  
+    * backslash => skewed_dash  
+    * circleSolid => circle  
+    * circleEmpty => transparent_circle  
+    * diamondSolid => diamond  
+    * diamondEmpty => white_diamond  
+    * triangleSolid => delta  
+    * triangleEmpty => white_delta  
+    * none => none  
+  * Line types  
+    * solid => line  
+    * dashed => dashed  
+    * dotted => dotted  
+    * dashedDotted => dashed_dotted  
+    * none => none  
+  * Node shape types  
+    * circle => ellipse with width = height  
+    * smallCircle => ellipse with width = height = 20  
+    * diamond => diamond  
+    * ellipse => ellipse  
+    * hexagon => hexagon  
+    * parallelogramRight => parallelogram  
+    * parallelogramLeft => parallelogram2  
+    * roundRectangle (rectangle with rounded corners) => roundrectangle  
+    * squareRectangle (rectangle with square corners) => rectangle  
+    * none => rectangle with fill color and border color of white
+  
+This information is defined in the file, `src/main/java/graph/graphmloutputs/GraphMLOutputDetails.java`, in the createNodeMap, createArrowMap and createLineMap methods.
 
 ### Known issues
-All issues and improvements for OntoGraph are listed in the project's [Issues]().
+All issues and improvements for OntoGraph are listed in the project's [Issues](https://github.com/NinePts/OntoGraph/issues).
 
 Please create Github issues for any bugs or improvement suggestions, or feel free to fork the repository, make changes and create pull requests.
 <br><br>
