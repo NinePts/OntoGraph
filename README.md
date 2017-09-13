@@ -12,7 +12,30 @@ Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/
 <br><br>
 
 ### Overview
-OntoGraph is a Spring Boot application for graphing OWL ontologies. The code consists of a Java-based REST API that creates various GraphML outputs of a user-provided OWL ontology file (or zip file of a set of ontology files) that can be input programmatically or using a simple GUI. The program stores the ontologies in a triple store ([Stardog](http://www.stardog.com/)), then runs a series of queries to return the necessary information (classes, properties, individuals...) to be diagrammed. For more information on OntoGraph and why it was created, click 'Download' for the paper, [Ontology Development by Domain Experts (Without Using the "O" Word)](https://github.com/NinePts/OntoGraph/blob/master/OntologyDevelopmentByDomainExperts.pdf). 
+OntoGraph is a Spring Boot application for graphing OWL ontologies. It lets you go from (see the complete FOAF ontology at [http://xmlns.com/foaf/spec/index.rdf](http://xmlns.com/foaf/spec/index.rdf) ...
+
+    ...
+    <!-- FOAF classes (types) are listed first. -->
+    
+    <rdfs:Class rdf:about="http://xmlns.com/foaf/0.1/Person" rdfs:label="Person" rdfs:comment="A person." vs:term_status="stable">
+      <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class" />
+      <owl:equivalentClass rdf:resource="http://schema.org/Person" />
+      <owl:equivalentClass rdf:resource="http://www.w3.org/2000/10/swap/pim/contact#Person" />
+      <!--    <rdfs:subClassOf><owl:Class rdf:about="http://xmlns.com/wordnet/1.6/Person"/></rdfs:subClassOf> -->
+      <rdfs:subClassOf><owl:Class rdf:about="http://xmlns.com/foaf/0.1/Agent"/></rdfs:subClassOf>
+      <!--    <rdfs:subClassOf><owl:Class rdf:about="http://xmlns.com/wordnet/1.6/Agent"/></rdfs:subClassOf> -->
+      <rdfs:subClassOf><owl:Class rdf:about="http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing" rdfs:label="Spatial Thing"/></rdfs:subClassOf> 
+      <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
+      <owl:disjointWith rdf:resource="http://xmlns.com/foaf/0.1/Organization"/>
+      <owl:disjointWith rdf:resource="http://xmlns.com/foaf/0.1/Project"/>
+    </rdfs:Class>
+    ...
+
+To ...
+
+![alt text](https://github.com/NinePts/OntoGraph/blob/master/foaf-graffoo-bothClassAndProperty.png "FOAF GraphML Output for Graffoo Visualization, Both Class And Property Graph Type")
+
+The code consists of a Java-based REST API that creates various GraphML outputs of a user-provided OWL ontology file (or zip file of a set of ontology files) that can be input programmatically or using a simple GUI. The program stores the ontologies in a triple store ([Stardog](http://www.stardog.com/)), then runs a series of queries to return the necessary information (classes, properties, individuals...) to be diagrammed. For more information on OntoGraph and why it was created, click 'Download' for the paper, [Ontology Development by Domain Experts (Without Using the "O" Word)](https://github.com/NinePts/OntoGraph/blob/master/OntologyDevelopmentByDomainExperts.pdf). 
 
 Four visualizations of ontology data can be generated:
 
