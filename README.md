@@ -5,7 +5,7 @@ Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/
 [Overview](#overview)<br>
 [Setup](#setup)<br>
 [Using the GUI](#graphical-interface)<br>
-[Tips for Using yEd](#using-yed)<br>
+[Tips When Using yEd](#using-yed)<br>
 [Using the REST API](#rest-interface)<br>
 [Modifying the Code](#code-details)<br>
 [Testing and Testcases](#testing-and-testcases)<br>
