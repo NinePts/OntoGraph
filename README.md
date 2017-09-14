@@ -5,6 +5,7 @@ Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/
 [Overview](#overview)<br>
 [Setup](#setup)<br>
 [Using the GUI](#graphical-interface)<br>
+[Tips for Using yEd](#using-yed)<br>
 [Using the REST API](#rest-interface)<br>
 [Modifying the Code](#code-details)<br>
 [Testing and Testcases](#testing-and-testcases)<br>
@@ -108,6 +109,24 @@ OntoGraph produces a ‘.graphml’ output which we recommend viewing and editin
   * Property: Circular or Tree -> Balloon
   * Individual: Circular
   * UML: Orthogonal -> UML or Compact
+<br><br>
+
+### Using yEd
+If you are a first-time user of yEd, then you might not know where or how to start making further layout changes to a diagram, after you have done the initial "Layout" task. Here are some tips:
+
+  * If a node is too wide, since its text is too long ...  
+    * You can resize the node by clicking on it and then dragging the corner edge. If you do this, you can make the node box larger or smaller, and/or thinner or wider.  
+    * To edit the text inside the node box, click on the text and look to the right-hand side of the window. You should see a "Properties View" at the bottom, right of the window. A small portion of the text is displayed in the table under the "General" heading, to the right of the word, "Text". Click on the text and its ellipsis ("..."). A pop-up window will appear where you can shorten the text, add line feeds, etc. When finished modifying the text, click "OK" to close the pop-up window.
+  * If there are too many lines running between two nodes ...  
+    * This can be addressed by modifying and combining the text from mutliple lines, and then deleting extraneous lines.  
+    * Or, when the GraphML is originally generated, choose to "Collapse Edges - "True".
+  * If the labels of different edges are overlapping and hard to distinguish ...  
+    * To change the location of a label on an edge, select the edge and look to the right-hand side of the window. You should see a "Properties View" at the bottom, right of the window. Under the "Label" heading, to the right of the word, "Placement", select the value (it is "Centered" by default). A pop-up window is shown. Click the drop-down for "Model" and select "SmartFree" to be able to place the text anywhere, or "Center Slider" to move the text anywhere along the edge.  
+    * Alternately, you can bend the edge by clicking anywhere on the edge line and dragging. Or, change where an edge connects to a node by selecting the edge, and then moving the end point for the node.
+  * If the title/graph information should be edited ...  
+    * Under the "Structure" view in the lower, left hand side of the yEd window, expand the "Graph" tree and select "Graph Information". That will highlight where the title information is located in the diagram. Go to this element and select the sub-element, "Title:  ...", and then edit it as described for the node text above.
+  * How do I correct the positioning of the prefixes and their full URIs ...  
+    * Under the "Structure" view in the lower, left hand side of the yEd window, expand the "Graph" tree and select "Prefixes". That will highlight where the prefix information is located in the diagram. Select the sub-element that lists the prefixes, this will highlight the prefix list as a small rectangle with squares located along the border and the text surrounding it. Position your cursor inside the small rectangle and drag it to the left-hand side of the prefix box. Then, select the containing prefix box and resize it as described for resizing a node, above.
 <br><br>
 
 ### REST interface
@@ -382,7 +401,7 @@ The following mapping applies to translate OntoGraph's inputs to yEd GraphML def
 This information is defined in the file, `src/main/java/graph/graphmloutputs/GraphMLOutputDetails.java`, in the createNodeMap, createArrowMap and createLineMap methods.
 
 ### Known issues
-All issues and improvements for OntoGraph are listed in the project's [Issues](https://github.com/NinePts/OntoGraph/issues).
+All issues and improvements for OntoGraph are listed in the project's [Issues](https://github.com/NinePts/OntoGraph/issues). Please note that improvements are defined with the prefix, "(New Feature)".
 
 Please create Github issues for any bugs or improvement suggestions, or feel free to fork the repository, make changes and create pull requests.
 <br><br>
