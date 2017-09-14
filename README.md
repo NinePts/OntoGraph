@@ -36,7 +36,7 @@ To ...
 
 ![alt text](https://github.com/NinePts/OntoGraph/blob/master/foaf-graffoo-bothClassAndProperty.png "FOAF GraphML Output for Graffoo Visualization, Both Class And Property Graph Type")
 
-The code consists of a Java-based REST API that creates various GraphML outputs of a user-provided OWL ontology file (or zip file of a set of ontology files) that can be input programmatically or using a simple GUI. The program stores the ontologies in a triple store ([Stardog](http://www.stardog.com/)), then runs a series of queries to return the necessary information (classes, properties, individuals...) to be diagrammed. For more information on OntoGraph and why it was created, click 'Download' for the paper, [Ontology Development by Domain Experts (Without Using the "O" Word)](https://github.com/NinePts/OntoGraph/blob/master/OntologyDevelopmentByDomainExperts.pdf). 
+The code consists of a Java-based REST API that creates various GraphML outputs of a user-provided OWL ontology file (or zip file of a set of ontology files) that can be input programmatically or using a simple GUI. The program stores the ontologies in a triple store ([Stardog](http://www.stardog.com/)), then runs a series of queries to return the necessary information (classes, properties, individuals...) to be diagrammed. For more information on OntoGraph and why it was created, click 'Download' for the paper, [Ontology Development by Domain Experts (Without Using the "O" Word)](https://github.com/NinePts/OntoGraph/blob/master/OntologyDevelopmentByDomainExperts.pdf). The paper has been accepted for publication in the next issue of the *Journal of Applied Ontology* from IOS Press.
 
 Four visualizations of ontology data can be generated:
 
