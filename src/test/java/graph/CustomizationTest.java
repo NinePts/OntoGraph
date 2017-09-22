@@ -59,7 +59,7 @@ public class CustomizationTest {
     
     // Get custom request models - Testing each nodeShape, arrowShape and lineType setting at least once
     private final static GraphRequestModel customRequestModel1 = createCustomRequestModel(
-            "TestCustom1", "circle", "solid", "angleBracket","backslash", "dotted");
+            "TestCustom1", "circle", "solid", "angleBracket", "backslash", "dotted");
     private final static GraphRequestModel customRequestModel2 = createCustomRequestModel(
             "TestCustom2", "smallCircle", "dashed", "circleSolid", "circleEmpty", "dashedDotted");
     private final static GraphRequestModel customRequestModel3 = createCustomRequestModel(
@@ -84,6 +84,7 @@ public class CustomizationTest {
     // Set up for Spring tests
     @Before
     public void setUp() throws Exception {
+    	
          this.testContextManager = new TestContextManager(getClass());
          this.testContextManager.prepareTestInstance(this);
     }
@@ -99,30 +100,28 @@ public class CustomizationTest {
         
         List<String> titleEntries = Arrays.asList("Title:  " + requestModel.getGraphTitle(), 
                 "Ontology URI:  http://purl.org/ninepts/test", "Generated: ");
-        createGraphMLAndCompareToMaster(requestModel, requestModel.getGraphTitle(), PREFIXES, titleEntries);
+        createGraphMLAndCompareToMaster(requestModel, PREFIXES, titleEntries);
     }
     
     /**
      * Compares the test-generated GraphML output to the master reference for class graphs.
      * 
      * @param  GraphRequestModel GraphRequestModel 
-     * @param  fileName String identifying the unique part of the file names that hold the 
-     *              expected values for nodes and edges
      * @throws OntoGraphException 
      * @throws IOException
      * @throws SAXException 
      * 
      */
-    private void createGraphMLAndCompareToMaster(GraphRequestModel requestModel, final String fileName, 
+    private void createGraphMLAndCompareToMaster(GraphRequestModel requestModel, 
             List<String> expectedPrefixes, List<String> expectedTitle) throws Exception {
         
         String testXML = controller.graph(requestModel).getGraphML();
-        TestUtils.testGraphMLOutput("custom", requestModel.getVisualization(), fileName, 
+        TestUtils.testGraphMLOutput("custom", "custom", requestModel.getGraphTitle(), 
         		expectedPrefixes, expectedTitle, testXML);
     }
     
     /**
-     * Sets up a request model for a class graph with custom visualization details. Uses 'testClasses4.ttl', which
+     * Sets up a request model for a class graph with custom visualization details. Uses 'TestClassesB.ttl', which
      * includes multiple nodes with multiple levels of inheritance.
      * 
      * @param graphTitle Name of file for output
@@ -140,13 +139,13 @@ public class CustomizationTest {
         String fileData = "";
         try {
             // Try to read the file
-            fileData = TestUtils.readFile("src/test/resources/classTestFiles/testClassesB.ttl");
+            fileData = TestUtils.readFile("src/test/resources/classTestFiles/TestClassesB.ttl");
         } catch (IOException e) {
             // Return stack trace on error
             e.printStackTrace();
         }
         
-        GraphRequestModel requestModel = new GraphRequestModel(graphTitle, "testClassesB.ttl", fileData, "custom",
+        GraphRequestModel requestModel = new GraphRequestModel(graphTitle, "TestClassesB.ttl", fileData, "custom",
                 "class", false);
         
         requestModel.setClassNodeShape(nodeShape);
@@ -158,7 +157,6 @@ public class CustomizationTest {
         requestModel.setSubclassOfTargetShape(targetShape);
         requestModel.setSubclassOfLineColor("#000000");
         requestModel.setSubclassOfLineType(lineType);
-        requestModel.setSubclassOfText("rdfs:subClassOf");
         
         return requestModel;
     }

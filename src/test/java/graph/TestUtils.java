@@ -83,17 +83,19 @@ public class TestUtils {
     /**
      * Tests the GraphML output string for common problems and expected attribute and element values.
      * 
-     * @param visualization String
-     * @param fileName String to use to retrieve the expected values
-     * @param expectedPrefixes List<String> identifying all of the prefixes to be included in the 
+     * @param  directoryPrefix String (e.g., "class" or "custom") indicating the start of the directory name
+     *                where the "expected" value files are found
+     * @param  visualization String (e.g., "graffoo" or "custom")
+     * @param  fileName String to use to retrieve the expected values
+     * @param  expectedPrefixes List<String> identifying all of the prefixes to be included in the 
      *               "Prefixes" node
-     * @param expectedTitle List<String> holding the "Title: xxx" string as the first value, and the 
+     * @param  expectedTitle List<String> holding the "Title: xxx" string as the first value, and the 
      *               "Ontology URI: xxx" string as the second value
-     * @param testXML String
+     * @param  testXML String
      * @throws IOException
      * 
      */
-	public static void testGraphMLOutput(final String graphType, final String visualization, final String fileName, 
+	public static void testGraphMLOutput(final String directoryPrefix, final String visualization, final String fileName, 
     		List<String> expectedPrefixes, List<String> expectedTitle, final String testXML) 
     				throws IOException {
 
@@ -102,8 +104,8 @@ public class TestUtils {
             org.junit.Assert.assertTrue(problems, false);
         }
 
-        List<NodeTestDetailsModel> controlNodes = readControlNodesFile(graphType, visualization, fileName);
-	    List<EdgeTestDetailsModel> controlEdges = readControlEdgesFile(graphType, visualization, fileName);
+        List<NodeTestDetailsModel> controlNodes = readControlNodesFile(directoryPrefix, visualization, fileName);
+	    List<EdgeTestDetailsModel> controlEdges = readControlEdgesFile(directoryPrefix, visualization, fileName);
         String documentDiff = compareTestToControl(visualization, testXML, expectedPrefixes, expectedTitle, 
     	    	controlNodes, controlEdges);
 	
