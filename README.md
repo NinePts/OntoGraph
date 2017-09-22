@@ -5,7 +5,7 @@ Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/
 [Overview](#overview)<br>
 [Setup](#setup)<br>
 [Using the GUI](#graphical-interface)<br>
-[Tips When Using yEd](#using-yed)<br>
+[Tips for Using yEd](#using-yed)<br>
 [Using the REST API](#rest-interface)<br>
 [Modifying the Code](#code-details)<br>
 [Testing and Testcases](#testing-and-testcases)<br>
@@ -68,7 +68,7 @@ After starting Ontograph, access its GUI from your web browser at the URI, `http
 
 As opposed to executing the jar file, OntoGraph's complete source can be downloaded from [Nine Points Solutions' GitHub repository](https://github.com/NinePts/OntoGraph/). OntoGraph is built using [Gradle](http://gradle.org). It can be run as a Java application or in debug (bootrun) mode from the (for example) Gradle Tasks view of Eclipse. 
 
-OntoGraph is built with the current release of Gradle (V4.0.1), but has also been tested with Gradle V3.5. (If you want to use an earlier version than 4.0.1, change the version number specified in the build.gradle file, line 105.) You can also navigate to the (downloaded) OntoGraph directory and enter `./gradlew tasks` on the command line to download Gradle v4.0.1 manually.
+OntoGraph is built with the current release of Gradle (V4.2), but has also been tested with Gradle versions V3.5 and higher. You can also navigate to the (downloaded) OntoGraph directory and enter `./gradlew clean build` on the command line to download Gradle v4.2 manually and perform the build.
 <br><br>
 
 ### Graphical interface
