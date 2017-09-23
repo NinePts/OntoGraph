@@ -1,6 +1,6 @@
 //
 // Copyright (c) Nine Points Solutions, LLC
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -12,16 +12,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// 
+//
 
 // ====================
 // Local variables
 // ====================
 
-var AppRouter = Backbone.Router.extend({	
+var AppRouter = Backbone.Router.extend({
 });
 var app_router = new AppRouter;
-var model = new GraphRequestModel(); 
+var model = new GraphRequestModel();
 var downloadComplete = false;
 
 var borderTypeOptions = '<option>Solid</option> '
@@ -89,7 +89,7 @@ function adjustColorValue(value) {
 
 function adjustGraphType(value) {
 	var newValue = 'class';
-	if (value.startsWith('Object')) {
+	if (value.startsWith('Property')) {
 		newValue = 'property';
 	} else if (value.startsWith('Individuals')) {
 		newValue = 'individual';
@@ -141,12 +141,21 @@ function cancelCustomization(customizationType) {
 		var stdTitle = $('#stdCustomizationTitle').val();
 		$('#stdCustomizationTitle').val(stdTitle.replace('Graffoo', 'XXX'));
 		$('#stdCustomizationTitle').val(stdTitle.replace('UML', 'XXX'));
-	} 
+	}
 }
 
 function displayCustomization(customizationType) {
 	document.getElementById('mainContainer').style.display = 'none';
 	document.getElementById(customizationType).style.display = 'block';
+}
+
+function displayPopovers() {
+	$('#pop1').popover({ trigger: 'hover' });
+	$('#pop2').popover({ trigger: 'hover' });
+	$('#pop3').popover({ trigger: 'hover' });
+	$('#pop4').popover({ trigger: 'hover' });
+	$('#pop5').popover({ trigger: 'hover' });
+	$('#pop6').popover({ trigger: 'hover' });
 }
 
 function downloadGraph(strData, strFileName, strMimeType) {
@@ -169,7 +178,7 @@ function downloadGraph(strData, strFileName, strMimeType) {
 		D.body.appendChild(a);
 		setTimeout(function() {
 			var e = D.createEvent('MouseEvents');
-			e.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, 
+			e.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0,
 					false, false, false, false, 0, null);
 			a.dispatchEvent(e);
 			D.body.removeChild(a);
@@ -179,7 +188,7 @@ function downloadGraph(strData, strFileName, strMimeType) {
 	// iframe dataURL download
 	var f = D.createElement('iframe');
 	D.body.appendChild(f);
-	f.src = "data:" + (A[2] ? A[2] : "application/xml") + (window.btoa ? ";base64" : "") + "," 
+	f.src = "data:" + (A[2] ? A[2] : "application/xml") + (window.btoa ? ";base64" : "") + ","
 		+ (window.btoa ? window.btoa : escape)(strData);
 	setTimeout(function() {
 		D.body.removeChild(f);
@@ -200,13 +209,13 @@ function generateGraph() {
 	cancelCustomization('stdCustomization');
 	var title = $('#graphTitle').val();
 	model.save({}, {
-		error: function (model, response, xhr) { 
+		error: function (model, response, xhr) {
 			downloadComplete = true;
 			var json = JSON.stringify(xhr.xhr.responseText);
 			json = json.replace(/"/g, '');
 			alert(json);   //NOSONAR - Not sensitive info
 		},
-		success: function (model, response) { 
+		success: function (model, response) {
 			var fileName = title.replace(/ /g, '');
 			// Set arguments and run download
 			var strMimeType = 'application/xml';
@@ -229,6 +238,35 @@ function generateGraph() {
 
 function isValidInput(value) {
 	return value !== null && value !== undefined && value.length > 0;
+}
+
+function processCustomization(graphType, file) {
+	if (graphType === 'class') {
+		var classTitle = document.getElementById('classCustomizationTitle').innerHTML;
+		classTitle = classTitle.substring(0, classTitle.indexOf(',') + 2) + file.name;
+		document.getElementById('classCustomizationTitle').innerHTML = classTitle;
+		displayCustomization('classCustomization');
+	} else if (graphType === 'individual') {
+		var indivTitle = document.getElementById('individualCustomizationTitle').innerHTML;
+		indivTitle = indivTitle.substring(0, indivTitle.indexOf(',') + 2) + file.name;
+		document.getElementById('individualCustomizationTitle').innerHTML = indivTitle;
+		displayCustomization('individualCustomization');
+	} else if (graphType === 'property') {
+		var propTitle = document.getElementById('propertyCustomizationTitle').innerHTML;
+		propTitle = propTitle.replace('XXX', 'Property');
+		propTitle = propTitle.substring(0, propTitle.indexOf(',') + 2) + file.name;
+		document.getElementById('propertyCustomizationTitle').innerHTML = propTitle;
+		displayCustomization('propertyCustomization');
+	} else if (graphType === 'both') {
+		var title = document.getElementById('propertyCustomizationTitle').innerHTML;
+		title = title.replace('XXX', 'Class and Property');
+		title = title.substring(0, title.indexOf(',') + 2) + file.name;
+		document.getElementById('propertyCustomizationTitle').innerHTML = title;
+		displayCustomization('propertyCustomization');
+		document.getElementById('classAndPropertyCustomization').style.display = 'block';
+	} else {
+		alert('Invalid/Unknown Graph Type:' + graphType);  //NOSONAR - Not sensitive info
+	}
 }
 
 function setClassCustomization() {
@@ -261,7 +299,7 @@ function setDefaultsAndDisplayPage() {
 	$('#individualBorderType').append(borderTypeOptions);
 	$('#objBorderType').append(borderTypeOptions);
 	$('#typeBorderType').append(borderTypeOptions);
-	
+
 	$('#annPropEdgeType').append(lineTypeOptions);
 	$('#dataPropEdgeType').append(lineTypeOptions);
 	$('#indDataPropEdgeType').append(lineTypeOptions);
@@ -287,13 +325,13 @@ function setDefaultsAndDisplayPage() {
 	$('#subclassOfTargetShapeBoth').append(arrowTypeOptions);
 	$('#typeOfSourceShape').append(arrowTypeOptions);
 	$('#typeOfTargetShape').append(arrowTypeOptions);
-	
+
 	// Set the selected values
 	setClassCustomization();
 	setIndividualCustomization();
 	setPropertyCustomization();
 	setStdCustomization();
-	
+
 	document.getElementById('mainContainer').style.display = 'block';
 }
 
@@ -313,12 +351,12 @@ function setIndividualCustomization() {
 	$('#indDataTextColor').val(model.get('indDataTextColor'));
 	$('#indDataBorderColor').val(model.get('indDataBorderColor'));
 	$('#indDataBorderType').val(model.get('indDataBorderType'));
-	
+
 	$('#typeOfSourceShape').val(model.get('typeOfSourceShape'));
 	$('#typeOfTargetShape').val(model.get('typeOfTargetShape'));
 	$('#typeOfLineColor').val(model.get('typeOfLineColor'));
 	$('#typeOfLineType').val(model.get('typeOfLineType'));
-	
+
 	$('#indObjPropSourceShape').val(model.get('indObjPropSourceShape'));
 	$('#indObjPropTargetShape').val(model.get('indObjPropTargetShape'));
 	$('#indObjPropEdgeColor').val(model.get('indObjPropEdgeColor'));
@@ -334,7 +372,7 @@ function setPropertyCustomization() {
 	$('#subclassOfTargetShapeBoth').val(model.get('subclassOfTargetShape'));
 	$('#subclassOfLineColorBoth').val(model.get('subclassOfLineColor'));
 	$('#subclassOfLineTypeBoth').val(model.get('subclassOfLineType'));
-	
+
 	var collapse = model.get('collapseEdges');
 	document.getElementById(collapse).checked = true;
 	$('#collapseEdges').val(collapse);
@@ -372,40 +410,43 @@ function setStdCustomization() {
 	$('#collapseEdgesStd').val(collapse);
 }
 
+function validateInput() {
+	var isValid = true;
+	if (!isValidInput($('#graphTitle').val())) {
+		isValid = false;
+		alert('The graph must have a title.');		//NOSONAR - Not sensitive info
+	} else if (!isValidInput($('#inputFile').val())) {
+		isValid = false;
+		alert('An ontology input file must be specified.');  //NOSONAR - Not sensitive info
+	} else if ($('#visualization').val() === 'VOWL'
+		&& $('#graphType').val().indexOf('Individual') === 0) {
+		isValid = false;
+		alert('No graphical representation is defined for individuals in VOWL 2. '  //NOSONAR - Not sensitive info
+				+ 'Either change the visualization or the graph type selection.');
+	}
+	// TODO Other checks?  Perhaps checking that edge lines are not drawn using white?
+
+	return isValid;
+}
+
 //====================
 // Main Processing
 //====================
 $(document).ready(function() {
 	Backbone.history.start();
 
-	$('#pop1').popover({ trigger: 'hover' });
-	$('#pop2').popover({ trigger: 'hover' });
-	$('#pop3').popover({ trigger: 'hover' });
-	$('#pop4').popover({ trigger: 'hover' });
-	$('#pop5').popover({ trigger: 'hover' });
-	$('#pop6').popover({ trigger: 'hover' });
+	displayPopovers();
 
 	// Set up the 'default' values for the various selections in the browser
 	setDefaultsAndDisplayPage();
 
-	$('#submit').on('click', function() {
+	$('#submit').on('click', function() {   //NOSONAR - Acknowledging complexity
 		// Validate the data from the browser
-		if (!isValidInput($('#graphTitle').val())) {
-			alert('The graph must have a title.');		//NOSONAR - Not sensitive info
-		} else if (!isValidInput($('#inputFile').val())) {
-			alert('An ontology input file must be specified.');  //NOSONAR - Not sensitive info
-		} else if ($('#visualization').val() === 'VOWL' 
-			&& $('#graphType').val().indexOf('Individual') === 0) {
-			alert('No graphical representation is defined for individuals in VOWL 2. '  //NOSONAR - Not sensitive info
-					+ 'Either change the visualization or the graph type selection.');
-		// TODO Other checks?  Perhaps checking that edge lines are not drawn using white?
-		
-		} else {
-			
+		if (validateInput()) {
 			// "Standardize" the graph type and visualization
 			var graphType = adjustGraphType($('#graphType').val());
 			var visualization = adjustVisualization($('#visualization').val());
-		
+
 			// Update the GraphRequestModel with the data from the browser
 			model.set({
 				graphTitle: $('#graphTitle').val(),
@@ -423,38 +464,13 @@ $(document).ready(function() {
 				// Check if this is a custom visualization - If so, need to get specific options
 				if (visualization === 'custom') {
 					// Show correct customization options based on the graphType
-					if (graphType === 'class') {
-						var classTitle = document.getElementById('classCustomizationTitle').innerHTML;
-						classTitle = classTitle.substring(0, classTitle.indexOf(',') + 2) + file.name;
-						document.getElementById('classCustomizationTitle').innerHTML = classTitle;
-						displayCustomization('classCustomization');
-					} else if (graphType === 'individual') {
-						var indivTitle = document.getElementById('individualCustomizationTitle').innerHTML;
-						indivTitle = indivTitle.substring(0, indivTitle.indexOf(',') + 2) + file.name;
-						document.getElementById('individualCustomizationTitle').innerHTML = indivTitle;
-						displayCustomization('individualCustomization');
-					} else if (graphType === 'property') {
-						var propTitle = document.getElementById('propertyCustomizationTitle').innerHTML;
-						propTitle = propTitle.replace('XXX', 'Property');
-						propTitle = propTitle.substring(0, propTitle.indexOf(',') + 2) + file.name;
-						document.getElementById('propertyCustomizationTitle').innerHTML = propTitle;
-						displayCustomization('propertyCustomization');
-					} else if (graphType === 'both') {
-						var title = document.getElementById('propertyCustomizationTitle').innerHTML;
-						title = title.replace('XXX', 'Class and Property');
-						title = title.substring(0, title.indexOf(',') + 2) + file.name;
-						document.getElementById('propertyCustomizationTitle').innerHTML = title;
-						displayCustomization('propertyCustomization');
-						document.getElementById('classAndPropertyCustomization').style.display = 'block';
-					} else {
-						alert('Invalid/Unknown Graph Type:' + graphType);  //NOSONAR - Not sensitive info
-					}
+					processCustomization(graphType, file);
 				} else {
-					// Not custom, just need to know whether edges are collapsed for Graffoo property 
+					// Not custom, just need to know whether edges are collapsed for Graffoo property
 					///   or UML graphs
 					// Note that VOWL does not support collapsing edges - so, set "false" as the default
 					$('#collapseEdges').val('collapseFalse');
-					if (visualization === 'uml' || (visualization === 'graffoo' 
+					if (visualization === 'uml' || (visualization === 'graffoo'
 							&& graphType === 'property')) {
 						var stdTitle = document.getElementById('stdCustomizationTitle').innerHTML;
 						stdTitle = stdTitle.replace('XXX', 'Graffoo');
@@ -476,7 +492,7 @@ $(document).ready(function() {
 		}
 	});
 
-	// Handle cancelling customization
+	// Handle canceling customization
 	$('#cancelClassDiagram').on('click', function() {
 		 cancelCustomization('classCustomization');
 	});
@@ -489,7 +505,7 @@ $(document).ready(function() {
 	$('#cancelStdDiagram').on('click', function() {
 		 cancelCustomization('stdCustomization');
 	});
-	
+
 	// Handle processing customization
 	$('#classDiagram').on('click', function() {
 		// Update the GraphRequestModel with the data from the browser
@@ -544,7 +560,7 @@ $(document).ready(function() {
 		model.set({
 			collapseEdges: $('input[name="collapseEdges"]:checked').val(),
 			objNodeShape: adjustNodeValue($('#objNodeShape').val()),
-			objFillColor: adjustColorValue($('#objFillColor').val()), 
+			objFillColor: adjustColorValue($('#objFillColor').val()),
 			objTextColor: adjustColorValue($('#objTextColor').val()),
 			objBorderColor: adjustColorValue($('#objBorderColor').val()),
 			objBorderType: adjustLineValue($('#objBorderType').val()),
@@ -565,7 +581,6 @@ $(document).ready(function() {
 			annPropTargetShape: adjustArrowValue($('#annPropTargetShape').val()),
 			annPropEdgeColor: adjustColorValue($('#annPropEdgeColor').val()),
 			annPropEdgeType: adjustLineValue($('#annPropEdgeType').val()),
-			
 			subclassOfSourceShape: adjustArrowValue($('#subclassOfSourceShapeBoth').val()),
 			subclassOfTargetShape: adjustArrowValue($('#subclassOfTargetShapeBoth').val()),
 			subclassOfLineColor: adjustColorValue($('#subclassOfLineColorBoth').val()),
