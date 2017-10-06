@@ -21,7 +21,7 @@ mainClassName = 'graph.Application'
 
 jar {
     baseName = 'OntoGraph'
-    version = "1.0.0"
+    version = "1.0.1"
 }
 
 bootRun {

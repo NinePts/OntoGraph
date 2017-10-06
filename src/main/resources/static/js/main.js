@@ -468,8 +468,6 @@ $(document).ready(function() {
 				} else {
 					// Not custom, just need to know whether edges are collapsed for Graffoo property
 					///   or UML graphs
-					// Note that VOWL does not support collapsing edges - so, set "false" as the default
-					$('#collapseEdges').val('collapseFalse');
 					if (visualization === 'uml' || (visualization === 'graffoo'
 							&& graphType === 'property')) {
 						var stdTitle = document.getElementById('stdCustomizationTitle').innerHTML;
@@ -481,6 +479,8 @@ $(document).ready(function() {
 						document.getElementById('stdCustomizationTitle').innerHTML = stdTitle;
 						displayCustomization('stdCustomization');
 					} else {
+						// VOWL does not support collapsing edges, so set the model property to False
+						model.set('collapseEdges', 'collapseFalse');
 						generateGraph();
 					}
 				}
