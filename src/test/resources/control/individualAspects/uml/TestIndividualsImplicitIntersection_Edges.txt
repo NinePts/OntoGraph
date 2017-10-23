@@ -1,0 +1,7 @@
+// edge id attribute, edge source attribute, edge target attribute, y:Arrows source attribute,
+//   y:Arrows target attribute, y:LineStyle color attribute, y:LineStyle type attribute,
+//   y:EdgeLabel backgroundColor attribute, y:EdgeLabel value
+//
+// Object
+oninepts:objProp1ninepts:individual1ninepts:individual2, ninepts:individual1, ninepts:individual2, none, plain, #000000, line, #FFFFFF, ninepts:objProp1
+oninepts:objProp2ninepts:individual3ninepts:individual4, ninepts:individual3, ninepts:individual4, none, plain, #000000, line, #FFFFFF, ninepts:objProp2

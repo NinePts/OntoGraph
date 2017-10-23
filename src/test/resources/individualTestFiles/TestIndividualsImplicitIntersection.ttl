@@ -1,0 +1,39 @@
+@prefix ninepts:    	<http://purl.org/ninepts/test#> .
+@prefix owl:    		<http://www.w3.org/2002/07/owl#> .
+@prefix rdf:        	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Ontology defined
+# Datatype and object properties that are functional and some are external
+# No domains or ranges are defined
+
+<http://purl.org/ninepts/test>
+	rdf:type					owl:Ontology ;
+	owl:versionInfo				"1.0" .
+
+<http://purl.org/ninepts/test#class1>
+	rdf:type				owl:Class ;
+	rdfs:label				"<Testing Brackets in Class1>" .
+
+<http://purl.org/ninepts/test#class2>
+	rdf:type				owl:Class .
+
+<http://purl.org/ninepts/test#class3>
+	rdf:type				owl:Class .
+
+<http://purl.org/ninepts/test#class4>
+	rdf:type				owl:Class .
+	
+<http://purl.org/ninepts/test#objProp1>
+	rdf:type				owl:ObjectProperty ;
+	rdfs:domain				ninepts:class3, ninepts:class4.
+
+<http://purl.org/ninepts/test#objProp2>
+	rdf:type				owl:ObjectProperty ;
+	rdfs:range				ninepts:class1, ninepts:class2 .
+	
+<http://purl.org/ninepts/test#individual1>
+	ninepts:objProp1 		ninepts:individual2.
+	
+<http://purl.org/ninepts/test#individual3>
+	ninepts:objProp2 		ninepts:individual4.
+
