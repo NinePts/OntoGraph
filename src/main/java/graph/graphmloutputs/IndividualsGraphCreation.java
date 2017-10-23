@@ -72,6 +72,7 @@ public final class IndividualsGraphCreation {
         Set<String> uniqueTypes = new HashSet<>();
         Set<String> uniqueIndividuals = new HashSet<>();
         Set<String> referencedClasses = new HashSet<>(); 
+        Set<String> uniqueValues = new HashSet<>();
         
         // For each individual ...
         for (IndividualModel indiv : individuals) {
@@ -93,10 +94,14 @@ public final class IndividualsGraphCreation {
         	List<TypeAndValueModel> datatypeProperties = indiv.getDatatypeProperties();
         	List<TypeAndValueModel> objectProperties = indiv.getObjectProperties();
         	for (TypeAndValueModel propAndVal : datatypeProperties) {
-        		String dataValue = propAndVal.getValue();
-        	    sb.append(addDatatypePropertyValue(requestModel, ontologyPrefix, dataValue));
-        	    sb.append(addDatatypePropertyEdge(requestModel, individualName, dataValue.replaceAll("\"", ""), 
-        	    		propAndVal.getType()));
+        		String displayValue = propAndVal.getValue();
+        		String valueName = displayValue.replaceAll("\"", "");
+        		if (!uniqueValues.contains(valueName)) {
+        			// Value node is yet added to the output
+        			uniqueValues.add(valueName);
+            	    sb.append(addDatatypePropertyValue(requestModel, ontologyPrefix, valueName, displayValue));
+        		}
+        	    sb.append(addDatatypePropertyEdge(requestModel, individualName, valueName, propAndVal.getType()));
         	}
         	
         	// Add the object properties and values
@@ -127,17 +132,17 @@ public final class IndividualsGraphCreation {
      * 
      * @param  requestModel GraphRequestModel with visualization details
      * @param  individualName String source
-     * @param  value String target
+     * @param  nodeName String target
      * @param  property String edge label
      * @return GraphML String
      */
     private static String addDatatypePropertyEdge(GraphRequestModel requestModel,
-    		final String individualName, final String value, final String property) {
+    		final String individualName, final String nodeName, final String property) {
     	
     	EdgeDetailsModel edgeDetails = EdgeDetailsModel.createEdgeDetailsModelForType(requestModel, "data");
     	edgeDetails.setEdgeLabel(property);
     	
-        return GraphMLOutputDetails.addEdge(edgeDetails, individualName, value, property, 
+        return GraphMLOutputDetails.addEdge(edgeDetails, individualName, nodeName, property, 
         		EdgeFlagsModel.createEdgeFlagsFalse());
     }
 
@@ -146,15 +151,15 @@ public final class IndividualsGraphCreation {
      * 
      * @param  requestModel GraphRequestModel holding visualization details
      * @param  ontologyPrefix String that is the prefix of the owl:Ontology URI
-     * @param  value String node contents
+     * @param  nodeName String identifying the node (the individual + value) whose value is being added
+     * @param  value String specifying the data value (as it should be displayed)
      * @return GraphML String
      */
     private static String addDatatypePropertyValue(GraphRequestModel requestModel,
-    		final String ontologyPrefix, final String value) {
+    		final String ontologyPrefix, final String nodeName, final String value) {
         
         NodeDetailsModel nodeDetails = NodeDetailsModel.createNodeDetailsModel(requestModel, "data");
         
-        String nodeName = value.replaceAll("\"", "");
         GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, nodeName, value);
         
         return GraphMLOutputDetails.addNode(nodeDetails, nodeName, value);

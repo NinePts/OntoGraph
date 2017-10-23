@@ -147,6 +147,9 @@ public class GraphDAO {
 	        + "?node owl:intersectionOf ?list . " + LIST_QUERY;
 	private static final String GET_INVERSE_FUNCTIONAL_PROPERTIES = SELECT_DISTINCT_NAME + "?name a owl:InverseFunctionalProperty }";
 	private static final String GET_IRREFLEXIVE_PROPERTIES = SELECT_DISTINCT_NAME + "?name a owl:IrreflexiveProperty }";
+	private static final String GET_NAMED_INDIVIDUALS = "SELECT ?name ?label WHERE "
+			+ "{ ?name a ?type . FILTER ( regex( str(?type), 'http://www.w3.org/2002/07/owl#NamedIndividual') ) ." 
+			+ OPTIONAL_LABEL; 
 	private static final String GET_OBJECT_PROPERTIES = "SELECT DISTINCT * WHERE { ?name a owl:ObjectProperty . " 
     		+ OPTIONAL_LABEL;
 	private static final String GET_OBJECT_PROPERTY_RANGES = "SELECT DISTINCT ?range ?label WHERE { "
@@ -465,53 +468,59 @@ public class GraphDAO {
 	    	individualInfo = reasoningTemplate.query(GET_INDIVIDUALS_WITH_REASONING, new SimpleRowMapper());
 	    } else {
 	    	individualInfo = snarlTemplate.query(GET_INDIVIDUALS, new SimpleRowMapper());
+	    	individualInfo.addAll(snarlTemplate.query(GET_NAMED_INDIVIDUALS, new SimpleRowMapper()));
 	    }
 	    
         for (Map<String, String> indiv : individualInfo) {
         	String fullIndivName = indiv.get("name");
         	String indivName = processURIName(prefixes, fullIndivName);
-        	definedIndividuals.add(indivName);
         	
-        	// A list of the individual's types using a format, "label (type name with prefix)"
-        	List<String> types = new ArrayList<>();
-        	
-        	// Get the type names and their labels
-            List<Map<String, String>> typeList;
-    	    if (reasoningType.contains("True")) {
-    	    	typeList = reasoningTemplate.query(GET_INDIVIDUAL_TYPES, 
-            		createMap("name", Values.iri(fullIndivName)), new SimpleRowMapper());
-    	    } else {
-    	    	typeList = snarlTemplate.query(GET_INDIVIDUAL_TYPES, 
-                		createMap("name", Values.iri(fullIndivName)), new SimpleRowMapper());
-    	    }	
-            		
-            if (!typeList.isEmpty()) {
-            	for (Map<String, String> typeDetails : typeList) {
-            		String typeName = processURIName(prefixes, typeDetails.get("type"));
-            		types.add(getLabel(typeName, typeDetails.get(LABEL)));
-            	}
-            }
-            
-            // Get the individual's properties
-            List<TypeAndValueModel> datatypeProperties = new ArrayList<>();
-            List<TypeAndValueModel> objectProperties = new ArrayList<>();
-            createIndividualPropertyLists(snarlTemplate, prefixes, fullIndivName,
-            		datatypeProperties, objectProperties);
-            
-            // Add individuals referenced in the domains and ranges of the properties
-            for (TypeAndValueModel objPropDetails : objectProperties) {
-                referencedIndividuals.add(objPropDetails.getValue());
-            }
-            
-            // Add individual names, types and properties to models
-            models.add(IndividualModel.builder()
-                                    .individualName(indivName)
-                                    .individualLabel(getLabel(indivName, indiv.get(LABEL)))
-                                    .fullIndividualName(fullIndivName)
-                                    .typeLabels(types)
-                                    .datatypeProperties(datatypeProperties)
-                                    .objectProperties(objectProperties)
-                                    .build());
+        	// Only process the individual if it is new (it might have been found as of type owl:NamedIndividual
+        	//    plus another type - if so, all the details are already added)
+        	if (!definedIndividuals.contains(indivName)) {
+	        	definedIndividuals.add(indivName);
+	        	
+	        	// A list of the individual's types using a format, "label (type name with prefix)"
+	        	List<String> types = new ArrayList<>();
+	        	
+	        	// Get the type names and their labels
+	            List<Map<String, String>> typeList;
+	    	    if (reasoningType.contains("True")) {
+	    	    	typeList = reasoningTemplate.query(GET_INDIVIDUAL_TYPES, 
+	            		createMap("name", Values.iri(fullIndivName)), new SimpleRowMapper());
+	    	    } else {
+	    	    	typeList = snarlTemplate.query(GET_INDIVIDUAL_TYPES, 
+	                		createMap("name", Values.iri(fullIndivName)), new SimpleRowMapper());
+	    	    }	
+	            		
+	            if (!typeList.isEmpty()) {
+	            	for (Map<String, String> typeDetails : typeList) {
+	            		String typeName = processURIName(prefixes, typeDetails.get("type"));
+	            		types.add(getLabel(typeName, typeDetails.get(LABEL)));
+	            	}
+	            }
+	            
+	            // Get the individual's properties
+	            List<TypeAndValueModel> datatypeProperties = new ArrayList<>();
+	            List<TypeAndValueModel> objectProperties = new ArrayList<>();
+	            createIndividualPropertyLists(snarlTemplate, prefixes, fullIndivName,
+	            		datatypeProperties, objectProperties);
+	            
+	            // Add individuals referenced in the domains and ranges of the properties
+	            for (TypeAndValueModel objPropDetails : objectProperties) {
+	                referencedIndividuals.add(objPropDetails.getValue());
+	            }
+	            
+	            // Add individual names, types and properties to models
+	            models.add(IndividualModel.builder()
+	                                    .individualName(indivName)
+	                                    .individualLabel(getLabel(indivName, indiv.get(LABEL)))
+	                                    .fullIndividualName(fullIndivName)
+	                                    .typeLabels(types)
+	                                    .datatypeProperties(datatypeProperties)
+	                                    .objectProperties(objectProperties)
+	                                    .build());
+        	}
         }
         
         // Add individuals that are referenced as domain or object property ranges but do not have an rdf:type
