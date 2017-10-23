@@ -314,6 +314,26 @@ public class PropertyGraphTest {
 	}
 
 	/**
+     * Tests two object properties - one with multiple domains and one with multiple ranges
+     * (The test file also includes angle brackets in the Class1 label)
+     * 
+     * @throws IOException
+     * @throws OntoGraphException
+     * @throws SAXException
+     */
+    @Test
+    public void testPropertiesImplicitIntersection() throws Exception {
+        
+        List<String> prefixes = Arrays.asList("ninepts", "owl", "rdf", "rdfs", "xsd");
+        List<String> titleEntries = Arrays.asList("Title:  Test Properties", 
+                "Ontology URI:  http://purl.org/ninepts/test", "Generated: ");
+        
+        createGraphMLAndCompareToMaster(
+        		createPropertyGraphRequestModel(vis, "TestPropertiesImplicitIntersection.ttl", COLLAPSE_FALSE),
+                "TestPropertiesImplicitIntersection", prefixes, titleEntries);
+    }
+
+	/**
      * Tests a datatype and an object property with undefined domains and ranges
      * Both properties are functional properties
      * 
@@ -383,7 +403,7 @@ public class PropertyGraphTest {
     private static GraphRequestModel createPropertyGraphRequestModel(final String visualization,
     		final String fileName, final String collapseEdges) throws IOException {
         
-        GraphRequestModel requestModel = new GraphRequestModel("Test Properties", fileName, 
+        GraphRequestModel requestModel = new GraphRequestModel("Test Properties", "reasoningFalse", fileName, 
                 TestUtils.readFile("src/test/resources/propertyTestFiles/" + fileName), visualization,
                 "property", false);
         requestModel.setCollapseEdges(collapseEdges);

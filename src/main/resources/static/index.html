@@ -59,6 +59,17 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-sm-4 col-sm-offset-3">
+				<label>Use Reasoning: </label>
+		  		<a class="hover-over" id="pop7" data-content="If true, DL reasoning will be used to determine super-class, super-property (in the future) or individual types. Reasoning may return additional types that are not explicitly defined in the ontology, or may indicate errors/inconsistencies (if you have subclassing from/instance of owl:Nothing)." rel="popover" data-placement="bottom"><b>[Why use reasoning?]    </b></a> 	
+			</div>
+			<div class="col-sm-2">
+				<input type="radio" id="reasoningTrue" name="reasoning" value="reasoningTrue"> True
+				<input type="radio" id="reasoningFalse" name="reasoning" value="reasoningFalse"> False
+			</div>
+		</div>
+		<br />
+		<div class="row">
 			<div class="col-sm-6 col-sm-offset-3">
 				<div class="form-group">
 					<label for="graphTitle">Graph Title: </label> 
@@ -101,6 +112,7 @@
 		</div>
 	</div>
 	
+	<!-- Custom Class Graph Details -->
 	<div id="classCustomization" style="display: none">
 		<div class="row">
 			<div class="col-sm-8 col-sm-offset-2" align="center">
@@ -112,81 +124,105 @@
 			</div>
 		</div>
 		<br />
+		
+		<!-- Class Node Customization -->
 		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Node Shape:</label>
-			<div class="col-sm-3">
-				<select class="form-control" id="classNodeShape">
-				</select>
-			</div>
-		</div>	
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Fill Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="classFillColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Text Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="classTextColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Border Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="classBorderColor">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleClass1" href="javascript:void(0);">
+					Class Node Customization <span class="caret"></span>
+				</a>
 			</div>
 		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Border Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="classBorderType">
-				</select>
+		<div id="class-node-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Class Node Shape:</label>
+				<div class="col-sm-3">
+					<select class="form-control" id="classNodeShape">
+					</select>
+				</div>
+			</div>	
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Class Fill Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="classFillColor">
+				</div>		
 			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">subclassOf Edge's Source Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="subclassOfSourceShape">
-				</select>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Class Text Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="classTextColor">
+				</div>		
 			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">subclassOf Edge's Target Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="subclassOfTargetShape">
-				</select>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Class Border Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="classBorderColor">
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">subclassOf Edge's Line Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="subclassOfLineColor">
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">subclassOf Edge's Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="subclassOfLineType">
-				</select>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Class Border Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="classBorderType">
+					</select>
+				</div>
 			</div>
 		</div>
 		<br />
+		
+		<!-- Subclass-of Edge Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleClass2" href="javascript:void(0);">
+					Subclass-Of Edge Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="class-subclassOf-edge-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Subclass-Of Edge's Source Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="subclassOfSourceShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Subclass-Of Edge's Target Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="subclassOfTargetShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Subclass-Of Edge's Line Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="subclassOfLineColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Subclass-Of Edge's Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="subclassOfLineType">
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		
 		<div class="row" align="center">
 			<button type="button" class="btn" id="cancelClassDiagram">Cancel</button>
 			<button type="button" class="btn btn-primary" id="classDiagram">Generate Custom Diagram</button>
 		</div>
 	</div>
 	
+	<!-- Custom Individual Graph Details -->
 	<div id="individualCustomization" style="display: none">
 		<div class="row">
 			<div class="col-sm-8 col-sm-offset-2" align="center">
@@ -198,219 +234,287 @@
 			</div>
 		</div>
 		<br />
+		
+		<!-- Individual Node Customization -->
 		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Node Shape:</label>
-			<div class="col-sm-3">
-				<select class="form-control" id="typeNodeShape">
-				</select>
-			</div>
-		</div>	
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Fill Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="typeFillColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Text Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="typeTextColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Border Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="typeBorderColor">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleIndividual1" href="javascript:void(0);">
+					Individual Node Customization <span class="caret"></span>
+				</a>
 			</div>
 		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Border Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="typeBorderType">
-				</select>
+		<div id="individual-node-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Individual Node Shape:</label>
+				<div class="col-sm-3">
+					<select class="form-control" id="individualNodeShape">
+					</select>
+				</div>
+			</div>	
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Individual Fill Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="individualFillColor">
+				</div>		
 			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Individual Node Shape:</label>
-			<div class="col-sm-3">
-				<select class="form-control" id="individualNodeShape">
-				</select>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Individual Text Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="individualTextColor">
+				</div>		
 			</div>
-		</div>	
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Individual Fill Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="individualFillColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Individual Text Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="individualTextColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Individual Border Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="individualBorderColor">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Individual Border Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="individualBorderColor">
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Individual Border Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="individualBorderType">
-				</select>
-			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Shape:</label>
-			<div class="col-sm-3">
-				<select class="form-control" id="indDataNodeShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Fill Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="indDataFillColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Text Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="indDataTextColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Border Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="indDataBorderColor">
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Border Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="indDataBorderType">
-				</select>
-			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">typeOf Edge's Source Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="typeOfSourceShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">typeOf Edge's Target Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="typeOfTargetShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">typeOf Edge's Line Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="typeOfLineColor">
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">typeOf Edge's Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="typeOfLineType">
-				</select>
-			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Object Property's Source Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="indObjPropSourceShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Object Property's Target Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="indObjPropTargetShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Object Property's Line Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="indObjPropEdgeColor">
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Object Property's Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="indObjPropEdgeType">
-				</select>
-			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Property's Source Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="indDataPropSourceShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Property's Target Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="indDataPropTargetShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Property's Line Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="indDataPropEdgeColor">
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Property's Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="indDataPropEdgeType">
-				</select>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Individual Border Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="individualBorderType">
+					</select>
+				</div>
 			</div>
 		</div>
 		<br />
+		
+		<!-- Individual Class Node Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleIndividual2" href="javascript:void(0);">
+					Individual's Type Node Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="individual-class-node-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Individual's Type Node Shape:</label>
+				<div class="col-sm-3">
+					<select class="form-control" id="typeNodeShape">
+					</select>
+				</div>
+			</div>	
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Individual's Type Fill Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="typeFillColor">
+				</div>		
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Individual's Type Text Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="typeTextColor">
+				</div>		
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Individual's Type Border Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="typeBorderColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Individual's Type Border Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="typeBorderType">
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		
+		<!-- Individual's Data Value Node Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleIndividual3" href="javascript:void(0);">
+					Individual's Data Value Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="individual-data-node-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Data Value Shape:</label>
+				<div class="col-sm-3">
+					<select class="form-control" id="indDataNodeShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Data Value Fill Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="indDataFillColor">
+				</div>		
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Data Value Text Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="indDataTextColor">
+				</div>		
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Data Value Border Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="indDataBorderColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Data Value Border Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="indDataBorderType">
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		
+		<!-- Type-Of Edge Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleIndividual4" href="javascript:void(0);">
+					Type-Of Edge Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="individual-typeOf-edge-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Type-Of Edge's Source Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="typeOfSourceShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Type-Of Edge's Target Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="typeOfTargetShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Type-Of Edge's Line Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="typeOfLineColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Type-Of Edge's Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="typeOfLineType">
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		
+		<!-- Object Property Edge Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleIndividual5" href="javascript:void(0);">
+					Individual-Individual (Object Property) Edge Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="individual-individual-edge-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Object Property's Source Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="indObjPropSourceShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Object Property's Target Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="indObjPropTargetShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Object Property's Line Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="indObjPropEdgeColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Object Property's Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="indObjPropEdgeType">
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		
+		<!-- Datatype and Annotation Property Edge Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleIndividual6" href="javascript:void(0);">
+					Individual-Data Value (Datatype or Annotation Property) Edge Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="individual-data-edge-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Data Property's Source Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="indDataPropSourceShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Data Property's Target Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="indDataPropTargetShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Data Property's Line Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="indDataPropEdgeColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Data Property's Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="indDataPropEdgeType">
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		
 		<div class="row" align="center">
 			<button type="button" class="btn" id="cancelIndividualDiagram">Cancel</button>
 			<button type="button" class="btn btn-primary" id="individualDiagram">Generate Custom Diagram</button>
 		</div>
 	</div>
 	
+	<!-- Custom Property Graph Details -->
 	<div id="propertyCustomization" style="display: none">
 		<div class="row">
 			<div class="col-sm-8 col-sm-offset-2" align="center">
@@ -432,207 +536,274 @@
 				<input type="radio" id="collapseFalse" name="collapseEdges" value="collapseFalse"> False
 			</div>
 		</div>
-		<hr />
+		<br />
+		
+		<!-- Property Class Node Customization -->
 		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Node Shape:</label>
-			<div class="col-sm-3">
-				<select class="form-control" id="objNodeShape">
-				</select>
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleProperty1" href="javascript:void(0);">
+					Domain/Range Class Node Customization <span class="caret"></span>
+				</a>
 			</div>
 		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Fill Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="objFillColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Text Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="objTextColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Border Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="objBorderColor">
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Class Border Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="objBorderType">
-				</select>
-			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Shape:</label>
-			<div class="col-sm-3">
-				<select class="form-control" id="dataNodeShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Fill Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="dataFillColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Text Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="dataTextColor">
-			</div>		
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Border Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="dataBorderColor">
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Border Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="dataBorderType">
-				</select>
-			</div>
-		</div>
-		<div id="classAndPropertyCustomization" style="display: none">
-			<hr />
+		<div id="property-class-node-custom" style="display: none">
 			<div class="row">
-				<label class="col-sm-3 col-sm-offset-3">subclassOf Edge's Source Arrow:</label>
+				<label class="col-sm-3 col-sm-offset-3">Class Node Shape:</label>
 				<div class="col-sm-3">
-					<select class="col-sm-3 form-control" id="subclassOfSourceShapeBoth">
+					<select class="form-control" id="objNodeShape">
 					</select>
 				</div>
 			</div>
 			<div class="row">
-				<label class="col-sm-3 col-sm-offset-3">subclassOf Edge's Target Arrow:</label>
+				<label class="col-sm-3 col-sm-offset-3">Class Fill Color:</label>
 				<div class="col-sm-3">
-					<select class="col-sm-3 form-control" id="subclassOfTargetShapeBoth">
-					</select>
-				</div>
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="objFillColor">
+				</div>		
 			</div>
 			<div class="row">
-				<label class="col-sm-3 col-sm-offset-3">subclassOf Edge's Line Color:</label>
+				<label class="col-sm-3 col-sm-offset-3">Class Text Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="objTextColor">
+				</div>		
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Class Border Color:</label>
 				<div class="col-sm-3">
 					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
 						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-						backgroundColor:'transparent'}" id="subclassOfLineColorBoth">
+						backgroundColor:'transparent'}" id="objBorderColor">
 				</div>
 			</div>
 			<div class="row">
-				<label class="col-sm-3 col-sm-offset-3">subclassOf Edge's Line Type:</label>
+				<label class="col-sm-3 col-sm-offset-3">Class Border Line Type:</label>
 				<div class="col-sm-3">
-					<select class="col-sm-3 form-control" id="subclassOfLineTypeBoth">
+					<select class="col-sm-3 form-control" id="objBorderType">
 					</select>
 				</div>
 			</div>
 		</div>
-		<hr />
+		<br />
+		
+		<!-- Property Class Node Customization -->
 		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Object Property's Source Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="objPropSourceShape">
-				</select>
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleProperty2" href="javascript:void(0);">
+					Datatype Node (Datatype Property Range) Customization <span class="caret"></span>
+				</a>
 			</div>
 		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Object Property's Target Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="objPropTargetShape">
-				</select>
+		<div id="property-data-node-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Node Shape:</label>
+				<div class="col-sm-3">
+					<select class="form-control" id="dataNodeShape">
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Object Property's Line Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="objPropEdgeColor">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Fill Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="dataFillColor">
+				</div>		
 			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Object Property's Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="objPropEdgeType">
-				</select>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Text Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="dataTextColor">
+				</div>		
 			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Property's Source Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="dataPropSourceShape">
-				</select>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Border Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="dataBorderColor">
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Property's Target Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="dataPropTargetShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Property's Line Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="dataPropEdgeColor">
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Datatype Property's Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="dataPropEdgeType">
-				</select>
-			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Annotation Property's Source Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="annPropSourceShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Annotation Property's Target Arrow:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="annPropTargetShape">
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Annotation Property's Line Color:</label>
-			<div class="col-sm-3">
-				<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
-					autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
-					backgroundColor:'transparent'}" id="annPropEdgeColor">
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-sm-3 col-sm-offset-3">Annotation Property's Line Type:</label>
-			<div class="col-sm-3">
-				<select class="col-sm-3 form-control" id="annPropEdgeType">
-				</select>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Border Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="dataBorderType">
+					</select>
+				</div>
 			</div>
 		</div>
 		<br />
+		
+		<!-- Class and Property Graph Subclass-Of Edge Customization -->
+		<div id="classAndPropertyCustomization" style="display: none">
+			<div class="row">
+				<div class="col-sm-3 col-sm-offset-2">
+					<a id="toggleProperty3" href="javascript:void(0);">
+						Subclass-Of Edge Customization <span class="caret"></span>
+					</a>
+				</div>
+			</div>
+			<div id="property-subclassOf-edge-custom" style="display: none">
+				<div class="row">
+					<label class="col-sm-3 col-sm-offset-3">Subclass-Of Edge's Source Arrow:</label>
+					<div class="col-sm-3">
+						<select class="col-sm-3 form-control" id="subclassOfSourceShapeBoth">
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<label class="col-sm-3 col-sm-offset-3">Subclass-Of Edge's Target Arrow:</label>
+					<div class="col-sm-3">
+						<select class="col-sm-3 form-control" id="subclassOfTargetShapeBoth">
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<label class="col-sm-3 col-sm-offset-3">Subclass-Of Edge's Line Color:</label>
+					<div class="col-sm-3">
+						<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+							autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+							backgroundColor:'transparent'}" id="subclassOfLineColorBoth">
+					</div>
+				</div>
+				<div class="row">
+					<label class="col-sm-3 col-sm-offset-3">Subclass-Of Edge's Line Type:</label>
+					<div class="col-sm-3">
+						<select class="col-sm-3 form-control" id="subclassOfLineTypeBoth">
+						</select>
+					</div>
+				</div>
+			</div>
+		<br />
+		</div>
+		
+		<!-- Object Property Node Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleProperty4" href="javascript:void(0);">
+					Object Property Edge Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="property-object-edge-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Object Property's Source Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="objPropSourceShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Object Property's Target Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="objPropTargetShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Object Property's Line Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="objPropEdgeColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Object Property's Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="objPropEdgeType">
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+			
+		<!-- Datatype Property Node Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleProperty5" href="javascript:void(0);">
+					Datatype Property Edge Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="property-datatype-edge-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Property's Source Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="dataPropSourceShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Property's Target Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="dataPropTargetShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Property's Line Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="dataPropEdgeColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Property's Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="dataPropEdgeType">
+					</select>
+				</div>
+			</div>
+		</div>	
+		<br />
+		
+		<!-- Annotation Property Node Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleProperty6" href="javascript:void(0);">
+					Annotation Property Edge Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="property-annotation-edge-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Annotation Property's Source Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="annPropSourceShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Annotation Property's Target Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="annPropTargetShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Annotation Property's Line Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="annPropEdgeColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Annotation Property's Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="annPropEdgeType">
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		
 		<div class="row" align="center">
 			<button type="button" class="btn" id="cancelPropertyDiagram">Cancel</button>
 			<button type="button" class="btn btn-primary" id="propertyDiagram">Generate Custom Diagram</button>

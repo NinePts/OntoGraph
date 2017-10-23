@@ -71,7 +71,6 @@ public final class PropertiesGraphCreation {
         Set<String> domainOrRangeClasses = new HashSet<>();
         Set<String> datatypes = new HashSet<>();
         
-        // TODO Multiple domains or ranges mean "intersection"; Currently shown as 2+ edges with the same property name
         for (PropertyModel propModel : properties) {
             // Get a unique list of all the domains and ranges across all the properties
         	domainOrRangeClasses.addAll(propModel.getDomains());
@@ -103,10 +102,26 @@ public final class PropertiesGraphCreation {
         	}
         }
         
-        // Already added the datatypes as part of VOWL property splitting, need to add the datatypes
-        //    for other visualizations
-        if (!"vowl".equals(requestModel.getVisualization()) && !xsdDatatypes.isEmpty()) {
-        	sb.append(addDatatypeNodes(requestModel, datatypes));
+        if ("vowl".equals(requestModel.getVisualization())) {
+        	// Need to check if there are any references to owl:Thing as a source or target of an edge 
+        	//    in the GraphML
+        	String currentGraphML = sb.toString();
+        	if (currentGraphML.contains("<node id=\"owl:Thing\">") 
+        			&& !currentGraphML.contains("source=\"owl:Thing\"")
+        			&& !currentGraphML.contains("target=\"owl:Thing\"")) {
+        		// If there is a node id="owl:Thing" but no other edge refs to owl:THing, then the
+            	//    node should be removed since all the references were updated by class splitting
+        		int indexOfThingNode = currentGraphML.indexOf("<node id=\"owl:Thing\">");
+        		int endIndexOfThingNode = currentGraphML.indexOf("</node>", indexOfThingNode + 5);
+        		return currentGraphML.substring(0, indexOfThingNode) + 
+        				currentGraphML.substring(endIndexOfThingNode + 7);
+        	}
+        } else {
+            // Already added the datatypes as part of VOWL property splitting, need to add the datatypes
+            //    for other visualizations
+        	if (!xsdDatatypes.isEmpty()) {
+        		sb.append(addDatatypeNodes(requestModel, datatypes));
+        	}
         }
         
         return sb.toString();

@@ -421,7 +421,7 @@ public class ClassGraphTest {
 	private static GraphRequestModel createClassGraphRequestModel(final String visualization, 
 			final String fileName) throws IOException {
 
-		GraphRequestModel requestModel = new GraphRequestModel("Test Classes", fileName, 
+		GraphRequestModel requestModel = new GraphRequestModel("Test Classes", "reasoningFalse", fileName, 
 				TestUtils.readFile("src/test/resources/classTestFiles/" + fileName), visualization,
 				"class", false);
 		requestModel.setCollapseEdges("collapseFalse");

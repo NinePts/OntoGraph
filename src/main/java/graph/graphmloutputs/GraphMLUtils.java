@@ -116,12 +116,15 @@ public class GraphMLUtils extends GraphMLOutputDetails {
         		propModel);
 
         for (String domain : propModel.getDomains()) {
-            String adjustedDomainName = getPrefixedNameFromLabel(domain);
             for (String range : propModel.getRanges()) {
+            	// Need to reset the domain name in case you have multiple ranges
+                String adjustedDomainName = getPrefixedNameFromLabel(domain);
                 String adjustedRangeName = getPrefixedNameFromLabel(range);
                 // Deal with class and property splitting for VOWL
                 String newNode = EMPTY_STRING;
-                if (range.contains(":") && "vowl".equals(visualization)) {  // VOWL processing for non-blank nodes
+                // VOWL processing for non-blank nodes 
+                // TODO Do we need to worry about blank nodes as the domain? (This seems unlikely)
+                if (range.contains(":") && "vowl".equals(visualization)) {  
                 	List<String> newDetails = handleVOWLSplitting(propModel.getPropertyName(), 
                 			adjustedDomainName, adjustedRangeName, propModel.getPropertyType());
                 	adjustedDomainName = newDetails.get(0);

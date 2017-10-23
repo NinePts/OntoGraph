@@ -39,6 +39,7 @@ public class GraphRequestValidator {
     private static final Pattern colorPattern = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
     
     // Strings for validation
+    private static final List<String> reasoningTypes = Arrays.asList("reasoningTrue", "reasoningFalse");
     private static final List<String> arrowTypes = Arrays.asList("angleBracket", "backslash", "circleSolid", 
     		"circleEmpty", "diamondSolid", "diamondEmpty", "triangleSolid", "triangleEmpty", "none");
     private static final List<String> collapseTypes = Arrays.asList("collapseTrue", "collapseFalse");
@@ -69,6 +70,8 @@ public class GraphRequestValidator {
         // Check inputs
         String errorString = EMPTY_STRING;
         errorString = validateString(requestModel.getGraphTitle(), null, "graph title", errorString);
+	    errorString = validateString(requestModel.getReasoning(), reasoningTypes, 
+	    		"use reasoning T/F", errorString);
         errorString = validateString(requestModel.getInputFile(), null, "input file", errorString);
         errorString = validateString(visualization, visualizationTypes, "visualization type", errorString);
         errorString = validateString(graphType, graphTypes, "graph type", errorString);

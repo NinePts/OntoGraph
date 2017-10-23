@@ -52,7 +52,7 @@ public class ErrorTest {
 	 */
     @Test(expected = IllegalArgumentException.class)
     public void testEmptyGraphRequest() throws IllegalArgumentException {
-        GraphRequestModel requestModel = new GraphRequestModel("", "", "", "", "", false);
+        GraphRequestModel requestModel = new GraphRequestModel("", "reasoningFalse", "", "", "", "", false);
         GraphRequestValidator.validateRequest(requestModel);
     }
 	
@@ -655,7 +655,7 @@ public class ErrorTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testVowlCollapsed() throws IllegalArgumentException {
-	    GraphRequestModel requestModel = new GraphRequestModel("test", "test", 
+	    GraphRequestModel requestModel = new GraphRequestModel("test", "reasoningFalse", "test", 
 	    		"test file contents", "vowl", "class", false);
 	    requestModel.setCollapseEdges("collapseTrue");
 	    GraphRequestValidator.validateRequest(requestModel);
@@ -667,7 +667,7 @@ public class ErrorTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testVowlIndividual() throws IllegalArgumentException {
-	    GraphRequestModel requestModel = new GraphRequestModel("test", "test", 
+	    GraphRequestModel requestModel = new GraphRequestModel("test", "reasoningFalse", "test", 
 	    		"test file contents", "vowl", "individual", false);
 	    GraphRequestValidator.validateRequest(requestModel);
 	}
@@ -677,7 +677,7 @@ public class ErrorTest {
 	 * @return GraphRequestModel
 	 */
 	private GraphRequestModel createCustomClassGraphRequestModel() {
-	    GraphRequestModel requestModel = new GraphRequestModel("test", "test.rdf", 
+	    GraphRequestModel requestModel = new GraphRequestModel("test", "reasoningFalse", "test.rdf", 
 	    		"test file contents", "custom", "class", false);
 	    
 	    // Set acceptable custom input
@@ -704,8 +704,8 @@ public class ErrorTest {
 	 */
 	private GraphRequestModel createCustomGraphRequestModelWithDiffOntologyErrors(final String fileName, 
 			final String ontContents) {
-	    GraphRequestModel requestModel = new GraphRequestModel("test", fileName, ontContents, "custom",
-	            "class", false);
+	    GraphRequestModel requestModel = new GraphRequestModel("test", "reasoningFalse", fileName, ontContents, 
+	    		"custom", "class", false);
 	    
 	    // Set acceptable custom input
 	    requestModel.setClassNodeShape(NONE);
@@ -728,8 +728,8 @@ public class ErrorTest {
 	 * @return GraphRequestModel
 	 */
 	private GraphRequestModel createCustomIndividualGraphRequestModel() {
-	    GraphRequestModel requestModel = new GraphRequestModel("test", "test.rdf", "test file contents", "custom",
-	            "individual", false);
+	    GraphRequestModel requestModel = new GraphRequestModel("test", "reasoningFalse", "test.rdf", 
+	    		"test file contents", "custom", "individual", false);
 	    
 	    // Set acceptable custom input
 	    requestModel.setIndividualNodeShape(NONE);
@@ -769,8 +769,8 @@ public class ErrorTest {
 	 * @return GraphRequestModel
 	 */
 	private GraphRequestModel createCustomPropertyGraphRequestModel() {
-	    GraphRequestModel requestModel = new GraphRequestModel("test", "test", "test file contents", "custom",
-	            "property", false);
+	    GraphRequestModel requestModel = new GraphRequestModel("test", "reasoningFalse", "test", 
+	    		"test file contents", "custom", "property", false);
 	    
 	    // Set acceptable custom input
 	    requestModel.setCollapseEdges("false");

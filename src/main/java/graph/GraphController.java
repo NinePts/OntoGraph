@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.complexible.stardog.ext.spring.SnarlTemplate;
-import com.complexible.stardog.ext.spring.DataSource;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -69,7 +68,7 @@ public class GraphController extends RestExceptionHandler {
 	//   individual with a negative property assertion, inverse object property, equivalent and 
 	//   disjoint property, sub-property and sub-annotation-property, ontology details (versionInfo, 
 	//   imports, backwardCompatibleWith, incompatibleWith, priorVersion), differentFrom, AllDifferent, 
-	//   distinct members, annotatedSource, annotatedTarget, annotatedProperty
+	//   distinct, annotatedSource, annotatedTarget, annotatedProperty
 	// Other concepts not yet supported: SWRL rules
     
     @Autowired private GraphDAO dao;
@@ -246,9 +245,12 @@ public class GraphController extends RestExceptionHandler {
 	    
 	    // Create the SnarlTemplate to access the DB, and the array to hold the namespace prefix info
 	    SnarlTemplate snarlTemplate = new SnarlTemplate();
-	    List<PrefixModel> prefixes = new ArrayList<>();
+	    // Also add reasoning support to a template
+	    SnarlTemplate reasoningTemplate = new SnarlTemplate();
 	    
-	    // Instantiate an empty model for the equivalents, disjoints, oneOfs, connectives, and restrictions
+	    // Instantiate empty models for the onology prefixes and all related details (equivalents, disjoints, 
+	    //    oneOfs, connectives and restrictions)
+	    List<PrefixModel> prefixes = new ArrayList<>();
         RelatedAndRestrictionModel relatedsAndRestrictions = RelatedAndRestrictionModel.builder()
                 .restrictions(new ArrayList<>())
                 .connectives(new HashMap<>())
@@ -257,10 +259,12 @@ public class GraphController extends RestExceptionHandler {
 	    
 	    try {
 	        // Get the details for the arrays and maps, and begin generating the GraphML output
-	        sb.append(getGraphDetails(requestModel, snarlTemplate, prefixes, relatedsAndRestrictions));
+	        sb.append(getGraphDetails(requestModel, snarlTemplate, reasoningTemplate, prefixes, 
+	        		relatedsAndRestrictions));
 
 	        // Get the classes, which are needed in almost all graphs
-	        List<ClassModel> classes = dao.getClasses(snarlTemplate, prefixes);
+	        List<ClassModel> classes = dao.getClasses(requestModel.getReasoning(), snarlTemplate, 
+	        		reasoningTemplate, prefixes);
 	        // Get any classes that are defined as equivalents or superclasses that are NOT 
 	        //   defined as owl:Class in the ontology
 	        classes.addAll(dao.getExternallyDefinedClasses(snarlTemplate, prefixes));
@@ -276,8 +280,8 @@ public class GraphController extends RestExceptionHandler {
 	        }
 	       
 	        // Generate the graph based on user's selection
-	        sb.append(generateGraph(requestModel, ontPrefixAndCurrGraphML, snarlTemplate, prefixes, classes, 
-	        		relatedsAndRestrictions));
+	        sb.append(generateGraph(requestModel, ontPrefixAndCurrGraphML, snarlTemplate, reasoningTemplate, 
+	        		prefixes, classes, relatedsAndRestrictions));
 	        
 	    } catch (Exception e) {   //NOSONAR - Logged as part of OntoGraphException handling
 			throw new OntoGraphException("Error creating the graph. Exception details: " + e.getMessage());
@@ -360,7 +364,8 @@ public class GraphController extends RestExceptionHandler {
 	 * 
 	 * @param  requestModel GraphRequestModel details
 	 * @param  ontologyPrefix String defining the ontology namespace
-	 * @param  snarlTemplate SnarlTemplate connection details
+	 * @param  snarlTemplate SnarlTemplate 
+	 * @param  reasoningTemplate SnarlTemplate with reasoning enabled
 	 * @param  prefixes List<PrefixModel> defining all known prefixes
 	 * @param  classes List<ClassModel> defining all classes which may be referenced as an
 	 *              individual type, or in the equivalentsDisjointsOneOfs or connectives maps
@@ -373,11 +378,12 @@ public class GraphController extends RestExceptionHandler {
 	 * 
 	 */
 	private String createIndividualsGraph(GraphRequestModel requestModel, final String ontologyPrefix, 
-			SnarlTemplate snarlTemplate, List<PrefixModel> prefixes, List<ClassModel> classes, 
-			RelatedAndRestrictionModel relatedsAndRestrictions) throws OntoGraphException {
+			SnarlTemplate snarlTemplate, SnarlTemplate reasoningTemplate, List<PrefixModel> prefixes, 
+			List<ClassModel> classes, RelatedAndRestrictionModel relatedsAndRestrictions) throws OntoGraphException {
 		
 	    // Get the individuals
-	    List<IndividualModel> individuals = dao.getIndividuals(snarlTemplate, prefixes);
+	    List<IndividualModel> individuals = dao.getIndividuals(requestModel.getReasoning(),
+	    		snarlTemplate, reasoningTemplate, prefixes);
 	    
 	    // Set the visualization conventions as needed
 	    createIndividualsConventions(requestModel);
@@ -519,6 +525,7 @@ public class GraphController extends RestExceptionHandler {
 	 * 
 	 * @param  requestModel GraphRequestModel holding all details of the request
 	 * @param  snarlTemplate SnarlTemplate 
+	 * @param  reasoningTemplate SnarlTemplate with reasoning enabled
 	 * @param  prefixes List<PrefixModel> defining all known prefixes
 	 * @param  origClasses List<ClassModel> holding original class details
      * @param  relatedsAndRestrictions RelatedAndRestrictionModel containing lists of models 
@@ -530,7 +537,7 @@ public class GraphController extends RestExceptionHandler {
 	 * 
 	 */
 	private String createUMLGraph(GraphRequestModel requestModel, SnarlTemplate snarlTemplate, 
-	        List<PrefixModel> prefixes, List<ClassModel> origClasses,
+			SnarlTemplate reasoningTemplate, List<PrefixModel> prefixes, List<ClassModel> origClasses,
 	        RelatedAndRestrictionModel relatedsAndRestrictions) throws OntoGraphException {
 	    
 	    // Set the visualization conventions as needed
@@ -538,7 +545,8 @@ public class GraphController extends RestExceptionHandler {
         
 	    if (INDIVIDUAL.equals(requestModel.getGraphType())) {
 	        // Get the instances
-	        List<IndividualModel> instances = dao.getIndividuals(snarlTemplate, prefixes);
+	        List<IndividualModel> instances = dao.getIndividuals(requestModel.getReasoning(), 
+	        		snarlTemplate, reasoningTemplate, prefixes);
 	        return UMLGraphCreation.processUMLInstanceGraph(requestModel, origClasses, 
 	        		relatedsAndRestrictions, instances);
 	    } else {
@@ -566,6 +574,7 @@ public class GraphController extends RestExceptionHandler {
 	 *              is the current GraphML output (which is set in the "both" class and property
 	 *              processing)
 	 * @param  snarlTemplate SnarlTemplate
+	 * @param  reasoningTemplate SnarlTemplate with reasoning enabled
 	 * @param  prefixes List<PrefixModel> defining all known prefixes
 	 * @param  classes List<ClassModel> defining all classes which may be referenced as an
 	 *              individual type, or in the equivalentsDisjointsOneOfs or connectives maps
@@ -577,15 +586,17 @@ public class GraphController extends RestExceptionHandler {
 	 * @throws OntoGraphException
 	 */
 	private String generateGraph(GraphRequestModel requestModel, List<String> ontPrefixAndCurrGraphML, 
-			SnarlTemplate snarlTemplate, List<PrefixModel> prefixes, List<ClassModel> classes, 
-    		RelatedAndRestrictionModel relatedsAndRestrictions) throws OntoGraphException {
+			SnarlTemplate snarlTemplate, SnarlTemplate reasoningTemplate, List<PrefixModel> prefixes, 
+			List<ClassModel> classes, RelatedAndRestrictionModel relatedsAndRestrictions) 
+					throws OntoGraphException {
 
 		StringBuilder sb = new StringBuilder();
 		String graphType = requestModel.getGraphType();
 		String visualization = requestModel.getVisualization();
 		
         if (UML.equals(visualization)) {
-            sb.append(createUMLGraph(requestModel, snarlTemplate, prefixes, classes, relatedsAndRestrictions));
+            sb.append(createUMLGraph(requestModel, snarlTemplate, reasoningTemplate, prefixes, classes, 
+            		relatedsAndRestrictions));
             
         // Graffoo, VOWL or Custom visualization
         } else if (CLASS.equals(graphType)) {
@@ -593,8 +604,8 @@ public class GraphController extends RestExceptionHandler {
                     relatedsAndRestrictions));
 
         } else if (INDIVIDUAL.equals(graphType)) {
-            sb.append(createIndividualsGraph(requestModel, ontPrefixAndCurrGraphML.get(0), snarlTemplate, prefixes,
-                    classes, relatedsAndRestrictions));
+            sb.append(createIndividualsGraph(requestModel, ontPrefixAndCurrGraphML.get(0), snarlTemplate, 
+            		reasoningTemplate, prefixes, classes, relatedsAndRestrictions));
             
         } else if (PROPERTY.equals(graphType)) {
             sb.append(createPropertiesGraph(requestModel, ontPrefixAndCurrGraphML, snarlTemplate, prefixes, classes,
@@ -622,7 +633,8 @@ public class GraphController extends RestExceptionHandler {
 	 * 
 	 * @param  requestModel GraphRequestModel
 	 * @param  ontologyURI String
-	 * @param  snarlTemplate SnarlTemplate
+	 * @param  snarlTemplate SnarlTemplate (initially empty)
+	 * @param  reasoningTemplate SnarlTemplate (initially empty)
 	 * @param  prefixes List<PrefixModel> defining all known prefixes
      * @param  relatedsAndRestrictions RelatedAndRestrictionModel containing lists of models 
      *             of "related" classes (equivalent, disjoints, and oneOfs), of connectives
@@ -633,7 +645,7 @@ public class GraphController extends RestExceptionHandler {
 	 * 
 	 */
 	private String getGraphDetails(GraphRequestModel requestModel,
-			SnarlTemplate snarlTemplate, List<PrefixModel> prefixes,
+			SnarlTemplate snarlTemplate, SnarlTemplate reasoningTemplate, List<PrefixModel> prefixes,
 			RelatedAndRestrictionModel relatedsAndRestrictions) throws OntoGraphException {
 	    
 	    // Get user input from the GraphRequestModel object
@@ -648,12 +660,10 @@ public class GraphController extends RestExceptionHandler {
 	    
         // Load the ontology into its own db in order to take advantage of prefix processing in Stardog
         // Track the database's "data source" for connection management
-        DataSource ds;
 		try {
-			ds = dao.loadFileToDB(Base64.decodeBase64(requestModel.getFileData().split(",")[1]), 
-					cleanGraphTitle, fileFormat);
-	        // Update the snarl template for accessing the db
-			snarlTemplate.setDataSource(ds);
+			dao.loadFileToDB(snarlTemplate, reasoningTemplate, 
+					Base64.decodeBase64(requestModel.getFileData().split(",")[1]), cleanGraphTitle, 
+					fileFormat);
 	        // Do a query to check that some triples were loaded (that the ontology file is valid)
 	        dao.checkDBLoad(snarlTemplate, cleanGraphTitle);
         
@@ -667,7 +677,7 @@ public class GraphController extends RestExceptionHandler {
 		    }
 	        
 	        // Get prefixes defined in the ontology 
-	        prefixes.addAll(dao.getPrefixes(ds));
+	        prefixes.addAll(dao.getPrefixes(snarlTemplate));
 	        
 	        // Add the title, prefix box 
 			Collections.sort(prefixes, PrefixModel.prefixSort);

@@ -59,6 +59,30 @@ public class IndividualGraphTest {
          this.testContextManager = new TestContextManager(getClass());
          this.testContextManager.prepareTestInstance(this);
     }
+
+	/**
+     * Tests two individuals defined based on 2 object properties - one with 
+     * multiple domains and one with multiple ranges
+     * (Note that no explicit class type is specified for the individuals - and reasoning is 
+     * used to determine the class type)
+     * 
+     * @throws IOException
+     * @throws OntoGraphException
+     * @throws SAXException
+     */
+    @Test
+    public void testIndividualsImplicitIntersectionWithReasoning() throws Exception {
+        
+        List<String> prefixes = Arrays.asList("ninepts", "owl", "rdf", "rdfs", "xsd");
+        List<String> titleEntries = Arrays.asList("Title:  Test Individuals", 
+                "Ontology URI:  http://purl.org/ninepts/test", "Generated: ");
+    	
+        GraphRequestModel requestModel = createIndividualGraphRequestModel(vis, 
+        		"TestIndividualsImplicitIntersection.ttl");
+        requestModel.setReasoning("reasoningTrue");
+        createGraphMLAndCompareToMaster(requestModel, "TestIndividualsImplicitIntersection",
+        		 prefixes, titleEntries);
+    }
     
     /**
      * Tests two defined individuals of one type, with a third external individual.
@@ -200,7 +224,7 @@ public class IndividualGraphTest {
     private static GraphRequestModel createIndividualGraphRequestModel(final String visualization, 
     		final String fileName) throws IOException {
         
-        GraphRequestModel requestModel = new GraphRequestModel("Test Individuals", fileName, 
+        GraphRequestModel requestModel = new GraphRequestModel("Test Individuals", "reasoningFalse", fileName, 
                 TestUtils.readFile("src/test/resources/individualTestFiles/" + fileName), visualization, 
                 "individual", false);
         

@@ -39,6 +39,8 @@ public class EdgeFlagsModel {
 	private boolean reflexive;
 	private boolean symmetric;
 	private boolean transitive;
+	private boolean multipleDomains;
+	private boolean multipleRanges;
 
 
 	/**
@@ -57,6 +59,8 @@ public class EdgeFlagsModel {
     			.reflexive(false)
     			.symmetric(false)
     			.transitive(false)
+    			.multipleDomains(false)
+    			.multipleRanges(false)
     			.build();
     }
 }

@@ -227,7 +227,7 @@ public class GraphMLOutputDetails {
 	    		  + "hasLineColor=\"false\" height=\"90.53\" horizontalTextPosition=\"center\" iconTextGap=\"4\" "
 	    		  + "modelName=\"internal\" modelPosition=\"c\" textColor=\"#000000\" verticalTextPosition=\"bottom\" "
 	    		  + "visible=\"true\" width=\"140.44\" x=\"-5.04\" y=\"-19.145\">")
-	      .append(text1 + CLOSE_NODE_LABEL_XML + NEW_LINE)
+	      .append(replaceBrackets(text1) + CLOSE_NODE_LABEL_XML + NEW_LINE)
 		  .append(SHAPE_RECTANGLE_XML + NEW_LINE)
 		  .append("        </y:ShapeNode>" + NEW_LINE)
 		  .append("    " + SPACES_CLOSE_DATA_XML + NEW_LINE)
@@ -245,7 +245,7 @@ public class GraphMLOutputDetails {
 	    		  + "hasLineColor=\"false\" height=\"90.53\" horizontalTextPosition=\"center\" iconTextGap=\"4\" "
 	    		  + "modelName=\"internal\" modelPosition=\"c\" textColor=\"#000000\" verticalTextPosition=\"bottom\" "
 	    		  + "visible=\"true\" width=\"140.44\" x=\"-66.3\" y=\"-19.145\">")
-	          .append(text2 + CLOSE_NODE_LABEL_XML + NEW_LINE)
+	          .append(replaceBrackets(text2) + CLOSE_NODE_LABEL_XML + NEW_LINE)
 	      .append(SHAPE_RECTANGLE_XML + NEW_LINE)
 	      .append("        </y:ShapeNode>" + NEW_LINE)
 	      .append("    " + SPACES_CLOSE_DATA_XML + NEW_LINE)
@@ -286,7 +286,7 @@ public class GraphMLOutputDetails {
                   + "hasLineColor=\"false\" height=\"22.84\" modelName=\"" + nodeDetails.getModelName()
                   + "\" modelPosition=\"" + nodeDetails.getModelPosition() + "\" textColor=\"" 
                   + nodeDetails.getTextColor() + "\" visible=\"true\" width=\"44.84\" x=\"18.56\" y=\"10.58\">"
-                  + label + CLOSE_NODE_LABEL_XML + NEW_LINE)
+                  + replaceBrackets(label) + CLOSE_NODE_LABEL_XML + NEW_LINE)
           .append("      <y:Shape type=\"" + nodeShapes.get(nodeDetails.getNodeShape()) + "\"/>" + NEW_LINE)
           .append("    </y:ShapeNode>" + NEW_LINE)
           .append(SPACES_CLOSE_DATA_XML + NEW_LINE)
@@ -328,7 +328,7 @@ public class GraphMLOutputDetails {
 	    		  				+ "horizontalTextPosition=\"center\" iconTextGap=\"4\" "
 	    		  				+ "modelName=\"internal\" modelPosition=\"c\" textColor=\"#000000\" "
 	    		  				+ "verticalTextPosition=\"bottom\" visible=\"true\" x=\"19.156\" "
-	    		  				+ "y=\"16.5085\">" + noteText + "  ")
+	    		  				+ "y=\"16.5085\">" + replaceBrackets(noteText) + "  ")
 	      .append(CLOSE_NODE_LABEL_XML + NEW_LINE)
 	      .append("    </y:UMLNoteNode>" + NEW_LINE)
 	      .append(CLOSE_DATA_XML + NEW_LINE)
@@ -390,7 +390,7 @@ public class GraphMLOutputDetails {
 	    		edgeLabel += NEW_LINE + "(" + flagsText.replaceAll(" ", ", ");
 	    		edgeLabel = edgeLabel.substring(0, edgeLabel.length() - 2) + ")";
 	    	}
-	        sb.append(edgeLabel);
+	        sb.append(replaceBrackets(edgeLabel));
 	    }
 	    
 	    sb.append("</y:EdgeLabel>" + NEW_LINE)
@@ -460,7 +460,7 @@ public class GraphMLOutputDetails {
                   + "configuration=\"com.yworks.entityRelationship.label.name\" fontFamily=\"Dialog\" fontSize=\"12\" "
                   + "fontStyle=\"plain\" hasLineColor=\"false\" height=\"18.13\" modelName=\"internal\" modelPosition"
                   + "=\"t\" textColor=\"#000000\" visible=\"true\" width=\"36.67\" x=\"21.67\" y=\"4.0\">")
-          .append(entityLabel + CLOSE_NODE_LABEL_XML + NEW_LINE)
+          .append(replaceBrackets(entityLabel) + CLOSE_NODE_LABEL_XML + NEW_LINE)
           .append("      <y:NodeLabel alignment=\"left\" autoSizePolicy=\"content\" configuration=\"com.yworks"
                   + ".entityRelationship.label.attributes\" fontFamily=\"Dialog\" fontSize=\"12\" fontStyle=\"plain\" "
                   + "hasBackgroundColor=\"false\" hasLineColor=\"false\" height=\"46.40\" modelName=\"custom\" "
@@ -609,6 +609,12 @@ public class GraphMLOutputDetails {
     	}
     	if (edgeFlags.isTransitive()) {
     		sb.append("transitive ");
+    	}
+    	if (edgeFlags.isMultipleDomains()) {
+    		sb.append("multipleDomains ");
+    	}
+    	if (edgeFlags.isMultipleRanges()) {
+    		sb.append("multipleRanges ");
     	}
     	
     	return sb.toString();
@@ -866,8 +872,8 @@ public class GraphMLOutputDetails {
 	}
 	
 	/**
-	 * Adds a VOWL datatype (likely rdfs:Literal) that is specific to a property. This supports
-	 * VOWL's splitting by property requirements.
+	 * Adds a datatype (likely rdfs:Literal) or an owl:Thing node that is specific to a property, to support
+	 * VOWL's splitting by class and property requirements.
 	 * 
 	 * @param  isDatatype boolean indicating whether the name is a datatype or a unique id for another
 	 *                 owl:Thing node 
@@ -942,7 +948,7 @@ public class GraphMLOutputDetails {
 		List<String> newDetails = new ArrayList<>();
 		if (!"o".equals(propertyType)) {
 			// Datatype or annotation property
-			// Need to duplicate the datatype for each property
+			// Need to create a new node for each property range
 			String newDatatype = propertyName + rangeName;
 			newDetails.add(domainName);
 			newDetails.add(newDatatype);
@@ -982,8 +988,8 @@ public class GraphMLOutputDetails {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, Charset.defaultCharset());
     }
-	
-	/** 
+    
+    /** 
 	 * Update edgeDetails for an edge connecting two blank nodes representing either union, complement
 	 * or intersection.
 	 * 
@@ -997,5 +1003,18 @@ public class GraphMLOutputDetails {
 		if (!UML.equals(edgeDetails.getVisualization())) {
 		    edgeDetails.setLineType(DASHED);
 		}
+	}
+
+	/**
+	 * Replaces any angle brackets in a node/edge/box/... label with &gt/lt; alternatives
+	 * 
+	 * @param  labelText String
+	 * @return String of the updated labelText (if it includes "<" or ">")
+	 * 
+	 */
+	private static String replaceBrackets(final String labelText) {
+		
+		String newLabel = labelText.replaceAll(">", "&gt;");
+		return newLabel.replaceAll("<", "&lt;");
 	}
 }

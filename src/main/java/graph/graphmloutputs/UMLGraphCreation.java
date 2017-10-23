@@ -481,12 +481,12 @@ public final class UMLGraphCreation {
 	 * ("instanceName : typeName1, typeName2 ...")
 	 * 
 	 * @param instance IndividualModel
-	 * @param referencedTypes Set<String> of all classes or blank nodes referenced as types.
-	 *              The set is updated as new types are encountered.
+	 * @param referencedBlankNodes Set<String> of all blank nodes referenced as types.
+	 *              The set is updated as new nodes are encountered.
 	 * @return String defining the instance label
 	 * 
 	 */
-	private static String processInstanceLabel(IndividualModel instance, Set<String> referencedTypes) {
+	private static String processInstanceLabel(IndividualModel instance, Set<String> referencedBlankNodes) {
 		
 	    StringBuilder sb = new StringBuilder();
 	    
@@ -494,27 +494,24 @@ public final class UMLGraphCreation {
 	    
         sb.append(instance.getIndividualLabel() + " : ");
         
-        String type = types.get(0);
-        if (!"".equals(type)) {
-        	if (type.contains(":")) {    // Not a blank node
-        		sb.append(type);
-        	} else {
-        		referencedTypes.add(type);
-        		sb.append(getBlankNodeId(type));	// Append a more user-friendly name
-        	}
-        } else {
+        if (types.isEmpty() || "".equals(types.get(0))) {
         	// The "type" is not defined in the ontology - Listed as "Unknown"
         	sb.append("Unknown");
         	return sb.toString();
-        }
-        
-        int size = types.size();
-        if (size > 1) {
-            for (int i = 1; i < size; i++) {
-            	type = types.get(i);
-            	referencedTypes.add(type);
-                sb.append(", " + type);
-            }
+        	
+        } else {
+        	int count = 0;
+	        for (String type : types) {
+	        	if (++count > 1) {
+        			sb.append(", ");
+        		}
+	        	if (type.contains(":")) {    // Not a blank node
+	        		sb.append(type);
+	        	} else {
+	        		referencedBlankNodes.add(type);
+	        		sb.append(getBlankNodeId(type));	// Append a more user-friendly name
+	        	}
+	        }
         }
         
         return sb.toString();

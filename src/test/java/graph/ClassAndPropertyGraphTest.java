@@ -176,9 +176,9 @@ public class ClassAndPropertyGraphTest {
 			throws IOException {
 		
 		if ("custom".equals(visualization)) {
-			GraphRequestModel requestModel = new GraphRequestModel("Test Classes And Properties", fileName, 
-	        		TestUtils.readFile("src/test/resources/bothClassAndPropertyTestFiles/" + fileName), visualization, 
-	        		"both", false);
+			GraphRequestModel requestModel = new GraphRequestModel("Test Classes And Properties", "reasoningFalse", 
+					fileName, TestUtils.readFile("src/test/resources/bothClassAndPropertyTestFiles/" + fileName), 
+					visualization, "both", false);
 			
 			// CHANGEME - Custom class definitions defaults
             requestModel.setCollapseEdges("collapseFalse");
@@ -213,7 +213,7 @@ public class ClassAndPropertyGraphTest {
 			return requestModel;
 		
 		} else {
-			return new GraphRequestModel("Test Classes And Properties", fileName, 
+			return new GraphRequestModel("Test Classes And Properties", "reasoningFalse", fileName, 
 					TestUtils.readFile("src/test/resources/bothClassAndPropertyTestFiles/" + fileName), visualization,
 					"both", false);
 		}

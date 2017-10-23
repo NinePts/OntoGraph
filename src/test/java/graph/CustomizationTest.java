@@ -145,8 +145,8 @@ public class CustomizationTest {
             e.printStackTrace();
         }
         
-        GraphRequestModel requestModel = new GraphRequestModel(graphTitle, "TestClassesB.ttl", fileData, "custom",
-                "class", false);
+        GraphRequestModel requestModel = new GraphRequestModel(graphTitle, "reasoningFalse", "TestClassesB.ttl", fileData, 
+        		"custom", "class", false);
         
         requestModel.setClassNodeShape(nodeShape);
         requestModel.setClassFillColor("#FFFFFF"); 

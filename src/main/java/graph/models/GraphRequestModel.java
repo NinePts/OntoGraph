@@ -34,6 +34,7 @@ import lombok.Data;
 public class GraphRequestModel {
 	
     private final String graphTitle;
+    private String reasoning;
     private final String inputFile;		// Could be a zip file
     private final String fileData;
     
@@ -103,11 +104,12 @@ public class GraphRequestModel {
     private String objBorderType; 
     
 	// Used to set up the test cases
-    public GraphRequestModel(String graphTitle, String inputFile, 
+    public GraphRequestModel(String graphTitle, String reasoning, String inputFile, 
     		String fileData, String visualization, String graphType,
     		boolean collapseEdges) {
     	super();
     	this.graphTitle = graphTitle;
+    	this.reasoning = reasoning;
     	this.inputFile = inputFile;
     	this.fileData = fileData;
     	this.visualization = visualization;
@@ -122,6 +124,7 @@ public class GraphRequestModel {
     @JsonCreator
     @JsonIgnoreProperties(ignoreUnknown = true)
     public GraphRequestModel(@JsonProperty("graphTitle") String graphTitle, 
+    		@JsonProperty("useReasoning") String reasoning, 
     		@JsonProperty("inputFile") String inputFile, 
     		@JsonProperty("fileData") String fileData, 
     		@JsonProperty("visualization") String visualization, 
@@ -190,6 +193,7 @@ public class GraphRequestModel {
     		@JsonProperty("objPropEdgeType") String objPropEdgeType) {
     	super();
     	this.graphTitle = graphTitle;
+    	this.reasoning = reasoning;
     	this.inputFile = inputFile;
     	this.fileData = fileData;
     	this.visualization = visualization;

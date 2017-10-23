@@ -156,6 +156,7 @@ function displayPopovers() {
 	$('#pop4').popover({ trigger: 'hover' });
 	$('#pop5').popover({ trigger: 'hover' });
 	$('#pop6').popover({ trigger: 'hover' });
+	$('#pop7').popover({ trigger: 'hover' });
 }
 
 function downloadGraph(strData, strFileName, strMimeType) {
@@ -284,6 +285,9 @@ function setClassCustomization() {
 function setDefaultsAndDisplayPage() {
 	$('#visualization').val(model.get('visualization'));
 	$('#graphType').val(model.get('graphType'));
+	var reasoning = model.get('reasoning');
+	document.getElementById(reasoning).checked = true;
+	$('#reasoning').val(reasoning);
 
 	// Add the various option blocks
 	$('#classNodeShape').append(nodeShapeOptions);
@@ -410,6 +414,17 @@ function setStdCustomization() {
 	$('#collapseEdgesStd').val(collapse);
 }
 
+function toggleDetails(id1, id2, text) {
+    if (document.getElementById(id1).style.display == 'none') {
+        document.getElementById(id1).style.display = 'block';
+        document.getElementById(id2).innerHTML = text + ' <span class="dropup"><span class="caret"></span></span>';
+    }
+    else {
+        document.getElementById(id1).style.display = 'none';
+        document.getElementById(id2).innerHTML = text + ' <span class="caret"></span>';
+    }
+}
+
 function validateInput() {
 	var isValid = true;
 	if (!isValidInput($('#graphTitle').val())) {
@@ -450,6 +465,7 @@ $(document).ready(function() {
 			// Update the GraphRequestModel with the data from the browser
 			model.set({
 				graphTitle: $('#graphTitle').val(),
+				reasoning: $('input[name="reasoning"]:checked').val(),
 				inputFile: $('#inputFile').val(),
 				fileData: '',
 				visualization: visualization,
@@ -466,10 +482,11 @@ $(document).ready(function() {
 					// Show correct customization options based on the graphType
 					processCustomization(graphType, file);
 				} else {
-					// Not custom, just need to know whether edges are collapsed for Graffoo property
-					///   or UML graphs
-					if (visualization === 'uml' || (visualization === 'graffoo'
-							&& graphType === 'property')) {
+					// Not custom, just need to know whether edges are collapsed for Graffoo 
+					///   or UML property graphs
+					if ((visualization === 'uml' && graphType !== 'individual') 
+							|| (visualization === 'graffoo' 
+								&& (graphType === 'property' || graphType === 'both'))) {
 						var stdTitle = document.getElementById('stdCustomizationTitle').innerHTML;
 						stdTitle = stdTitle.replace('XXX', 'Graffoo');
 						stdTitle = stdTitle.substring(0, stdTitle.indexOf(',') + 2) + file.name;
@@ -479,7 +496,7 @@ $(document).ready(function() {
 						document.getElementById('stdCustomizationTitle').innerHTML = stdTitle;
 						displayCustomization('stdCustomization');
 					} else {
-						// VOWL does not support collapsing edges, so set the model property to False
+						// Set the model property to False 
 						model.set('collapseEdges', 'collapseFalse');
 						generateGraph();
 					}
@@ -504,6 +521,50 @@ $(document).ready(function() {
 	});
 	$('#cancelStdDiagram').on('click', function() {
 		 cancelCustomization('stdCustomization');
+	});
+
+	// Handle display various customization details
+	$('#toggleClass1').on('click', function() {
+		toggleDetails('class-node-custom', 'toggleClass1', 'Class Node Customization');
+	});
+	$('#toggleClass2').on('click', function() {
+		toggleDetails('class-subclassOf-edge-custom', 'toggleClass2', 'Subclass-Of Edge Customization');
+	});
+	$('#toggleIndividual1').on('click', function() {
+		toggleDetails('individual-node-custom', 'toggleIndividual1', 'Individual Node Customization');
+	});
+	$('#toggleIndividual2').on('click', function() {
+		toggleDetails('individual-class-node-custom', 'toggleIndividual2', "Individual's Type Node Customization");
+	});
+	$('#toggleIndividual3').on('click', function() {
+		toggleDetails('individual-data-node-custom', 'toggleIndividual3', "Individual's Data Value Customization");
+	});
+	$('#toggleIndividual4').on('click', function() {
+		toggleDetails('individual-typeOf-edge-custom', 'toggleIndividual4', 'Type-Of Edge Customization');
+	});
+	$('#toggleIndividual5').on('click', function() {
+		toggleDetails('individual-individual-edge-custom', 'toggleIndividual5', 'Individual-Individual (Object Property) Edge Customization');
+	});
+	$('#toggleIndividual6').on('click', function() {
+		toggleDetails('individual-data-edge-custom', 'toggleIndividual6', 'Individual-Data Value (Datatype or Annotation Property) Edge Customization');
+	});
+	$('#toggleProperty1').on('click', function() {
+		toggleDetails('property-class-node-custom', 'toggleProperty1', 'Domain/Range Class Node Customization');
+	});
+	$('#toggleProperty2').on('click', function() {
+		toggleDetails('property-data-node-custom', 'toggleProperty2', 'Datatype Node (Datatype Property Range) Customization');
+	});
+	$('#toggleProperty3').on('click', function() {
+		toggleDetails('property-subclassOf-edge-custom', 'toggleProperty3', 'Subclass-Of Edge Customization');
+	});
+	$('#toggleProperty4').on('click', function() {
+		toggleDetails('property-object-edge-custom', 'toggleProperty4', 'Object Property Edge Customization');
+	});
+	$('#toggleProperty5').on('click', function() {
+		toggleDetails('property-datatype-edge-custom', 'toggleProperty5', 'Datatype Property Edge Customization');
+	});
+	$('#toggleProperty6').on('click', function() {
+		toggleDetails('property-annotation-edge-custom', 'toggleProperty6', 'Annotation Property Edge Customization');
 	});
 
 	// Handle processing customization

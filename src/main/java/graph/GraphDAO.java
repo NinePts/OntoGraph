@@ -39,7 +39,6 @@ import org.springframework.stereotype.Repository;
 import com.complexible.common.rdf.model.Namespaces;
 import com.complexible.common.rdf.model.Values;
 import com.complexible.stardog.StardogException;
-import com.complexible.stardog.api.Connection;
 import com.complexible.stardog.api.ConnectionConfiguration;
 import com.complexible.stardog.api.admin.AdminConnection;
 import com.complexible.stardog.api.admin.AdminConnectionConfiguration;
@@ -85,6 +84,7 @@ public class GraphDAO {
     private static final String CLASS = "class";
     private static final String LABEL = "label";
     private static final String MEMBER = "member";
+    private static final String OWL_NOTHING_FULL_URI = "http://www.w3.org/2002/07/owl#Nothing";
     private static final String OWL_RESTRICTION_FULL_URI = "http://www.w3.org/2002/07/owl#Restriction";
     private static final String OWL_THING = "owl:Thing";
     private static final String OWL_THING_FULL_URI = "http://www.w3.org/2002/07/owl#Thing";
@@ -120,6 +120,19 @@ public class GraphDAO {
     		+ "UNION { ?someClass owl:disjointWith ?name } } . "
     		+ "FILTER isIRI(?name) . MINUS { ?name a owl:Class } . " + OPTIONAL_LABEL;
     private static final String GET_FUNCTIONAL_PROPERTIES = SELECT_DISTINCT_NAME + "?name a owl:FunctionalProperty }";
+	private static final String GET_INDIVIDUAL_PROPERTIES = "SELECT ?prop ?val WHERE { "
+	+ "?name ?prop ?val . FILTER ( !strstarts(str(?prop), 'http://www.w3.org/2002/07/owl') "
+	+ "&& !strstarts(str(?prop), 'http://www.w3.org/2006/12/owl2') "
+	+ "&& !strstarts(str(?prop), 'http://www.w3.org/ns/owl2') "
+	+ "&& !strstarts(str(?prop), 'http://www.w3.org/1999/02/22-rdf-syntax-ns') "
+	+ "&& !strstarts(str(?prop), 'http://www.w3.org/2000/01/rdf-schema') ) }";
+	private static final String GET_INDIVIDUAL_TYPES = "SELECT ?type ?label WHERE "
+	+ "{ ?name a ?type . FILTER ( !strstarts(str(?type), 'http://www.w3.org/2002/07/owl') "
+	+ "&& !strstarts(str(?type), 'http://www.w3.org/2006/12/owl2') "
+	+ "&& !strstarts(str(?type), 'http://www.w3.org/ns/owl2') "
+	+ "&& !strstarts(str(?type), 'http://www.w3.org/1999/02/22-rdf-syntax-ns') "
+	+ "&& !strstarts(str(?type), 'http://www.w3.org/2000/01/rdf-schema') ) . " 
+	+ "OPTIONAL { ?type rdfs:label ?label } }";
 	private static final String GET_INDIVIDUALS = "SELECT ?name ?label WHERE "
 			+ "{ ?name a ?type . FILTER ( !strstarts(str(?type), 'http://www.w3.org/2002/07/owl') "
 	        // The following two namespaces are for OWL 2 - the first is the temporary working group 
@@ -127,46 +140,39 @@ public class GraphDAO {
 	        + "&& !strstarts(str(?type), 'http://www.w3.org/2006/12/owl2') "
 	        + "&& !strstarts(str(?type), 'http://www.w3.org/ns/owl2') "
 			+ "&& !strstarts(str(?type), 'http://www.w3.org/1999/02/22-rdf-syntax-ns') "
-			+ "&& !strstarts(str(?type), 'http://www.w3.org/2000/01/rdf-schema') ) . " + OPTIONAL_LABEL;  
-	private static final String GET_INDIVIDUAL_PROPERTIES = "SELECT ?prop ?val WHERE { "
-			+ "?name ?prop ?val . FILTER ( !strstarts(str(?prop), 'http://www.w3.org/2002/07/owl') "
-	        + "&& !strstarts(str(?prop), 'http://www.w3.org/2006/12/owl2') "
-	        + "&& !strstarts(str(?prop), 'http://www.w3.org/ns/owl2') "
-			+ "&& !strstarts(str(?prop), 'http://www.w3.org/1999/02/22-rdf-syntax-ns') "
-			+ "&& !strstarts(str(?prop), 'http://www.w3.org/2000/01/rdf-schema') ) }";
-	private static final String GET_INDIVIDUAL_TYPES = "SELECT ?type ?label WHERE "
-			+ "{ ?name a ?type . FILTER ( !strstarts(str(?type), 'http://www.w3.org/2002/07/owl') "
-	        + "&& !strstarts(str(?type), 'http://www.w3.org/2006/12/owl2') "
-	        + "&& !strstarts(str(?type), 'http://www.w3.org/ns/owl2') "
-			+ "&& !strstarts(str(?type), 'http://www.w3.org/1999/02/22-rdf-syntax-ns') "
-			+ "&& !strstarts(str(?type), 'http://www.w3.org/2000/01/rdf-schema') ) . " 
-			+ "OPTIONAL { ?type rdfs:label ?label } }";
+			+ "&& !strstarts(str(?type), 'http://www.w3.org/2000/01/rdf-schema') ) . " + OPTIONAL_LABEL; 
+	private static final String GET_INDIVIDUALS_WITH_REASONING = "SELECT ?name ?label WHERE "
+			+ "{ ?name a ?type . " + OPTIONAL_LABEL;  
 	private static final String GET_INTERSECTIONS = "SELECT DISTINCT ?node ?member WHERE { "
 	        + "?node owl:intersectionOf ?list . " + LIST_QUERY;
 	private static final String GET_INVERSE_FUNCTIONAL_PROPERTIES = SELECT_DISTINCT_NAME + "?name a owl:InverseFunctionalProperty }";
 	private static final String GET_IRREFLEXIVE_PROPERTIES = SELECT_DISTINCT_NAME + "?name a owl:IrreflexiveProperty }";
-    private static final String GET_OBJECT_PROPERTIES = "SELECT DISTINCT * WHERE { ?name a owl:ObjectProperty . " 
+	private static final String GET_OBJECT_PROPERTIES = "SELECT DISTINCT * WHERE { ?name a owl:ObjectProperty . " 
     		+ OPTIONAL_LABEL;
 	private static final String GET_OBJECT_PROPERTY_RANGES = "SELECT DISTINCT ?range ?label WHERE { "
 	        + "?name rdfs:range ?range . ?name a owl:ObjectProperty . OPTIONAL { ?range rdfs:label ?label } }";
 	private static final String GET_ONEOFS = "SELECT DISTINCT ?node ?member WHERE { "
 	        + "?node owl:equivalentClass ?eqClass . ?eqClass owl:oneOf ?list . " + LIST_QUERY;
-	private static final String GET_STANDALONE_BLANK_NODES = "SELECT DISTINCT ?name ?node ?member WHERE { "
-	        + "?node owl:oneOf ?list . MINUS { ?class owl:equivalentClass ?node } . "
-	        + "BIND (?node AS ?name) } ";
-	private static final String GET_STANDALONE_BLANK_NODE_ONEOFS = "SELECT DISTINCT ?name ?node ?member "
-	        + "WHERE { ?node owl:oneOf ?list . MINUS { ?class owl:equivalentClass ?node } . "
-	        + "BIND (?node AS ?name) . " + LIST_QUERY;
 	private static final String GET_ONTOLOGY_URI = "SELECT ?uri WHERE { ?uri a owl:Ontology }";
+	private static final String GET_PROPERTIES_MULTIPLE_DOMAINS = "SELECT DISTINCT ?name WHERE { ?name rdfs:domain ?domain } "
+	+ "GROUP BY ?name HAVING ( COUNT(?domain) > 1 )";
+	private static final String GET_PROPERTIES_MULTIPLE_RANGES = "SELECT DISTINCT ?name WHERE { ?name rdfs:range ?range } "
+	+ "GROUP BY ?name HAVING ( COUNT(?range) > 1 )";
 	private static final String GET_PROPERTY_DOMAINS = "SELECT DISTINCT ?domain ?label WHERE { "
 	        + "?name rdfs:domain ?domain . OPTIONAL { ?domain rdfs:label ?label } }";
 	private static final String GET_REFLEXIVE_PROPERTIES = SELECT_DISTINCT_NAME + "?name a owl:ReflexiveProperty }";
 	private static final String GET_RESTRICTION_DETAILS = "SELECT DISTINCT * WHERE { "
 			+ "{ { ?name a owl:Restriction } UNION { ?name a rdfs:Datatype } } . ?name ?p ?o }";
+	private static final String GET_STANDALONE_BLANK_NODE_ONEOFS = "SELECT DISTINCT ?name ?node ?member "
+	+ "WHERE { ?node owl:oneOf ?list . MINUS { ?class owl:equivalentClass ?node } . "
+	+ "BIND (?node AS ?name) . " + LIST_QUERY;
+	private static final String GET_STANDALONE_BLANK_NODES = "SELECT DISTINCT ?name ?node ?member WHERE { "
+	+ "?node owl:oneOf ?list . MINUS { ?class owl:equivalentClass ?node } . "
+	+ "BIND (?node AS ?name) } ";
 	private static final String GET_SYMMETRIC_PROPERTIES = SELECT_DISTINCT_NAME + "?name a owl:SymmetricProperty }";
-	private static final String GET_TRANSITIVE_PROPERTIES = SELECT_DISTINCT_NAME + "?name a owl:TransitiveProperty }";
-    private static final String GET_SUPERCLASSES = "SELECT DISTINCT ?class WHERE { ?name rdfs:subClassOf ?class }";
-    private static final String GET_UNIONS = "SELECT DISTINCT ?node ?member WHERE { ?node owl:unionOf ?list . "
+	private static final String GET_SUPERCLASSES = "SELECT DISTINCT ?class WHERE { ?name rdfs:subClassOf ?class }";
+    private static final String GET_TRANSITIVE_PROPERTIES = SELECT_DISTINCT_NAME + "?name a owl:TransitiveProperty }";
+	private static final String GET_UNIONS = "SELECT DISTINCT ?node ?member WHERE { ?node owl:unionOf ?list . "
             + LIST_QUERY;
 	private static final String GET_WITHRESTRICTIONS = "SELECT DISTINCT ?p ?o WHERE { "
 			+ "?list rdf:rest*/rdf:first ?member . ?member ?p ?o . FILTER (regex(str(?list), ?bnode)) }";
@@ -214,23 +220,31 @@ public class GraphDAO {
 	/**
 	 * Get all classes and their superclasses in the loaded ontology
 	 * 
+	 * @param  reasoningType String ("reasoningTrue" or "reasoningFalse")
 	 * @param  snarlTemplate SnarlTemplate with server details
+	 * @param  reasoningTemplate SnarlTemplate with server details, and reasoning enabled
 	 * @param  prefixes List of prefixes (PrefixModels)
 	 * @return List<ClassModel> of classes with details (ClassModel)
 	 * @throws OntoGraphException
 	 * 
 	 */
-	public List<ClassModel> getClasses(final SnarlTemplate snarlTemplate, List<PrefixModel> prefixes) 
-			throws OntoGraphException {
+	public List<ClassModel> getClasses(final String reasoningType, final SnarlTemplate snarlTemplate, 
+			final SnarlTemplate reasoningTemplate, List<PrefixModel> prefixes) throws OntoGraphException {
 
     	checkAdminConnection();
     	
 	    List<ClassModel> models = new ArrayList<>();
-        List<Map<String, String>> classInfo = snarlTemplate.query(GET_CLASSES, new SimpleRowMapper());
+	    List<Map<String, String>> classInfo;
+	    if (reasoningType.contains("True")) {
+	    	classInfo = reasoningTemplate.query(GET_CLASSES, new SimpleRowMapper());
+	    } else {
+	    	classInfo = snarlTemplate.query(GET_CLASSES, new SimpleRowMapper());
+	    }
        
         for (Map<String, String> classDetails : classInfo) {
         	String fullClassName = classDetails.get("name");
         	if (!OWL_THING_FULL_URI.equals(fullClassName) 
+        			&& !OWL_NOTHING_FULL_URI.equals(fullClassName) 
         			&& !RDFS_CLASS_FULL_URI.equals(fullClassName) 
         			&& fullClassName.contains(":")) {  // This clause removes blank nodes
         		// Clean up the className to turn it into a prefix ":" name format
@@ -254,7 +268,8 @@ public class GraphDAO {
      * 
      * @param  snarlTemplate SnarlTemplate with server details
      * @param  prefixes List of PrefixModels
-     * @param  classes List<ClassModel> defining the classes in the ontology
+     * @param  classes List<ClassModel> defining the classes in the ontology (without the additional
+     *             details needed for a UML diagram)
      * @return List<UMLClassModel> of classes with details for UML (UMLClassModel)
      * @throws OntoGraphException
      * 
@@ -426,14 +441,16 @@ public class GraphDAO {
 	/**
      * Get all individual, their types and property values from the loaded ontology
      * 
+	 * @param  reasoningType String ("reasoningTrue" or "reasoningFalse")
      * @param  snarlTemplate SnarlTemplate with server details
+	 * @param  reasoningTemplate SnarlTemplate with server details, and reasoning enabled
      * @param  prefixes List of PrefixModels
      * @return List<IndividualModel> of individuals with details (IndividualModel)
      * @throws OntoGraphException
      * 
      */
-    public List<IndividualModel> getIndividuals(final SnarlTemplate snarlTemplate, 
-    		List<PrefixModel> prefixes) throws OntoGraphException {
+    public List<IndividualModel> getIndividuals(final String reasoningType, final SnarlTemplate snarlTemplate, 
+    		final SnarlTemplate reasoningTemplate, List<PrefixModel> prefixes) throws OntoGraphException {
 
     	checkAdminConnection();
     	
@@ -443,8 +460,13 @@ public class GraphDAO {
         Set<String> referencedIndividuals = new HashSet<>();
         
         // Find all individuals and their types
-        List<Map<String, String>> individualInfo = snarlTemplate.query(GET_INDIVIDUALS, 
-        		new SimpleRowMapper());
+        List<Map<String, String>> individualInfo;
+	    if (reasoningType.contains("True")) {
+	    	individualInfo = reasoningTemplate.query(GET_INDIVIDUALS_WITH_REASONING, new SimpleRowMapper());
+	    } else {
+	    	individualInfo = snarlTemplate.query(GET_INDIVIDUALS, new SimpleRowMapper());
+	    }
+	    
         for (Map<String, String> indiv : individualInfo) {
         	String fullIndivName = indiv.get("name");
         	String indivName = processURIName(prefixes, fullIndivName);
@@ -454,8 +476,15 @@ public class GraphDAO {
         	List<String> types = new ArrayList<>();
         	
         	// Get the type names and their labels
-            List<Map<String, String>> typeList = snarlTemplate.query(GET_INDIVIDUAL_TYPES, 
+            List<Map<String, String>> typeList;
+    	    if (reasoningType.contains("True")) {
+    	    	typeList = reasoningTemplate.query(GET_INDIVIDUAL_TYPES, 
             		createMap("name", Values.iri(fullIndivName)), new SimpleRowMapper());
+    	    } else {
+    	    	typeList = snarlTemplate.query(GET_INDIVIDUAL_TYPES, 
+                		createMap("name", Values.iri(fullIndivName)), new SimpleRowMapper());
+    	    }	
+            		
             if (!typeList.isEmpty()) {
             	for (Map<String, String> typeDetails : typeList) {
             		String typeName = processURIName(prefixes, typeDetails.get("type"));
@@ -510,17 +539,14 @@ public class GraphDAO {
      * @return List<PrefixModel> of prefixes with details (PrefixModel)
      * 
      */
-    public List<PrefixModel> getPrefixes(final DataSource ds) {
+    public List<PrefixModel> getPrefixes(SnarlTemplate snarlTemplate) {
 
     	checkAdminConnection();
     	
         List<PrefixModel> models = new ArrayList<>();
         
-        // Get a connection to the db
-        Connection conn = ds.getConnection();
-        
         // Get the namespaces
-        final Namespaces ns = conn.namespaces(); 
+        Namespaces ns = snarlTemplate.getDataSource().getConnection().namespaces();
         for (Namespace name : ns) {
             String url = name.getName();
             String prefixName = name.getPrefix();
@@ -533,8 +559,6 @@ public class GraphDAO {
            }
         }
         
-        // Clean up
-        conn.close();
         return models;
     }
     
@@ -565,7 +589,13 @@ public class GraphDAO {
         List<String> asymmetricNames = snarlTemplate.query(GET_ASYMMETRIC_PROPERTIES, new SingleMapper("name"));
         List<String> reflexiveNames = snarlTemplate.query(GET_REFLEXIVE_PROPERTIES, new SingleMapper("name"));
         List<String> irreflexiveNames = snarlTemplate.query(GET_IRREFLEXIVE_PROPERTIES, new SingleMapper("name"));
-
+        
+        // Also determine if there are multiple domains or ranges specified, which have implications for
+        //    reasoning the types of individuals (individuals are typed as intersections of the multiple
+        //    domains or ranges)
+        List<String> multipleDomainsNames = snarlTemplate.query(GET_PROPERTIES_MULTIPLE_DOMAINS, new SingleMapper("name"));
+        List<String> multipleRangesNames = snarlTemplate.query(GET_PROPERTIES_MULTIPLE_RANGES, new SingleMapper("name"));
+        
         // Get domains and ranges for all properties, and add the info to the PropertyModels
         // If no domain/range is defined, then it is automatically owl:Thing for all domains and the
         //   ranges of object properties, and rdfs:Literal for the ranges of datatype and annotation properties
@@ -594,14 +624,17 @@ public class GraphDAO {
 	        	}
 	        }
             
+	        String fullName = pm.getFullPropertyName();
 	        pm.setEdgeFlags(EdgeFlagsModel.builder()	//NOSONAR - Acknowledging use of conditional operators
-	        		.asymmetric(asymmetricNames.contains(pm.getFullPropertyName()) ? true : false)
-	        		.functional(functionalNames.contains(pm.getFullPropertyName()) ? true : false)
-	        		.inverseFunctional(inverseFunctionalNames.contains(pm.getFullPropertyName()) ? true : false)
-	        		.irreflexive(irreflexiveNames.contains(pm.getFullPropertyName()) ? true : false)
-	        		.reflexive(reflexiveNames.contains(pm.getFullPropertyName()) ? true : false)
-	        		.symmetric(symmetricNames.contains(pm.getFullPropertyName()) ? true : false)
-	        		.transitive(transitiveNames.contains(pm.getFullPropertyName()) ? true : false)
+	        		.asymmetric(asymmetricNames.contains(fullName) ? true : false)
+	        		.functional(functionalNames.contains(fullName) ? true : false)
+	        		.inverseFunctional(inverseFunctionalNames.contains(fullName) ? true : false)
+	        		.irreflexive(irreflexiveNames.contains(fullName) ? true : false)
+	        		.reflexive(reflexiveNames.contains(fullName) ? true : false)
+	        		.symmetric(symmetricNames.contains(fullName) ? true : false)
+	        		.transitive(transitiveNames.contains(fullName) ? true : false)
+	        		.multipleDomains(multipleDomainsNames.contains(fullName) ? true : false)
+	        		.multipleRanges(multipleRangesNames.contains(fullName) ? true : false)
 	        		.build());
             pm.setDomains(domains);
             pm.setRanges(ranges);
@@ -703,17 +736,16 @@ public class GraphDAO {
 	/**
 	 * Loads input file with given file format as named graph to Stardog database.
 	 * 
-	 * @param  admin Stardog AdminConnection
-	 * @param  inputFile Full ontology as String
+	 * @param  snarlTemplate (returned, associated with the data source for the db)
+	 * @param  reasoningTemplate (returned, associated with the data source for the db)
+	 * @param  inputFile Full ontology as a byte array
 	 * @param  graphTitle Title for database name
 	 * @param  fileFormat File extension
-	 * 
-	 * @return DataSource for the db
 	 * @throws OntoGraphException due to duplicate graph title (which indicates that the db already exists),
 	 *                  or an IO error in creating the input file for loading to Stardog
 	 * 
 	 */   
-	public DataSource loadFileToDB(byte[] fileData, 
+	public void loadFileToDB(SnarlTemplate snarlTemplate, SnarlTemplate reasoningTemplate, byte[] fileData, 
 	        String graphTitle, String fileFormat) throws OntoGraphException {
 
     	checkAdminConnection();
@@ -738,10 +770,15 @@ public class GraphDAO {
 		} 
 	    
 	    ConnectionConfiguration connConfig = adminConnection.newDatabase(graphTitle).create(ontolDefn.toPath());
-	    DataSource ds = new DataSource(connConfig);
-	    ontolDefn.delete();	//NOSONAR - No need to use boolean returned 
+	    snarlTemplate.setDataSource(new DataSource(connConfig));
 	    
-	    return ds;
+	    ConnectionConfiguration reasoningConfig = ConnectionConfiguration.to(graphTitle).reasoning(true)
+				.server(stardogServer)
+				.credentials(stardogUser, stardogPassword);
+	    reasoningTemplate.setDataSource(new DataSource(reasoningConfig));
+	    
+	    // Delete file (clean-up)
+	    ontolDefn.delete();	//NOSONAR - No need to use boolean returned 
 	}
 	
 	/**
@@ -831,7 +868,6 @@ public class GraphDAO {
         //    from the datatype properties
         for (List<org.openrdf.model.Value> propVal : propList) {
         	String value = propVal.get(1).toString();
-        	// TODO Handle if the string value contains a less than or greater than sign
         	if (value.contains("http://www.w3.org/2001/XMLSchema")) {
         		String newValue = value.substring(0, value.indexOf('<')) + "xsd:" 
         				+ value.substring(value.lastIndexOf('#') + 1, value.indexOf('>'));

@@ -20,6 +20,7 @@ var GraphRequestModel = Backbone.Model.extend({
 	// CHANGEME
 	defaults: {
 		"graphTitle": "",
+		"reasoning": "reasoningFalse",
 		"inputFile": "",
 		"fileData": "",
 		"visualization": "VOWL",
