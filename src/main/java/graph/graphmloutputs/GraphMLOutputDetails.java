@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import graph.models.AttributeLinesAndLength;
 import graph.models.EdgeDetailsModel;
 import graph.models.EdgeFlagsModel;
 import graph.models.NodeDetailsModel;
@@ -71,7 +72,10 @@ public class GraphMLOutputDetails {
 	        + "\"content\" fontFamily=\"Dialog\" ";
 	protected static final String NODE_LABEL_LEFT_XML = "      <y:NodeLabel alignment=\"left\" autoSizePolicy=\"content\""
 	        + " fontFamily=\"Dialog\" ";
+	protected static final String OWL_NOTHING = "owl:Nothing";
 	protected static final String OWL_THING = "owl:Thing";
+	protected static final String RDFS_CLASS = "rdfs:Class";
+	protected static final String RDFS_RESOURCE = "rdfs:Resource";
 	protected static final String RECTANGLE = "rectangle";
 	protected static final String ROUND_RECTANGLE = "roundRectangle";
 	protected static final String ROUND_RECTANGLE_LOWER_CASE = "roundrectangle";
@@ -80,6 +84,7 @@ public class GraphMLOutputDetails {
 	protected static final String SOLID = "solid";
     protected static final String SOURCE_ARROW = "sourceArrow";
 	protected static final String SPACES_CLOSE_DATA_XML = "  </data>";
+	protected static final String SQUARE_RECTANGLE = "squareRectangle";
     protected static final String TARGET_ARROW = "targetArrow";
     protected static final String TEXT_COLOR = "textColor";
     protected static final String UML = "uml";
@@ -109,7 +114,7 @@ public class GraphMLOutputDetails {
         nodeMap.put("parallelogramRight", "parallelogram");
         nodeMap.put("parallelogramLeft", "parallelogram2");
         nodeMap.put(ROUND_RECTANGLE, ROUND_RECTANGLE_LOWER_CASE);
-        nodeMap.put("squareRectangle", RECTANGLE);
+        nodeMap.put(SQUARE_RECTANGLE, RECTANGLE);
         nodeMap.put("none", RECTANGLE);
         return nodeMap;
     }
@@ -262,17 +267,27 @@ public class GraphMLOutputDetails {
 	 * Add a node in GraphML format.
 	 * 
 	 * @param  nodeDetails NodeDetailsModel with info such as nodeShape, fillColor, visualization, ...
-	 * @param  className String specifying the class (which is used as the node's id)
+	 * @param  entityName String specifying the class/data (which is used as the node's id)
 	 * @param  label String specifying the node's label
 	 * @return String GraphML output
 	 * 
 	 */
-    public static String addNode(NodeDetailsModel nodeDetails, final String className, 
+    public static String addNode(NodeDetailsModel nodeDetails, final String entityName, 
     		final String label) {
     
     	StringBuilder sb = new StringBuilder();
+    	
+    	String eName = entityName.replaceAll("_:", "").replaceAll(" ", "").replaceAll(",", "")
+    			.replaceAll(NEW_LINE, "");
+    	
+    	String eLabel;
+    	if (label.startsWith("_:bnode")) {
+    		eLabel = "Blank Node";
+    	} else {
+    		eLabel = replaceBrackets(label);
+    	}
 
-        sb.append(NODE_ID_XML + className + "\">" + NEW_LINE)
+        sb.append(NODE_ID_XML + eName + "\">" + NEW_LINE)
           .append(DATA_KEY_XML + NEW_LINE)
           .append("    <y:ShapeNode>" + NEW_LINE)
           .append(GEOMETRY_HEIGHT_XML + nodeDetails.getHeight() + WIDTH_XML 
@@ -286,7 +301,7 @@ public class GraphMLOutputDetails {
                   + "hasLineColor=\"false\" height=\"22.84\" modelName=\"" + nodeDetails.getModelName()
                   + "\" modelPosition=\"" + nodeDetails.getModelPosition() + "\" textColor=\"" 
                   + nodeDetails.getTextColor() + "\" visible=\"true\" width=\"44.84\" x=\"18.56\" y=\"10.58\">"
-                  + replaceBrackets(label) + CLOSE_NODE_LABEL_XML + NEW_LINE)
+                  + eLabel + CLOSE_NODE_LABEL_XML + NEW_LINE)
           .append("      <y:Shape type=\"" + nodeShapes.get(nodeDetails.getNodeShape()) + "\"/>" + NEW_LINE)
           .append("    </y:ShapeNode>" + NEW_LINE)
           .append(SPACES_CLOSE_DATA_XML + NEW_LINE)
@@ -349,8 +364,8 @@ public class GraphMLOutputDetails {
 	 * @return String GraphMLString output
 	 * 
 	 */
-    public static String addEdge(EdgeDetailsModel edgeDetails, final String source, 
-    		final String target, final String idPrefix, EdgeFlagsModel edgeFlags) {
+    public static String addEdge(EdgeDetailsModel edgeDetails, String source, 
+    		String target, final String idPrefix, EdgeFlagsModel edgeFlags) {
 
     	String visualization = edgeDetails.getVisualization();
 	    StringBuilder sb = new StringBuilder();
@@ -362,9 +377,13 @@ public class GraphMLOutputDetails {
 	    	propName = idPrefix + source + target;
 	    }
 	    
+	    propName = propName.replaceAll("_:", "").replaceAll(" ", "").replaceAll(",", "");
+	    String eSource = source.replaceAll("_:", "").replaceAll(" ", "").replaceAll(",", "");
+	    String eTarget = target.replaceAll("_:", "").replaceAll(" ", "").replaceAll(",", "");
+	    
 	    // VOWL properties are shown as sitting above their edge line, but this is not how the
 	    //    implementation in the spec is drawn (which is correct?)
-	    sb.append("<edge id=\"" + propName + "\" source=\"" + source + "\" target=\"" + target + "\">" + NEW_LINE)
+	    sb.append("<edge id=\"" + propName + "\" source=\"" + eSource + "\" target=\"" + eTarget + "\">" + NEW_LINE)
 	        .append("  <data key=\"d10\">" + NEW_LINE)
 	        .append("    <y:PolyLineEdge>" + NEW_LINE)
 	        .append("      <y:Path sx=\"0.0\" sy=\"0.0\" tx=\"0.0\" ty=\"0.0\"/>" + NEW_LINE)
@@ -445,7 +464,7 @@ public class GraphMLOutputDetails {
 	 * 
 	 */
 	public static String addUMLNode(final String entityName, final String entityLabel, 
-			List<String> attributes, double width, double height) {
+			List<String> attributes, final String nodeColor, double width, double height) {
 		
 	    StringBuilder sb = new StringBuilder();
         
@@ -453,11 +472,11 @@ public class GraphMLOutputDetails {
           .append("  <data key=\"d5\"/>" + NEW_LINE)
           .append(DATA_KEY_XML + NEW_LINE)
           .append("    <y:GenericNode configuration=\"com.yworks.entityRelationship.big_entity\">" + NEW_LINE)
-          .append(GEOMETRY_HEIGHT_XML + height + "\" width=\"" + width + "\" x=\"385.30\" y=\"187.01\"/>" + NEW_LINE)
-          .append("      <y:Fill color=\"#FFFFFF\" transparent=\"false\"/>" + NEW_LINE)
+          .append(GEOMETRY_HEIGHT_XML + height + WIDTH_XML + width + "\" x=\"385.30\" y=\"187.01\"/>" + NEW_LINE)
+          .append("      <y:Fill color=\"" + nodeColor + "\" transparent=\"false\"/>" + NEW_LINE)
           .append("      <y:BorderStyle color=\"#000000\" type=\"line\" " + "width=\"1.0\"/>" + NEW_LINE)
-          .append("      <y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" backgroundColor=\"#FFFFFF\" " 
-                  + "configuration=\"com.yworks.entityRelationship.label.name\" fontFamily=\"Dialog\" fontSize=\"12\" "
+          .append("      <y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" backgroundColor=\"" +  nodeColor 
+                  + "\" configuration=\"com.yworks.entityRelationship.label.name\" fontFamily=\"Dialog\" fontSize=\"12\" "
                   + "fontStyle=\"plain\" hasLineColor=\"false\" height=\"18.13\" modelName=\"internal\" modelPosition"
                   + "=\"t\" textColor=\"#000000\" visible=\"true\" width=\"36.67\" x=\"21.67\" y=\"4.0\">")
           .append(replaceBrackets(entityLabel) + CLOSE_NODE_LABEL_XML + NEW_LINE)
@@ -487,9 +506,34 @@ public class GraphMLOutputDetails {
           .append("      </y:StyleProperties>" + NEW_LINE)
           .append("    </y:GenericNode>" + NEW_LINE)
           .append(SPACES_CLOSE_DATA_XML + NEW_LINE)
-          .append("</node>" + NEW_LINE);
+          .append(CLOSE_NODE_XML + NEW_LINE);
         
         return sb.toString();
+	}
+    
+    /**
+	 * Removes a particular node (either owl:Thing, rdfs:Resource or rdfs:Class) from the GraphML output if
+	 * it is not needed
+	 * 
+	 * @param  currentGraphML String
+	 * @param  nodeToBeRemoved String (either "owl:Thing" or "rdfs:Resource")
+	 * @return currentGraphML String minus the indicated node
+	 * 
+	 */
+	public static String checkForUnusedNode(String currentGraphML, final String nodeToBeRemoved) {
+	
+		if (currentGraphML.contains(NODE_ID_XML + nodeToBeRemoved + "\">") 
+				&& !currentGraphML.contains("source=\"" + nodeToBeRemoved + "\"")
+				&& !currentGraphML.contains("target=\"" + nodeToBeRemoved + "\"")) {
+			// If there is a node id="owl:Thing" or ="rdfs:Resource", but no other edge refs to it, then
+	    	//    the node should be removed since all the references were updated by class splitting
+			int indexOfNode = currentGraphML.indexOf(NODE_ID_XML + nodeToBeRemoved + "\">");
+			int endIndexOfNode = currentGraphML.indexOf(CLOSE_NODE_XML, indexOfNode + 5);
+			currentGraphML = currentGraphML.substring(0, indexOfNode) + 
+				currentGraphML.substring(endIndexOfNode + 7);
+		}
+		
+		return currentGraphML;
 	}
 
 	/**
@@ -670,12 +714,13 @@ public class GraphMLOutputDetails {
 	 *               The model is returned with the appropriate values based on the visualization. 
 	 * @param  nodeName String defining the class/datatype name (beginning with a prefix and ":")
 	 * @param  label String providing the class/datatype label 
-	 * @param  ontologyPrefix String that is the prefix of the owl:Ontology URI\
+	 * @param  ontologyPrefix String that is the prefix of the owl:Ontology URI
+     * @param  isDatatype boolean indicating that the "class" is really a subtype of an rdfs:Datatype
 	 * @return NodeDetailsModel
 	 *                         
 	 */
-	public static NodeDetailsModel getNodeDetails(final String ontologyPrefix,
-			NodeDetailsModel nodeDetails, final String nodeName, final String label) {
+	public static NodeDetailsModel getNodeDetails(final String ontologyPrefix, 
+			NodeDetailsModel nodeDetails, final String nodeName, final String label, boolean isDatatype) {
 		
 		// Defaults
 		nodeDetails.setModelName(INTERNAL);
@@ -683,30 +728,20 @@ public class GraphMLOutputDetails {
 	    
 	    if (VOWL.equals(nodeDetails.getVisualization())) {
 	        // Bigger borders, equally sized shapes
-	    	nodeDetails.setNodeShape("ellipse");
+	    	nodeDetails.setNodeShape(ELLIPSE);
 	    	nodeDetails.setWidth("150.0");
 	        nodeDetails.setHeight("150.0");
 	        
-	        // Different formatting for owl:Thing
-	        if (nodeName.startsWith(OWL_THING) || "Thing".equals(nodeName)
-	        		|| nodeName.startsWith("Thing*")) {
-	            nodeDetails.setTextColor(BLACK);
-	            nodeDetails.setFillColor(WHITE);
-	            nodeDetails.setBorderType(DASHED);
-	            nodeDetails.setWidth("90.0");
-	            nodeDetails.setHeight("90.0");
+	        // Different formatting for an rdfs:Datatype, owl:Thing or rdfs:Resource
+	        if (isDatatype) {
+	        	processVOWLDatatype(nodeDetails, label);
+	        } else if (nodeName.startsWith(OWL_THING) || nodeName.contains(OWL_NOTHING)
+	        		|| nodeName.contains(RDFS_CLASS) || nodeName.startsWith(RDFS_RESOURCE)) {
+	        	processVOWLStandardClass(nodeDetails, nodeName);
 	        } else {
-	            // Different color for classes that are external to the owl:Ontology 
-	        	//    and not owl:Thing. Note that blank nodes are NOT external.
-	            if (nodeName.contains(":") && (EMPTY_STRING.equals(ontologyPrefix) || 
-	            		!nodeName.startsWith(ontologyPrefix))) {
-	                nodeDetails.setFillColor("#3366CC");
-	                nodeDetails.setTextColor(WHITE);
-	            } else {
-	                nodeDetails.setFillColor("#AACCFF");
-	                nodeDetails.setBorderType(SOLID);
-	                nodeDetails.setTextColor(BLACK);
-	            }
+	            // Different color for classes that are external to the owl:Ontology and
+	        	//    not owl:Thing or rdfs:Resource. Note that blank nodes are NOT external.
+	        	processVOWLClass(nodeDetails, ontologyPrefix, nodeName);
 	        }
 	    } else {
 	    	// If not VOWL ...
@@ -737,7 +772,10 @@ public class GraphMLOutputDetails {
             nodeDetails.setModelPosition("e");
             nodeDetails.setNodeShape(ELLIPSE);
         } else {
-        	int width = label.length() * 13;
+        	AttributeLinesAndLength labelDetails = GraphMLUtils.getAttributeDetails(label);
+        	// Assume that the width is always greater than the height
+        	int width = labelDetails.getMaxLength() * 11;
+        	int additionalLines = labelDetails.getNumberOfLines();
 			nodeDetails.setWidth(Integer.toString(width) + ".0");
         	// Height is tied to width if the nodeType is a circle
         	if (CIRCLE.equals(nodeShape)) {
@@ -749,12 +787,12 @@ public class GraphMLOutputDetails {
         			nodeDetails.setHeight(Integer.toString(width) + ".0");
         		}
         	} else if ("none".equals(nodeShape)) {
-            		nodeDetails.setNodeShape("squareRectangle");
+            		nodeDetails.setNodeShape(SQUARE_RECTANGLE);
             		nodeDetails.setFillColor(WHITE);
             		nodeDetails.setBorderColor(WHITE);
-        			nodeDetails.setHeight("20.0");
+        			nodeDetails.setHeight(Integer.toString(((additionalLines * 20) + 20)) + ".0");
         	} else {
-        		nodeDetails.setHeight("50.0");
+        		nodeDetails.setHeight(Integer.toString(((additionalLines * 23) + 50)) + ".0");
         	} 
         }
 	}
@@ -857,139 +895,87 @@ public class GraphMLOutputDetails {
     }
 	
 	/**
-	 * Adds an image resource to the graphML
-	 * 
-	 * @param  resourceType String
-	 * @return graphML String
-	 * @throws IOException
-	 * 
-	 */
-	protected static String addImageResource(String resourceType) throws IOException {
-	
-	    return "      <y:Resource id=\"" + resourceType + "\" type=\"java.awt.image.BufferedImage\">"
-	    		+ readFile("graphmlimages/" + resourceType + ".txt")
-	    		+ "</y:Resource>" + NEW_LINE;
-	}
-	
-	/**
-	 * Adds a datatype (likely rdfs:Literal) or an owl:Thing node that is specific to a property, to support
-	 * VOWL's splitting by class and property requirements.
-	 * 
-	 * @param  isDatatype boolean indicating whether the name is a datatype or a unique id for another
-	 *                 owl:Thing node 
-	 * @param  name String defining the datatype or the owl:Thing node id in support of property splitting
-	 * @return GraphML String for the datatype or new owl:Thing node
-	 * 
-	 */
-	protected static String addVOWLDatatypeOrThing(boolean isDatatype, final String name) {
-
-		String label;
-		
-        // Get input from model for the node details
-        NodeDetailsModel nodeDetails = NodeDetailsModel.builder()
-        	    .nodeShape(ELLIPSE)
-        	    .fillColor("#FFFFFF")
-        	    .width("90.0")
-        	    .height("90.0")
-        	    .textColor(BLACK)
-        	    .borderColor(BLACK)
-        	    .borderType(DASHED)
-        	    .borderWidth(getLineWidth("vowl"))
-        	    .modelName(INTERNAL)
-        	    .modelPosition("c")
-        	    .build();
-        		
-        if (isDatatype) {
-        	nodeDetails.setNodeShape(ROUND_RECTANGLE);
-        	nodeDetails.setFillColor("#FFCC33");
-            nodeDetails.setWidth("80.0");
-            nodeDetails.setHeight("30.0");
-            label = name.substring(name.lastIndexOf(':') + 1);
-        } else {
-    	    label = "Thing";
-        }
-        
-        return addNode(nodeDetails, name, label);
-	}
-
-    /**
-	 * Gets the appropriate font size for notes and edges, given the visualization type.
-	 * 
-	 * @param  visualization String
-	 * @return font size as a String
-	 * 
-	 */
-	protected static String getFontSize(final String visualization) {
-		
-		if (UML.equals(visualization)) {
-			return "12";
-		} else {
-			return "16";
-		}
-	}
-	
-	/**
-	 * Creates unique rdfs:Literals or owl:Things as required for VOWL splitting by property
+	 * Creates unique rdfs:Literals, rdfs:Resources or owl:Things as required for VOWL splitting by property
 	 * or class (respectively).
 	 * 
 	 * @param  propertyName String
 	 * @param  domainName String
 	 * @param  rangeName String
-	 * @param  propertyType String indicating whether the property identified by the propertyName 
-	 *            is an "o" (object), "d" (datatype) or "a" (annotation) property
- 	 * @return newDetails List<String> array of 3 entries returning the domainName and rangeName 
- 	 * 	          at indices 0 and 1, one of which will be updated due to VOWL splitting,
- 	 *            and a string defining the new node that was added ("split" node) 
+	 * @param  propertyType char indicating whether the property identified by the propertyName 
+	 *            is an 'o' (object), 'd' (datatype), 'a' (annotation) or 'r' (RDF) property
+	 * @return newDetails List<String> array of 3 entries returning the domainName and rangeName 
+	 * 	          at indices 0 and 1, one of which will be updated due to VOWL splitting,
+	 *            and a string defining the GraphML output for the new node that was added ("split" node) 
 	 * 
 	 */
-	protected static List<String> handleVOWLSplitting(final String propertyName, final String domainName,
-	        final String rangeName, final String propertyType) {
+	protected static List<String> handleVOWLSplitting(final String propertyName, //NOSONAR - Complexity acceptable
+			final String domainName, final String rangeName, char propertyType) {
 		
 		List<String> newDetails = new ArrayList<>();
-		if (!"o".equals(propertyType)) {
-			// Datatype or annotation property
-			// Need to create a new node for each property range
-			String newDatatype = propertyName + rangeName;
-			newDetails.add(domainName);
-			newDetails.add(newDatatype);
-			newDetails.add(addVOWLDatatypeOrThing(true, newDatatype));
-	    } else {
-	    	// Object property
-	    	// Need a different owl:Thing node for each set of properties
-	    	if (OWL_THING.equals(domainName) && !OWL_THING.equals(rangeName)) {
-	    		String newThing = OWL_THING + propertyName + rangeName;
-	    		newDetails.add(newThing);
-	    		newDetails.add(rangeName);
-	    		newDetails.add(addVOWLDatatypeOrThing(false, newThing));
-	    	} else if (OWL_THING.equals(rangeName) && !OWL_THING.equals(domainName)) {
-	    		String newThing = OWL_THING + propertyName + domainName ;
-	    		newDetails.add(domainName);
-	    		newDetails.add(newThing);
-	    		newDetails.add(addVOWLDatatypeOrThing(false, newThing));
-	    	} else {
-	    		newDetails.add(domainName);
-	    		newDetails.add(rangeName);
-	    		newDetails.add(EMPTY_STRING);
-	    	}
-	    }
 		
+		// Something may need to change - so start with defaults that are the unchanged names and no need
+		//    for a new node
+		String newDomain = domainName;
+		String newRange = rangeName;
+		String graphML = EMPTY_STRING;
+		
+		// Split on the range if both domain and range are owl:Thing or rdfs:Resource
+		if ((OWL_THING.equals(domainName) || RDFS_RESOURCE.equals(domainName))
+				&& (OWL_THING.equals(rangeName) || RDFS_RESOURCE.equals(rangeName))) {
+			newRange = domainName + propertyName + rangeName;
+		} else {
+		
+			// For OWL properties (class-class relationships), need to split to create new domain/range
+			//   nodes if owl:Thing/rfs:Resource is the domain or range (based on the if check above,
+			//   we know that the other domain/range is NOT owl:Thing/rdfs:Resource)
+			if (propertyType == 'o' && OWL_THING.equals(domainName)) {
+				newDomain = OWL_THING + propertyName + rangeName;
+			} else if (propertyType == 'o' && OWL_THING.equals(rangeName)) {
+				newRange = OWL_THING + propertyName + domainName;
+			} else if (propertyType == 'd' || propertyType == 'a') {
+				// For datatype or annotation properties (class-datatype or literal property) - need to 
+				//    split based on the range regardless of the domain 
+				newRange = propertyName + rangeName;
+			} else {
+				// This is an RDF property and we need to determine what to do based on the possible 
+				//    combinations of rdfs:Resource, another class name, and rdfs:Literal, rdf:XMLLiteral, 
+				//    rdf:HTML or xsd:...
+				if (!RDFS_CLASS.equals(rangeName) && !RDFS_RESOURCE.equals(rangeName)
+						&& (rangeName.startsWith("rdfs:") || rangeName.startsWith("rdf:") 
+						|| rangeName.startsWith("xsd:"))) {
+					// Know that we have a reference to a datatype or XSD value
+					// So the behavior is like the processing for datatype or annotation properties in OWL
+					newRange = propertyName + rangeName;
+					propertyType = 'd';		
+				} else if (RDFS_RESOURCE.equals(domainName)) {
+					newDomain = RDFS_RESOURCE + propertyName + rangeName;
+				} else if (RDFS_RESOURCE.equals(rangeName)) {
+					newRange = RDFS_RESOURCE + propertyName + domainName;
+				}
+				// Know that rdfs:Resource is not the domain or range, and the property relates two classes,
+				//   so the defaults are ok
+			}
+		}
+		
+		// Create any new nodes that may be needed
+		if (!newDomain.equals(domainName)) {
+			graphML = addVOWLEntity(propertyType, newDomain);
+		}
+		if (!newRange.equals(rangeName)) {
+			if (graphML.isEmpty()) {
+				graphML = addVOWLEntity(propertyType, newRange);
+			} else {
+				graphML += addVOWLEntity(propertyType, newRange);
+			}
+		}
+		
+		newDetails.add(newDomain);
+		newDetails.add(newRange);
+		newDetails.add(graphML);
 		return newDetails;
 	}
-    
-    /**
-     * Reads a file and returns the contents as a string.
-     * 
-     * @param path String (absolute or relative)
-     * @throws IOException
-     * 
-     */
-    protected static String readFile(String path) throws IOException {
-    	
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
-        return new String(encoded, Charset.defaultCharset());
-    }
-    
-    /** 
+
+	/** 
 	 * Update edgeDetails for an edge connecting two blank nodes representing either union, complement
 	 * or intersection.
 	 * 
@@ -1006,6 +992,95 @@ public class GraphMLOutputDetails {
 	}
 
 	/**
+	 * Adds an image resource to the graphML
+	 * 
+	 * @param  resourceType String
+	 * @return graphML String
+	 * @throws IOException
+	 * 
+	 */
+	private static String addImageResource(String resourceType) throws IOException {
+	
+	    return "      <y:Resource id=\"" + resourceType + "\" type=\"java.awt.image.BufferedImage\">"
+	    		+ readFile("graphmlimages/" + resourceType + ".txt")
+	    		+ "</y:Resource>" + NEW_LINE;
+	}
+	
+	/**
+	 * Adds a datatype (likely rdfs:Literal), or an rdfs:Resource or owl:Thing node that is specific to a 
+	 * property, to support VOWL's splitting by class and property requirements.
+	 * 
+	 * @param  entityType char indicating whether the name is a datatype ('d') or a unique id for another
+	 *                 owl:Thing ('o') or rdfs:Resource ('r') node
+	 * @param  name String defining the datatype, rdfs:Resource or the owl:Thing node id in support of 
+	 *                 property splitting
+	 * @return GraphML String for the datatype, rdfs:Resource or new owl:Thing node
+	 * 
+	 */
+	private static String addVOWLEntity(final char entityType, final String name) {
+
+		String label = "Thing";
+		
+		// Set up for an OWL "Thing" class as the default
+        NodeDetailsModel nodeDetails = NodeDetailsModel.builder()
+        	    .nodeShape(ELLIPSE)
+        	    .fillColor(WHITE)
+        	    .width("90.0")
+        	    .height("90.0")
+        	    .textColor(BLACK)
+        	    .borderColor(BLACK)
+        	    .borderType(DASHED)
+        	    .borderWidth(getLineWidth("vowl"))
+        	    .modelName(INTERNAL)
+        	    .modelPosition("c")
+        	    .build();
+        		
+        // Changes to the default for rdfs:Resource
+        if (entityType == 'r') {
+        	nodeDetails.setFillColor("#CC99CC");
+        	label = "Resource";
+        // Changes to the default for a datatype value
+        } else if (entityType == 'd' || entityType == 'a') {
+        	nodeDetails.setNodeShape(SQUARE_RECTANGLE);
+        	nodeDetails.setFillColor("#FFCC33");
+            nodeDetails.setWidth("90.0");
+            nodeDetails.setHeight("30.0");
+            label = name.substring(name.lastIndexOf(':') + 1);
+        } 
+        
+        return addNode(nodeDetails, name, label);
+	}
+
+    /**
+	 * Gets the appropriate font size for notes and edges, given the visualization type.
+	 * 
+	 * @param  visualization String
+	 * @return font size as a String
+	 * 
+	 */
+	private static String getFontSize(final String visualization) {
+		
+		if (UML.equals(visualization)) {
+			return "12";
+		} else {
+			return "16";
+		}
+	}
+	
+	/**
+	 * Reads a file and returns the contents as a string.
+	 * 
+	 * @param path String (absolute or relative)
+	 * @throws IOException
+	 * 
+	 */
+	private static String readFile(String path) throws IOException {
+		
+	    byte[] encoded = Files.readAllBytes(Paths.get(path));
+	    return new String(encoded, Charset.defaultCharset());
+	}
+
+	/**
 	 * Replaces any angle brackets in a node/edge/box/... label with &gt/lt; alternatives
 	 * 
 	 * @param  labelText String
@@ -1016,5 +1091,69 @@ public class GraphMLOutputDetails {
 		
 		String newLabel = labelText.replaceAll(">", "&gt;");
 		return newLabel.replaceAll("<", "&lt;");
+	}
+
+	/**
+	 * Sets the node VOWL visualization details for a class.
+	 * 
+	 * @param nodeDetails NodeDetailsModel
+	 * @param ontologyPrefix String
+	 * @param label String
+	 * 
+	 */
+	private static void processVOWLClass(NodeDetailsModel nodeDetails, final String ontologyPrefix, 
+			final String nodeName) {
+
+        if (nodeName.contains(":") && (EMPTY_STRING.equals(ontologyPrefix) || 
+        		!nodeName.startsWith(ontologyPrefix))) {
+            nodeDetails.setFillColor("#3366CC");
+            nodeDetails.setTextColor(WHITE);
+        } else {
+            nodeDetails.setFillColor("#AACCFF");
+            nodeDetails.setBorderType(SOLID);
+            nodeDetails.setTextColor(BLACK);
+        }
+	}
+
+	/**
+	 * Sets the node VOWL visualization details for a datatype with the specified label.
+	 * 
+	 * @param nodeDetails NodeDetailsModel
+	 * @param label String
+	 * 
+	 */
+	private static void processVOWLDatatype(NodeDetailsModel nodeDetails, final String label) {
+
+    	nodeDetails.setNodeShape(SQUARE_RECTANGLE);
+    	nodeDetails.setFillColor("#FFCC33");
+        nodeDetails.setTextColor(BLACK);
+        nodeDetails.setBorderType(SOLID);
+    	AttributeLinesAndLength labelDetails = GraphMLUtils.getAttributeDetails(label);
+        int width = labelDetails.getMaxLength() * 11;
+        if (width < 100) {
+        	width = 100;
+        }
+		nodeDetails.setWidth(Integer.toString(width) + ".0");
+		nodeDetails.setHeight(Integer.toString(((labelDetails.getNumberOfLines() * 20) + 20)) + ".0");
+	}
+	
+	/**
+	 * Sets the node VOWL visualization details for owl:Thing/Nothing or rdfs:Class/Resource.
+	 * 
+	 * @param nodeDetails NodeDetailsModel
+	 * @param nodeName String
+	 * 
+	 */
+	private static void processVOWLStandardClass(NodeDetailsModel nodeDetails, final String nodeName) {
+		
+	    nodeDetails.setTextColor(BLACK);
+	    if (nodeName.contains("Thing") || nodeName.contains("Nothing")) {
+	        nodeDetails.setFillColor(WHITE);
+	    } else {
+	        nodeDetails.setFillColor("#CC99CC");
+	    }
+	    nodeDetails.setBorderType(DASHED);
+	    nodeDetails.setWidth("90.0");
+	    nodeDetails.setHeight("90.0");
 	}
 }

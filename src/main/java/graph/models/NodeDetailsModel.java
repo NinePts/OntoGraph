@@ -75,11 +75,20 @@ public class NodeDetailsModel {
 			nodeDetails.setBorderColor(requestModel.getClassBorderColor());
 			
 		} else if ("data".equals(typeOfNode)) {
-			nodeDetails.setNodeShape(requestModel.getDataNodeShape());
-			nodeDetails.setFillColor(requestModel.getDataFillColor());
-			nodeDetails.setTextColor(requestModel.getDataTextColor());
-			nodeDetails.setBorderType(requestModel.getDataBorderType());
-			nodeDetails.setBorderColor(requestModel.getDataBorderColor());
+	        // This is not really intended for UML, but it works out - Need to fill in undefined values
+			if ("uml".equals(requestModel.getVisualization())) {
+				nodeDetails.setNodeShape("squareRectangle");
+				nodeDetails.setFillColor(requestModel.getUmlDataNodeColor());
+				nodeDetails.setTextColor("#000000");
+				nodeDetails.setBorderColor("#FFFFFF");
+				nodeDetails.setBorderType("solid");
+			} else {
+				nodeDetails.setNodeShape(requestModel.getDataNodeShape());
+				nodeDetails.setFillColor(requestModel.getDataFillColor());
+				nodeDetails.setTextColor(requestModel.getDataTextColor());
+				nodeDetails.setBorderType(requestModel.getDataBorderType());
+				nodeDetails.setBorderColor(requestModel.getDataBorderColor());
+			}
 
 		} else if ("individual".equals(typeOfNode)) {
 			nodeDetails.setNodeShape(requestModel.getIndividualNodeShape());

@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 
 package graph;
@@ -25,10 +26,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.TestPropertySource;
-import org.xml.sax.SAXException;
 
 import graph.GraphController;
-import graph.OntoGraphException;
 import graph.models.GraphRequestModel;
 
 import org.junit.runner.RunWith;
@@ -69,12 +68,29 @@ public class ClassGraphTest {
     }
     
     /**
+     * Tests combinations of uses of blank nodes that have resulted in errors
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
+     */
+    /*
+    @Test
+    public void testBlankNodeIssues() throws Exception {
+        
+        List<String> prefixes = Arrays.asList("fabio", "ninepts", "owl", "rdf", "rdfs", "xsd");
+        List<String> titleEntries = Arrays.asList("Title:  Test Classes", 
+                "Ontology URI:  http://purl.org/ninepts/test", "Generated: ");
+        
+        createGraphMLAndCompareToMaster(createClassGraphRequestModel(vis, "TestBlankNodeIssues.ttl"),
+                "TestBlankNodeIssues", prefixes, titleEntries);
+    }
+    */
+    
+    /**
      * Tests five nodes, with multiple levels of inheritance and multiple inheritance
      * Also, there are two namespaces for nodes, both are defined as prefixes
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testClassesA() throws Exception {
@@ -89,10 +105,8 @@ public class ClassGraphTest {
 
     /**
      * Same as testClassesA, but with labels
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testClassesB() throws Exception {
@@ -109,9 +123,8 @@ public class ClassGraphTest {
 	 * Tests five nodes, with multiple levels of inheritance and multiple inheritance
 	 * No ontology defined (all "external" VOWL entities) and no prefixes defined
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
 	 */
 	@Test
 	public void testClassesNoOntolNoPrefixes() throws Exception {
@@ -126,10 +139,8 @@ public class ClassGraphTest {
 
 	/**
      * Tests three nodes, where one is the complement of the union of the other two
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testComplementUnionOf() throws Exception {
@@ -144,10 +155,8 @@ public class ClassGraphTest {
     
     /**
 	 * Tests a property with a datatype restriction (which only is relevant for a UML class/property diagram)
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
 	 */
 	@Test
 	public void testDatatypeRestrictions() throws Exception {
@@ -164,10 +173,8 @@ public class ClassGraphTest {
 
 	/**
      * Tests two nodes, which are disjoint with each other
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testDisjoint() throws Exception {
@@ -182,10 +189,8 @@ public class ClassGraphTest {
     
     /**
      * Tests three nodes, where one is disjoint with the union of the other two
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testDisjointUnionOf() throws Exception {
@@ -200,10 +205,8 @@ public class ClassGraphTest {
     
     /**
      * Tests two nodes, which are equivalent to each other
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testEquivalent() throws Exception {
@@ -217,11 +220,9 @@ public class ClassGraphTest {
     }
     
     /**
-	 * Tests two nodes, complement of each other
+	 * Tests two nodes, complements of each other
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
 	 */
 	@Test
 	public void testEquivalentComplementOf() throws Exception {
@@ -236,10 +237,8 @@ public class ClassGraphTest {
 
 	/**
      * Tests three nodes, where one is equivalent to the intersection of the other two
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testEquivalentIntersectionOf() throws Exception {
@@ -254,11 +253,9 @@ public class ClassGraphTest {
     
     /**
      * Tests one node that is equivalent to a list of two individuals
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
-     */
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
+	 */
     @Test
     public void testEquivalentOneOf() throws Exception {
     	
@@ -272,10 +269,8 @@ public class ClassGraphTest {
     
     /**
      * Tests three nodes, where one is equivalent to the union of the other two
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testEquivalentUnionOf() throws Exception {
@@ -292,9 +287,8 @@ public class ClassGraphTest {
      * Tests six nodes, where one is equivalent to the union of the intersection of two and the union of two
      * One class is "external" to the ontology namespace
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testEquivalentUnionOfNested() throws Exception {
@@ -309,10 +303,8 @@ public class ClassGraphTest {
     
     /**
      * Tests FOAF
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testFOAF() throws Exception {
@@ -333,10 +325,8 @@ public class ClassGraphTest {
     
     /**
      * Tests FOAF with collapsed edges for UML visualizations
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testFOAFCollapsed() throws Exception {
@@ -354,10 +344,8 @@ public class ClassGraphTest {
     
     /**
 	 * Tests the W3C Turtle primer file
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
 	 */
 	@Test
 	public void testTurtlePrimer() throws Exception {
@@ -372,10 +360,8 @@ public class ClassGraphTest {
 
 	/**
 	 * Tests W3C Primer with collapsed edges for UML visualizations
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
 	 */
 	@Test
 	public void testTurtlePrimerCollapsed() throws Exception {
@@ -394,10 +380,8 @@ public class ClassGraphTest {
 
 	/**
      * Tests a zip file including the files, TestClassesA and TestDisjoint
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testZip() throws Exception {
@@ -433,10 +417,18 @@ public class ClassGraphTest {
 			requestModel.setClassTextColor("#000000");
 			requestModel.setClassBorderColor("#000000");
 			requestModel.setClassBorderType("solid");
+			requestModel.setDataNodeShape("none");
+			requestModel.setDataFillColor("#FFFFFF");
+			requestModel.setDataTextColor("#000000");
+			requestModel.setDataBorderColor("#FFFFFF");
+			requestModel.setDataBorderType("solid");
 			requestModel.setSubclassOfSourceShape("none");
 			requestModel.setSubclassOfTargetShape("angleBracket");
 			requestModel.setSubclassOfLineColor("#000000");
 			requestModel.setSubclassOfLineType("solid");
+		} else if ("uml".equals(visualization)) {
+			requestModel.setUmlNodeColor("#FFFFFF");
+			requestModel.setUmlDataNodeColor("#FFFFFF");
 		}
 		
 		return requestModel;
@@ -448,9 +440,7 @@ public class ClassGraphTest {
      * @param  GraphRequestModel GraphRequestModel 
      * @param  fileName String identifying the unique part of the file names that hold the 
      *              expected values for nodes and edges
-     * @throws OntoGraphException 
-     * @throws IOException
-     * @throws SAXException 
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
      * 
      */
     private void createGraphMLAndCompareToMaster(GraphRequestModel requestModel, final String fileName, 

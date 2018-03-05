@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 
 package graph;
@@ -25,7 +26,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.TestPropertySource;
-import org.xml.sax.SAXException;
 
 import graph.GraphController;
 import graph.models.GraphRequestModel;
@@ -37,7 +37,12 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
-
+/**
+ * Each class test case generates a basic graph various combinations of custom settings (cycling through
+ * each of the possible customizations). The generated graph is then compared to the expected output. 
+ * Since the output is static, this is easily supported.
+ * 
+ */
 @RunWith(Parameterized.class)
 @ContextConfiguration("classpath:test-context.xml")
 @TestPropertySource("classpath:test.properties")
@@ -91,7 +96,6 @@ public class CustomizationTest {
 	
 	/**
 	 * Test all customization combinations
-	 * 
 	 * @throws Exception 
 	 * 
 	 */
@@ -107,9 +111,7 @@ public class CustomizationTest {
      * Compares the test-generated GraphML output to the master reference for class graphs.
      * 
      * @param  GraphRequestModel GraphRequestModel 
-     * @throws OntoGraphException 
-     * @throws IOException
-     * @throws SAXException 
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
      * 
      */
     private void createGraphMLAndCompareToMaster(GraphRequestModel requestModel, 
@@ -153,6 +155,11 @@ public class CustomizationTest {
         requestModel.setClassTextColor("#000000");
         requestModel.setClassBorderColor("#000000");
         requestModel.setClassBorderType(borderType); 
+        requestModel.setDataNodeShape(nodeShape);
+        requestModel.setDataFillColor("#FFFFFF"); 
+        requestModel.setDataTextColor("#000000");
+        requestModel.setDataBorderColor("#000000");
+        requestModel.setDataBorderType(borderType); 
         requestModel.setSubclassOfSourceShape(sourceShape);
         requestModel.setSubclassOfTargetShape(targetShape);
         requestModel.setSubclassOfLineColor("#000000");

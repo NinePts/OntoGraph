@@ -39,5 +39,8 @@ public class UMLClassModel {
     @NonNull private String fullClassName;
     private List<String> superClasses;
     private List<String> attributes;
+    // Distinguishes between an owl or rdfs Class and an rdfs:Datatype 
+    //    where the classType is set to 'd' for a datatype
+    private char classType;
     
 }

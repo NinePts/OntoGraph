@@ -51,6 +51,25 @@ public class GraphRequestModel {
 	private String classTextColor;
 	private String classBorderColor;
 	private String classBorderType; 
+
+	// Class, individual and property customizations
+	// (Datatypes are referenced as individuals' values for datatype properties)
+	// (New datatypes may be defined in an ontology)
+    private String dataNodeShape;
+    private String dataFillColor;
+    private String dataTextColor;
+    private String dataBorderColor;
+    private String dataBorderType;
+
+	// Individual and property customizations
+    private String dataPropSourceShape;
+    private String dataPropTargetShape;
+    private String dataPropEdgeColor;
+    private String dataPropEdgeType;
+    private String objPropSourceShape;
+    private String objPropTargetShape;
+    private String objPropEdgeColor;
+    private String objPropEdgeType;
 	
 	// Class customization details
 	private String subclassOfSourceShape;
@@ -70,22 +89,6 @@ public class GraphRequestModel {
 	private String typeOfLineColor;
 	private String typeOfLineType;
 	private String typeOfText;
-	
-	// Individual and property customizations
-	// (Datatypes are referenced as individuals' values in datatype properties)
-    private String dataNodeShape;
-    private String dataFillColor;
-    private String dataTextColor;
-    private String dataBorderColor;
-    private String dataBorderType;
-    private String dataPropSourceShape;
-    private String dataPropTargetShape;
-    private String dataPropEdgeColor;
-    private String dataPropEdgeType;
-    private String objPropSourceShape;
-    private String objPropTargetShape;
-    private String objPropEdgeColor;
-    private String objPropEdgeType;
     
 	// Properties customization details
     // Annotation properties can/should be distinguished from datatype properties 
@@ -102,6 +105,14 @@ public class GraphRequestModel {
     private String objTextColor;
     private String objBorderColor;
     private String objBorderType; 
+    private String rdfPropSourceShape;
+    private String rdfPropTargetShape;
+    private String rdfPropEdgeColor;
+    private String rdfPropEdgeType;
+    
+    // UML customization details
+    private String umlNodeColor;
+    private String umlDataNodeColor;
     
 	// Used to set up the test cases
     public GraphRequestModel(String graphTitle, String reasoning, String inputFile, 
@@ -135,6 +146,11 @@ public class GraphRequestModel {
     		@JsonProperty("classTextColor") String classTextColor,
     		@JsonProperty("classBorderColor") String classBorderColor,
     		@JsonProperty("classBorderType") String classBorderType,
+    		@JsonProperty("classDataNodeShape") String classDataNodeShape,
+    		@JsonProperty("classDataFillColor") String classDataFillColor,
+    		@JsonProperty("classDataTextColor") String classDataTextColor,
+    		@JsonProperty("classDataBorderColor") String classDataBorderColor,
+    		@JsonProperty("classDataBorderType") String classDataBorderType,
     		@JsonProperty("subclassOfSourceShape") String subclassOfSourceShape,
     		@JsonProperty("subclassOfTargetShape") String subclassOfTargetShape,
     		@JsonProperty("subclassOfLineColor") String subclassOfLineColor,
@@ -190,7 +206,15 @@ public class GraphRequestModel {
     		@JsonProperty("objPropSourceShape") String objPropSourceShape,
     		@JsonProperty("objPropTargetShape") String objPropTargetShape,
     		@JsonProperty("objPropEdgeColor") String objPropEdgeColor,
-    		@JsonProperty("objPropEdgeType") String objPropEdgeType) {
+    		@JsonProperty("objPropEdgeType") String objPropEdgeType,
+    		@JsonProperty("rdfPropSourceShape") String rdfPropSourceShape,
+    		@JsonProperty("rdfPropTargetShape") String rdfPropTargetShape,
+    		@JsonProperty("rdfPropEdgeColor") String rdfPropEdgeColor,
+    		@JsonProperty("rdfPropEdgeType") String rdfPropEdgeType,
+    		// UML node colors
+    		@JsonProperty("umlNodeColor") String umlNodeColor,
+    		@JsonProperty("umlDataNodeColor") String umlDataNodeColor) {
+    			
     	super();
     	this.graphTitle = graphTitle;
     	this.reasoning = reasoning;
@@ -225,6 +249,9 @@ public class GraphRequestModel {
     	this.annPropEdgeColor = annPropEdgeColor;
     	this.annPropEdgeType = annPropEdgeType;
     	
+    	this.umlNodeColor = umlNodeColor;
+    	this.umlDataNodeColor = umlDataNodeColor;
+    	
     	if ("individual".equals(graphType)) {
         	this.classNodeShape = typeNodeShape;
         	this.classFillColor = typeFillColor;
@@ -250,6 +277,11 @@ public class GraphRequestModel {
         	this.classTextColor = classTextColor;
         	this.classBorderColor = classBorderColor;
         	this.classBorderType = classBorderType;
+        	this.dataNodeShape = classDataNodeShape;
+        	this.dataFillColor = classDataFillColor;
+        	this.dataTextColor = classDataTextColor;
+        	this.dataBorderColor = classDataBorderColor;
+        	this.dataBorderType = classDataBorderType;
         } else {
         	// graphType is "property"
             this.dataNodeShape = dataNodeShape;
@@ -265,6 +297,10 @@ public class GraphRequestModel {
             this.objPropTargetShape = objPropTargetShape;
             this.objPropEdgeColor = objPropEdgeColor;
             this.objPropEdgeType = objPropEdgeType;
+            this.rdfPropSourceShape = rdfPropSourceShape;
+            this.rdfPropTargetShape = rdfPropTargetShape;
+            this.rdfPropEdgeColor = rdfPropEdgeColor;
+            this.rdfPropEdgeType = rdfPropEdgeType;
         }
     }
 }

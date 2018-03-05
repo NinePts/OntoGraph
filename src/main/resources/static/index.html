@@ -175,10 +175,60 @@
 		</div>
 		<br />
 		
-		<!-- Subclass-of Edge Customization -->
+		<!-- Datatype Node Customization -->
 		<div class="row">
 			<div class="col-sm-3 col-sm-offset-2">
 				<a id="toggleClass2" href="javascript:void(0);">
+					(User-Defined) Datatype Node Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="class-datatype-node-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Node Shape:</label>
+				<div class="col-sm-3">
+					<select class="form-control" id="classDataNodeShape">
+					</select>
+				</div>
+			</div>	
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Fill Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="classDataFillColor">
+				</div>		
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Text Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="FFFFFF" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="classDataTextColor">
+				</div>		
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Border Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="classDataBorderColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">Datatype Border Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="classDataBorderType">
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		
+		<!-- Subclass-of Edge Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleClass3" href="javascript:void(0);">
 					Subclass-Of Edge Customization <span class="caret"></span>
 				</a>
 			</div>
@@ -588,7 +638,7 @@
 		</div>
 		<br />
 		
-		<!-- Property Class Node Customization -->
+		<!-- Property Datatype Node Customization -->
 		<div class="row">
 			<div class="col-sm-3 col-sm-offset-2">
 				<a id="toggleProperty2" href="javascript:void(0);">
@@ -804,6 +854,47 @@
 		</div>
 		<br />
 		
+		<!-- RDF Property Node Customization -->
+		<div class="row">
+			<div class="col-sm-3 col-sm-offset-2">
+				<a id="toggleProperty7" href="javascript:void(0);">
+					RDF Property Edge Customization <span class="caret"></span>
+				</a>
+			</div>
+		</div>
+		<div id="property-rdf-edge-custom" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">RDF Property's Source Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="rdfPropSourceShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">RDF Property's Target Arrow:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="rdfPropTargetShape">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">RDF Property's Line Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="rdfPropEdgeColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">RDF Property's Line Type:</label>
+				<div class="col-sm-3">
+					<select class="col-sm-3 form-control" id="rdfPropEdgeType">
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		
 		<div class="row" align="center">
 			<button type="button" class="btn" id="cancelPropertyDiagram">Cancel</button>
 			<button type="button" class="btn btn-primary" id="propertyDiagram">Generate Custom Diagram</button>
@@ -820,17 +911,42 @@
 			</div>
 		</div>
 		<br />
-		<div class="row">
-			<div class="col-sm-4 col-sm-offset-3">
-				<label>Collapse Property Edges </label>
-		  		<a class="hover-over" id="pop6" data-content="If selected, all the properties with the same domain and range nodes are combined in a single edge." rel="popover" data-placement="bottom"><b>[What does this do?]    </b></a> 	
-			</div>
-			<div class="col-sm-2">
-				<input type="radio" id="collapseStdTrue" name="collapseEdgesStd" value="collapseTrue"> True
-				<input type="radio" id="collapseStdFalse" name="collapseEdgesStd" value="collapseFalse"> False
+		<!--  Collapse Edges Customization -->
+		<div id="collapseCustomization" style="display: none">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-3">
+					<label>Collapse Property Edges </label>
+		  			<a class="hover-over" id="pop6" data-content="If selected, all the properties with the same domain and range nodes are combined in a single edge." rel="popover" data-placement="bottom"><b>[What does this do?]    </b></a> 	
+				</div>
+				<div class="col-sm-2">
+					<input type="radio" id="collapseStdTrue" name="collapseEdgesStd" value="collapseTrue"> True
+					<input type="radio" id="collapseStdFalse" name="collapseEdgesStd" value="collapseFalse"> False
+				</div>
 			</div>
 		</div>
 		<br />
+		
+		<!-- UML Node Customization -->
+		<div id="umlCustomization" style="display: none">
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">UML Node's Fill Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="umlNodeColor">
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-3 col-sm-offset-3">UML Data Node's Fill Color:</label>
+				<div class="col-sm-3">
+					<input style="background-image: none; background-color: rgb(255, 204, 0); color: rgb(0, 0, 0);" 
+						autocomplete="off" value="000000" class="col-sm-4 jscolor {width:101, padding:0, shadow:false, borderWidth:0, 
+						backgroundColor:'transparent'}" id="umlDataNodeColor">
+				</div>
+			</div>
+		</div>
+		<br />
+		
 		<div class="row" align="center">
 			<button type="button" class="btn" id="cancelStdDiagram">Cancel</button>
 			<button type="button" class="btn btn-primary" id="stdDiagram">Generate Diagram</button>

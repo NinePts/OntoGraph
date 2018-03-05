@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 
 package graph.graphmloutputs;
@@ -96,6 +97,7 @@ public final class IndividualsGraphCreation {
         	for (TypeAndValueModel propAndVal : datatypeProperties) {
         		String displayValue = propAndVal.getValue();
         		String valueName = displayValue.replaceAll("\"", "");
+        		valueName = valueName.replaceAll(System.getProperty("line.separator"), "");
         		if (!uniqueValues.contains(valueName)) {
         			// Value node is yet added to the output
         			uniqueValues.add(valueName);
@@ -135,6 +137,7 @@ public final class IndividualsGraphCreation {
      * @param  nodeName String target
      * @param  property String edge label
      * @return GraphML String
+     * 
      */
     private static String addDatatypePropertyEdge(GraphRequestModel requestModel,
     		final String individualName, final String nodeName, final String property) {
@@ -151,16 +154,17 @@ public final class IndividualsGraphCreation {
      * 
      * @param  requestModel GraphRequestModel holding visualization details
      * @param  ontologyPrefix String that is the prefix of the owl:Ontology URI
-     * @param  nodeName String identifying the node (the individual + value) whose value is being added
+     * @param  nodeName String identifying the value which is added as a "datatype" node
      * @param  value String specifying the data value (as it should be displayed)
      * @return GraphML String
+     * 
      */
     private static String addDatatypePropertyValue(GraphRequestModel requestModel,
     		final String ontologyPrefix, final String nodeName, final String value) {
         
         NodeDetailsModel nodeDetails = NodeDetailsModel.createNodeDetailsModel(requestModel, "data");
         
-        GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, nodeName, value);
+        GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, nodeName, value, true);
         
         return GraphMLOutputDetails.addNode(nodeDetails, nodeName, value);
     }
@@ -192,7 +196,7 @@ public final class IndividualsGraphCreation {
         	//   "none", to "ellipse" or "rectangle", when setting the display details 
         	//   (since the former values are specific to OntoGraph and are not yEd values)
         	nodeDetails.setNodeShape(requestModel.getIndividualNodeShape());
-        	GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, indivName, label);
+        	GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, indivName, label, false);
         
         	sb.append(GraphMLOutputDetails.addNode(nodeDetails, indivName, label));
         }
@@ -241,7 +245,7 @@ public final class IndividualsGraphCreation {
 	private static String addTypeOfEdges(GraphRequestModel requestModel, List<String> types, 
 			List<ClassModel> classes, String individualName, 
 			RelatedAndRestrictionModel relatedsAndRestrictions, Set<String> referencedClasses)
-    				throws OntoGraphException {
+					throws OntoGraphException {
 		
 	    StringBuilder sb = new StringBuilder();
 
@@ -296,7 +300,7 @@ public final class IndividualsGraphCreation {
 	        	// Get display changes based on the class name and visualization
 	        	String typeLabel = GraphMLUtils.getLabelForDisplay(ontologyPrefix, visualization, 
 	        			className, type, true);
-	        	GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, className, typeLabel);
+	        	GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, className, typeLabel, false);
 	        	sb.append(GraphMLOutputDetails.addNode(nodeDetails, className, typeLabel));
         	}
         }

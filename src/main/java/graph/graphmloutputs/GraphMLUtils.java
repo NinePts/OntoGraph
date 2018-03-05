@@ -25,7 +25,8 @@ import java.util.Map;
 import java.util.Set;
 
 import graph.OntoGraphException;
-import graph.models.BlankAndRelatedNodesModel;
+import graph.models.AttributeLinesAndLength;
+import graph.models.EntityAndRelatedNodesModel;
 import graph.models.ClassModel;
 import graph.models.EdgeDetailsModel;
 import graph.models.EdgeFlagsModel;
@@ -46,6 +47,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 	
 	// Frequently used string
 	private static final String ONE_OF = "oneOf";
+	private static final String UNION_OF = "unionOf ";
 	
 	/**
 	 * Adds any superclasses that are blank nodes.
@@ -75,7 +77,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
         // Add blank node superclasses
         if (!blankNodeSuperClasses.isEmpty()) { 
         	for (TypeAndValueModel bnsc : blankNodeSuperClasses) {
-        		sb.append(GraphMLUtils.addRelated(requestModel, classes, bnsc.getType(), 
+        		sb.append(addRelated(requestModel, classes, bnsc.getType(), 
         				Arrays.asList(TypeAndValueModel.createTypeAndValueModel("super", bnsc.getValue())),
         				relatedsAndRestrictions, referencedClasses));
         	}
@@ -170,7 +172,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
     	}
     	
         label = getLabelForDisplay(ontologyPrefix, visualization, className, label, true);
-		getNodeDetails(ontologyPrefix, nodeDetails, className, label);
+		getNodeDetails(ontologyPrefix, nodeDetails, className, label, false);
 		return addNode(nodeDetails, className, label);
     }
     
@@ -200,7 +202,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
      */
     public static String addRelated(GraphRequestModel requestModel, List<ClassModel> classes, 
     		final String className, List<TypeAndValueModel> relatedList, 
-    		RelatedAndRestrictionModel relatedsAndRestrictions, Set<String> referencedClasses) 
+    		RelatedAndRestrictionModel relatedsAndRestrictions, Set<String> referencedClasses)
     				throws OntoGraphException {
  
     	StringBuilder sb = new StringBuilder();
@@ -217,7 +219,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
     			//   as an equivalentClass)
     			if (!relatedEntity.contains(":")) {
     				sb.append(blankNodeProcessing(requestModel, classes, 
-    						BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(relatedEntity, className), 
+    						EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(relatedEntity, className), 
     						typeOfRelationship, relatedsAndRestrictions, referencedClasses));
     			} else {
     				sb.append(addEquivalentDisjoint(requestModel, classes, className, relatedEntity, 
@@ -240,7 +242,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
     			}
     		}
     		sb.append(addEnumerationIndividuals(requestModel, isClassRestriction,
-    				BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(className + "OneOf", className), 
+    				EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(className + "OneOf", className), 
     				enumIndividuals, "eq"));
     	}
     	
@@ -248,6 +250,39 @@ public class GraphMLUtils extends GraphMLOutputDetails {
     }
     
     /**
+	 * Adds a Restriction UML note.
+	 * 
+	 * @param  visualization String
+	 * @param  restrictionDetails List<String> with the text of the restriction
+	 * @param  valuesFrom String specifying the class name or blank node of someValueFrom or
+	 *              allValuesFrom restriction
+	 * @param  isClassRestriction boolean
+	 * @param  nodeName String
+	 * @param  restrictionText String
+	 * @return String holding the GraphML for the new node
+	 */
+	public static String addRestrictionNote(final String visualization, List<String> restrictionDetails,
+			final String valuesFrom, boolean isClassRestriction, final String nodeName, 
+			final String restrictionText) {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		// Get the height and width of the node/note
+	    NoteDetailsModel noteDetails = getRestrictionNoteDetails(visualization, restrictionDetails, valuesFrom);
+	    
+	    // Add the node/note
+	    if (GRAFFOO.equals(visualization)) {
+	    	sb.append(addGraffooIndividualOrNode(isClassRestriction, nodeName, restrictionText, 
+	    			Integer.toString(noteDetails.getWidth()) + ".0", 
+	    			Integer.toString(noteDetails.getHeight()) + ".0"));
+	    } else {
+	    	sb.append(addNote(visualization, noteDetails, nodeName, restrictionText));
+	    }
+	    
+	    return sb.toString();
+	}
+
+	/**
      * Draw edges from a class to its superclasses.
      * 
      * @param  className String of the class name (with a prefix)
@@ -266,8 +301,14 @@ public class GraphMLUtils extends GraphMLOutputDetails {
         
         for (String superClass : superClasses) {
         	if (superClass.contains(":") && !OWL_THING.equals(superClass)) {
-        		// Add specific source-target edges 
-        		sb.append(addEdge(edgeDetails, className, superClass, "subClassOf", edgeFlags));
+        	    // Remove the text label if a "subClassOf" a datatype is specified
+        	    if ("rdfs:Datatype".equals(superClass)) {
+        	    	edgeDetails.setEdgeLabel("");
+        	    	sb.append(addEdge(edgeDetails, className, superClass, "datatype", edgeFlags));
+        	    } else {
+        	    	// Add specific source-target edges 
+        	    	sb.append(addEdge(edgeDetails, className, superClass, "subClassOf", edgeFlags));
+        	    }
         	}
         }
         
@@ -281,7 +322,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 	 * @param  requestModel GraphRequestModel
 	 * @param  classes List<ClassModel> holding the naming conventions for referenced entities that are
 	 *              not blank nodes
-	 * @param  blankAndRelated BlankAndRelatedNodesModel defining the blank node and a className/related node
+	 * @param  blankAndRelated EntityAndRelatedNodesModel defining the blank node and a className/related node
      *               (which may be empty if the processing is part of property or individual definition 
 	 *               graphing, or may also be a blank node if there is nesting of the equivalent classes and 
 	 *               connectives) 
@@ -301,13 +342,13 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 	 * 
 	 */
 	public static String blankNodeProcessing(GraphRequestModel requestModel, List<ClassModel> classes, 
-			BlankAndRelatedNodesModel blankAndRelated, final String typeOfRelationship, 
+			EntityAndRelatedNodesModel blankAndRelated, final String typeOfRelationship, 
 			RelatedAndRestrictionModel relatedsAndRestrictions, Set<String> referencedClasses) 
 					throws OntoGraphException {
 	
 		StringBuilder sb = new StringBuilder();
 		
-		String blankNode = blankAndRelated.getBlankNode();
+		String blankNode = blankAndRelated.getEntityNode();
 		String className = blankAndRelated.getRelatedNode();
 		
 		// Get all equivalent, disjoint and one of details
@@ -320,9 +361,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 		// Determine what the blank node represents - a restriction, oneOf, union, intersection or complement
 		if (connectives.get(blankNode) == null && equivalentsDisjointsOneOfs.get(blankNode) == null) {
 			// The blank node must represent a restriction
-			return handleRestriction(requestModel, 
-					BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(blankNode, className),
-					relatedsAndRestrictions);
+			return handleRestriction(requestModel, classes, blankAndRelated, relatedsAndRestrictions);
 		} 
 		
 		// The blank node is a oneOf, union, intersection or complement declaration
@@ -340,12 +379,12 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 		if (!className.contains(":")) {
 			resetEdgeDetails(edgeDetails);
 		}
-		
+
 		if (!complement.isEmpty()) {
 			sb.append(processComplementUnionOrIntersection(edgeDetails, className, blankNode, "complement"));
-			// Draw an edge from the image/note to the referenced complement class 
+			// Draw an edge from the image/note to the referenced complement class
 			sb.append(handleReferencedEquivalent(requestModel, classes, edgeDetails, 
-					BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(blankNode, complement), 
+					EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(blankNode, complement), 
 					"comp", relatedsAndRestrictions, referencedClasses));
 		}
 		
@@ -354,7 +393,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 			for (String unionClass : unions) {
 				// Draw an edge from the image/note to the referenced union classes
 				sb.append(handleReferencedEquivalent(requestModel, classes, edgeDetails, 
-						BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(blankNode, unionClass), 
+						EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(blankNode, unionClass), 
 						UN, relatedsAndRestrictions, referencedClasses));
 			}
 		}
@@ -364,18 +403,60 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 			for (String interClass : intersections) {
 				// Draw an edge from the image/note to the referenced intersection classes 
 				sb.append(handleReferencedEquivalent(requestModel, classes, edgeDetails, 
-						BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(blankNode, interClass), 
+						EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(blankNode, interClass), 
 						INTER, relatedsAndRestrictions, referencedClasses));
 			}
 		}
 		
 		if (!individuals.isEmpty()) {
 			sb.append(addEnumerationIndividuals(requestModel, true, 
-					BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(blankNode, EMPTY_STRING), 
+					EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(blankNode, EMPTY_STRING), 
 					individuals, "eq"));
 		}
 		
 		return sb.toString();
+	}
+	
+	/**
+     * Checks for line feeds in the attribute value and determines the max length based on the text 
+     * between the line feeds. The first value in the returned List is the number of lines > 1; the second 
+     * value is the max length of the lines.
+     * 
+	 * @param  attribute String
+	 * @return attributeDetails List<Integer> returning the number of lines > 1; the second 
+     *                    value is the max length of each line in the attribute value
+     *                    
+	 */
+	public static AttributeLinesAndLength getAttributeDetails(final String attribute) {
+		
+		int maxLength = 0;
+		int numberOfLines = 0;
+		int index = 0;
+		while (true) {
+			int nextIndex = attribute.indexOf(System.getProperty("line.separator"), index);
+			if (nextIndex < 0) {
+				// No more line feeds
+				break;
+			} else {
+				int lineLength = nextIndex - index;
+				index = nextIndex + 2;
+				if (lineLength > maxLength) {
+					maxLength = lineLength;
+				}
+				numberOfLines++;
+			}
+		}
+		
+		// If maxLength = 0, then know that there are no line feeds in the attribute value
+		// So, set the maxLength to the length of the value
+		if (maxLength == 0) {
+			maxLength = attribute.length();
+		}
+		
+		return AttributeLinesAndLength.builder()
+							.numberOfLines(numberOfLines)
+							.maxLength(maxLength)
+							.build();
 	}
 	
 	/**
@@ -391,7 +472,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 	 * @return String of the entity name as appropriate for the visualization
 	 * 
 	 */
-	public static String getLabelForDisplay(final String ontologyPrefix,  //NOSONAR - Acknowledging complexity
+	public static String getLabelForDisplay(final String ontologyPrefix,  //NOSONAR - Complexity acceptable
 			final String visualization, final String entityName, final String entityLabel,  
 			boolean forNode)  {
 		
@@ -423,9 +504,11 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 			if (label.length() > 15) {
                 label = label.substring(0, 12) + "...";
             } 
+			
 			// Make sure that we don't label blank nodes as "external" (the second check)
-			if (forNode && entityName.contains(":") && !entityName.startsWith("owl")  //NOSONAR - Acknowledging 4 conditional ops
-					&& (EMPTY_STRING.equals(ontologyPrefix) || !entityName.startsWith(ontologyPrefix))) {
+			if (forNode && entityName.contains(":") 
+					&& !entityName.startsWith("owl") && !entityName.startsWith("rdf")
+		            && (EMPTY_STRING.equals(ontologyPrefix) || !entityName.startsWith(ontologyPrefix))) {
             	label += NEW_LINE + "(external)";
             }
 		} 
@@ -452,20 +535,151 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 	}
 
     /**
+	 * Add a node or note which represents a restriction, then add an edge from the
+	 * restriction details to the entityName.
+	 * 
+	 * @param  requestModel GraphRequestModel
+	 * @param  classes List<ClassModel>
+	 * @param  entityAndRelated EntityAndRelatedNodesModel defining the blank node or a datatype entity
+	 *             and the related entity name (which may be empty if the processing is part of property 
+	 *             definition graphing or datatype restriction handling)
+	 * @param  relatedsAndRestrictions RelatedAndRestrictionModel containing lists of models 
+	 *             of "related" classes (equivalent, disjoints, and oneOfs), of connectives
+	 *             (unions, intersections and complementOfs) and restrictions (allValuesFrom,
+	 *             someValuesFrom, min/maxInclusive, ...)
+	 * @return GraphML String
+	 * @throws OntoGraphException 
+	 * 
+	 */
+	public static String handleRestriction(GraphRequestModel requestModel, List<ClassModel> classes,
+			EntityAndRelatedNodesModel entityAndRelated, RelatedAndRestrictionModel relatedsAndRestrictions)
+					throws OntoGraphException {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		String visualization = requestModel.getVisualization();
+		final String entityNode = entityAndRelated.getEntityNode();
+		final String relatedNode = entityAndRelated.getRelatedNode();
+		
+		List<RestrictionModel> restrictions = relatedsAndRestrictions.getRestrictions();
+	
+		EdgeDetailsModel edgeDetails = EdgeDetailsModel.createEdgeDetailsModelForRelationship(
+				requestModel, "eq");
+		resetEdgeDetails(edgeDetails);
+        String nodeShape = requestModel.getDataNodeShape();
+        // This is not really intended for UML, but it works out - Need to fill in undefined values
+        if (nodeShape == null) {
+        	nodeShape = "squareRectangle";
+        }
+		NodeDetailsModel nodeDetails = NodeDetailsModel.createNodeDetailsModel(requestModel, "data");
+		
+		// Get the restriction details and format them into a single String with line feeds
+		// TODO The restriction details are written as predicate-object pairs for a few values. For these, 
+		//    the details should be parsed into human-readable text. For now, this will have to 
+		//    be done manually, during graph layout.
+		List<String> restrictionDetails = new ArrayList<>();
+		boolean isClassRestriction = false;
+		for (RestrictionModel rm : restrictions) {
+			if (entityNode.equals(rm.getRestrictionName())) {
+				restrictionDetails.addAll(rm.getRestrictionDetails());
+				isClassRestriction = rm.isClassRestriction();
+				break;
+			}
+		}
+		
+	    StringBuilder restriction = new StringBuilder();
+	    // Need to know if the restriction references other classes using the predicates, some/allValuesFrom or
+	    //    unionOf, intersectionOf or complementOf (for a datatype)
+	    String valuesFrom = EMPTY_STRING;
+	    // Enumerations are handled elsewhere; Skip them here
+	    boolean isOneOf = false;
+		restriction.append("Restriction:");
+	    for (String rd : restrictionDetails) {
+	    	if (rd.contains(UNION_OF) || rd.contains("intersectionOf ") || rd.contains("complementOf ")) {
+	    		// Handle the datatype unions, intersections, ...
+	    		String referencedDatatypes;
+	    		String prefix = "comp";
+	    		restriction.setLength(0);
+	    		if (rd.contains(UNION_OF)) {
+	    			restriction.append("Union of");
+	    			referencedDatatypes = rd.substring(rd.indexOf(UNION_OF) + 8);
+	    			prefix = "un";
+	    		} else if (rd.contains("intersectionOf ")) {
+	    			restriction.append("Intersection of");
+	    			referencedDatatypes = rd.substring(rd.indexOf("sectionOf ") + 10);
+	    			prefix = "inter";
+	    	    } else {
+	    			restriction.append("Complement of");
+	    			referencedDatatypes =  rd.substring(rd.indexOf("mentOf ") + 7);
+	    		}
+	    		
+	    		// Get the referenced datatypes
+	    		String[] datatypes = referencedDatatypes.split(" ");
+	    		// Draw each datatype and an edge to the restriction
+	    		for (String dt : datatypes) {
+	            	// Get display changes based on the class name
+	                GraphMLOutputDetails.modifyNodeDetailsForNodeShape(nodeDetails, dt);
+	    	        // Restore the nodeShape in case it was changed in modifyNodeDetails
+	                nodeDetails.setNodeShape(nodeShape);
+	    			sb.append(addNode(nodeDetails, entityNode + dt, dt));
+	    			sb.append(addEdge(edgeDetails, entityNode, entityNode + dt, prefix + entityNode + dt, 
+	    					EdgeFlagsModel.createEdgeFlagsFalse()));
+	    		}
+	    		
+	    	} else if (rd.contains("someValuesFrom ") || rd.contains("allValuesFrom ")) {
+    		    String typeOfValuesFrom = "someValuesFrom";
+    		    
+	    		// Track the referenced class in order to define an edge later
+	    		valuesFrom = rd.substring(rd.indexOf("ValuesFrom ") + 11);
+	    		if (rd.contains("allValuesFrom ")) {
+	    			typeOfValuesFrom = "allValuesFrom";
+	    		}
+
+				sb.append(processValuesFrom(requestModel, classes, edgeDetails, entityNode, valuesFrom, 
+						typeOfValuesFrom, relatedsAndRestrictions));
+	    		
+	    	} else if (rd.contains("oneOf ")) {
+	    		isOneOf = true;
+	    	
+	    	} else {
+	    		// Just add the text for display in the node or note
+	    		restriction.append(NEW_LINE + rd);
+	    	}
+	    }
+	    
+	    // Add the restriction note
+	    if (!isOneOf && !restrictionDetails.isEmpty()) {
+    		sb.append(addRestrictionNote(visualization, restrictionDetails, valuesFrom, isClassRestriction,
+    				entityNode, restriction.toString()));
+	    
+		    // Add an edge from the relatedNode to the entityNode IF they aren't equal and a relatedNode is defined
+		    // Otherwise, only the node definition was needed
+		    if (!relatedNode.equals(entityNode) && !relatedNode.isEmpty()) {
+		    	// Reset the edge label in case it was changed by the some/allValues processing
+		    	resetEdgeDetails(edgeDetails);
+		    	sb.append(addEdge(edgeDetails, relatedNode, entityNode, "restriction", 
+		    			EdgeFlagsModel.createEdgeFlagsFalse()));
+		    }
+	    }
+		
+		return sb.toString();
+	}
+
+	/**
 	 * Add enumeration details to the graph and draw edge to parent class.
 	 * 
 	 * @param  requestModel GraphRequestModel
 	 * @param  isClassRestriction boolean indicating that this is a request for a owl:Class OneOf definition 
 	 *                 (if true) or an rdfs:Datatype OneOf definition (if false)
-	 * @param  blankAndRelated BlankAndRelatedNodesModel defining the blank node and the class name that holds 
-	 *                 the equivalent class definition (which may also be a blank node)
+	 * @param  entityAndRelated EntityAndRelatedNodesModel defining the blank node or a datatype restriction
+	 *                 and the class name that holds the equivalent class definition (which may also be a blank node)
 	 * @param  individualList List<String> of individuals in the enumeration 
 	 * @param  type String defining the label on the edge
 	 * @return String GraphMLString
 	 * 
 	 */
-	private static String addEnumerationIndividuals(GraphRequestModel requestModel, //NOSONAR - Acknowledging complexity
-			boolean isClassRestriction, BlankAndRelatedNodesModel blankAndRelated, 
+	private static String addEnumerationIndividuals(GraphRequestModel requestModel, 
+			boolean isClassRestriction, EntityAndRelatedNodesModel entityAndRelated, 
 			List<String> individualList, final String type) {
 		
 		StringBuilder sb = new StringBuilder();
@@ -474,8 +688,8 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 		String graphType = requestModel.getGraphType();
 		
 		String openingLine = "Enumeration Individuals (OneOf)";
-		String blankNode = blankAndRelated.getBlankNode();
-		String enumClassName = blankAndRelated.getRelatedNode();
+		String blankNode = entityAndRelated.getEntityNode();
+		String enumClassName = entityAndRelated.getRelatedNode();
 
 		// Calculate size of the note
 	    int height = (individualList.size() + 3) * 13;
@@ -490,35 +704,34 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 
         EdgeDetailsModel edgeDetails = EdgeDetailsModel.createEdgeDetailsModelForRelationship(
         		requestModel, "eq");  
+        if (!isClassRestriction) {
+        	resetEdgeDetails(edgeDetails);
+        }
         EdgeFlagsModel edgeFlags = EdgeFlagsModel.createEdgeFlagsFalse();
 		
         // For Graffoo class and property diagrams, create a node indicating that this is an 
         //   enumeration and then draw each of the individuals
+        // Also draw an edge from the blank node to each individual
+        // For Graffoo individual diagrams, already have a node for the "OneOf Blank Node", 
+		//    just draw the individuals, and an edge to the enum class name. Then, finish.
         if (GRAFFOO.equals(visualization)) {
-        	if ("class".equals(graphType) || "property".equals(graphType)) {
+        	String targetEntity = enumClassName;  
+        	if (!"individual".equals(graphType)) {
+        		targetEntity = blankNode;
 	        	sb.append(addGraffooIndividualOrNode(isClassRestriction, blankNode, openingLine, 
 	        			Integer.toString(width) + ".0", "50.0"));
-	        	// Need to retain the edge label for use below, but for the edge to the individuals, 
-	        	//   don't want any label
-	        	String currEdgeLabel = edgeDetails.getEdgeLabel();
-	        	edgeDetails.setEdgeLabel(EMPTY_STRING);
-	        	for (String indiv : individualList) {
-	        		// Draw the individual and an edge from it, to the node
-	        		sb.append(addGraffooIndividualOrNode(false, indiv, indiv, EMPTY_STRING, EMPTY_STRING));
-	        		sb.append(addEdge(edgeDetails, blankNode, indiv, ONE_OF, edgeFlags));
-	        	}
-	        	edgeDetails.setEdgeLabel(currEdgeLabel);
-	        	
-        	} else {
-        		// If an individual diagram, already have a node for the "OneOf Blank Node", 
-        		//    just draw the individuals and finish
-	        	edgeDetails.setEdgeLabel(EMPTY_STRING);
-	        	for (String indiv : individualList) {
-	        		// Draw the individual and an edge from it, to the enumeration class name
-	        		sb.append(addGraffooIndividualOrNode(false, indiv, indiv, EMPTY_STRING, EMPTY_STRING));
-	        		sb.append(addEdge(edgeDetails, enumClassName, indiv, ONE_OF, edgeFlags));
-	        	}
-	        	
+        	}
+        	// Need to retain the edge label for use below, but for the edge to the individuals, 
+        	//   don't want any label
+        	String currEdgeLabel = edgeDetails.getEdgeLabel();
+        	edgeDetails.setEdgeLabel(EMPTY_STRING);
+        	for (String indiv : individualList) {
+        		// Draw the individual and an edge from it, to the node or the enum class name
+        		sb.append(addGraffooIndividualOrNode(false, indiv, indiv, EMPTY_STRING, EMPTY_STRING));
+        		sb.append(addEdge(edgeDetails, targetEntity, indiv, ONE_OF, edgeFlags));
+        	}
+        	edgeDetails.setEdgeLabel(currEdgeLabel);
+	        if ("individual".equals(graphType)) {	
 	        	return sb.toString();
         	}
         	
@@ -527,7 +740,8 @@ public class GraphMLUtils extends GraphMLOutputDetails {
         		edgeDetails.setEdgeLabel(type);
         	}
         	// Create a note with the enumeration details for all visualizations but Graffoo
-    	    NoteDetailsModel noteDetails = NoteDetailsModel.createNoteDetailsModel(SOLID, height, width);
+    	    NoteDetailsModel noteDetails = NoteDetailsModel.createNoteDetailsModel(SOLID, height, 
+    	    		getMaxLength(individualList, openingLine) * 9);
         	if (VOWL.equals(visualization)) {
         		noteDetails.setLineType("dashed");
         	}
@@ -629,8 +843,8 @@ public class GraphMLUtils extends GraphMLOutputDetails {
             }
     	}
     }
-	
-	/**
+    
+    /**
 	 * Gets the prefixed class name for the referenced entity from the List<ClassModel>
 	 * 
 	 * @param  classes List<ClassModel> holding the various names/URIs for the entity
@@ -735,7 +949,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 	    	lineType = "dashed";
 	    }
 	    
-	    int width = (getMaxLength(restrictionDetails, "Restricton:") + 2) * 10;	
+	    int width = (getMaxLength(restrictionDetails, "") + 2) * 10;	
 	    return NoteDetailsModel.createNoteDetailsModel(lineType, height, width);
 	}
 	
@@ -749,39 +963,32 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 	 * @return propFullName String specifying the full property name with its namespace
 	 * 
 	 */
-	private static String getPropertyEdgeDetails(GraphRequestModel requestModel, //NOSONAR - Acknowledging complexity
+	private static String getPropertyEdgeDetails(GraphRequestModel requestModel, 
 			final String ontologyPrefix, EdgeDetailsModel edgeDetails, PropertyModel propModel) {
         
 		String visualization = requestModel.getVisualization();
-        String propType = propModel.getPropertyType();
+        char propType = propModel.getPropertyType();
 			
-        if ("o".equals(propModel.getPropertyType())) {
+        if (propType == 'o') {
             // Object property
-            edgeDetails.setSourceArrow(requestModel.getObjPropSourceShape());
-            edgeDetails.setTargetArrow(requestModel.getObjPropTargetShape());
-            edgeDetails.setLineType(requestModel.getObjPropEdgeType());
-            edgeDetails.setLineColor(requestModel.getObjPropEdgeColor());
-            if (VOWL.equals(visualization)) {
-                edgeDetails.setEdgeLabelBackground("#AACCFF");
-            }
-        } else if ("d".equals(propModel.getPropertyType())) {
+        	setEdgeDetails(edgeDetails, requestModel.getObjPropSourceShape(), 
+        			requestModel.getObjPropTargetShape(), requestModel.getObjPropEdgeType(), 
+        			requestModel.getObjPropEdgeColor(), "#AACCFF");
+        } else if (propType == 'd') {
             // Datatype property
-            edgeDetails.setSourceArrow(requestModel.getDataPropSourceShape());
-            edgeDetails.setTargetArrow(requestModel.getDataPropTargetShape());
-            edgeDetails.setLineType(requestModel.getDataPropEdgeType());
-            edgeDetails.setLineColor(requestModel.getDataPropEdgeColor());
-            if (VOWL.equals(visualization)) {
-                edgeDetails.setEdgeLabelBackground("#99CC66");
-            }
+        	setEdgeDetails(edgeDetails, requestModel.getDataPropSourceShape(), 
+        			requestModel.getDataPropTargetShape(), requestModel.getDataPropEdgeType(), 
+        			requestModel.getDataPropEdgeColor(), "#99CC66");
+        } else if (propType == 'r') {
+            // RDF property
+        	setEdgeDetails(edgeDetails, requestModel.getRdfPropSourceShape(), 
+        			requestModel.getRdfPropTargetShape(), requestModel.getRdfPropEdgeType(), 
+        			requestModel.getRdfPropEdgeColor(), "#CC99CC");
         } else {
             // Annotation property
-            edgeDetails.setSourceArrow(requestModel.getAnnPropSourceShape());
-            edgeDetails.setTargetArrow(requestModel.getAnnPropTargetShape());
-            edgeDetails.setLineType(requestModel.getAnnPropEdgeType());
-            edgeDetails.setLineColor(requestModel.getAnnPropEdgeColor());
-            if (VOWL.equals(visualization)) {
-                edgeDetails.setEdgeLabelBackground("#99CC66");
-            }
+        	setEdgeDetails(edgeDetails, requestModel.getAnnPropSourceShape(), 
+        			requestModel.getAnnPropTargetShape(), requestModel.getAnnPropEdgeType(), 
+        			requestModel.getAnnPropEdgeColor(), "#99CC66");
         }
         
         // Get the propertyName with its prefix
@@ -799,7 +1006,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
         	if (label.length() > 15) {
         	    label = label.substring(0, 12) + "...";
         	}
-        	if ("a".equals(propModel.getPropertyType())) {
+        	if (propModel.getPropertyType() == 'a') {
         		label = label + NEW_LINE + "(annotation)";
         	}
         	
@@ -817,7 +1024,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
      * @param  classes List<ClassModel> holding the naming conventions of any referenced entities
      *             that are not blank nodes
 	 * @param  edgeDetails EdgeDetailsModel with info such as sourceArrow, edgeLabel, ...
-	 * @param  blankAndRelated BlankAndRelatedNodesModel defining the blank node and either a specific class/node 
+	 * @param  blankAndRelated EntityAndRelatedNodesModel defining a blank node and either a specific class/node 
 	 *               name that is referenced in a connective declaration, or another blank node (meaning that further 
 	 *               connectives are referenced)
 	 * @param  typeOfConnective indicating whether the blank node is related to the referenced entity
@@ -835,22 +1042,22 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 	 * 
 	 */
 	private static String handleReferencedEquivalent(GraphRequestModel requestModel, 
-			List<ClassModel> classes, EdgeDetailsModel edgeDetails, BlankAndRelatedNodesModel blankAndRelated,  
+			List<ClassModel> classes, EdgeDetailsModel edgeDetails, EntityAndRelatedNodesModel blankAndRelated,  
 			final String typeOfConnective, RelatedAndRestrictionModel relatedsAndRestrictions, 
 			Set<String> referencedClasses) throws OntoGraphException {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		String blankNode = blankAndRelated.getBlankNode();
+		String blankNode = blankAndRelated.getEntityNode();
 		String referencedEntity = blankAndRelated.getRelatedNode();	
 		
 		if (!referencedEntity.contains(":")) {
 			sb.append(blankNodeProcessing(requestModel, classes, 
-					BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(referencedEntity, blankNode), 
+					EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(referencedEntity, blankNode), 
 					typeOfConnective, relatedsAndRestrictions, referencedClasses));
 		} else {
 			String refClassName = getPrefixedClassName(classes, referencedEntity);
-			String refClassLabel = "";
+			String refClassLabel = refClassName;
 			for (ClassModel classDetails : classes) {
 				if (referencedEntity.equals(classDetails.getClassName()) 
 						|| referencedEntity.equals(classDetails.getFullClassName())) {	
@@ -866,94 +1073,6 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 		return sb.toString();
 	}
 	
-	/**
-	 * Add a node or note which represents a blank node that is a restriction, then add an edge 
-	 * from the restriction details to the entityName.
-	 * 
-	 * @param  requestModel GraphRequestModel
-	 * @param  blankAndRelated BlankAndRelatedNodesModel defining the blank node and the related entity name
-	 *             (which may be empty if the processing is part of property definition graphing)
-     * @param  relatedsAndRestrictions RelatedAndRestrictionModel containing lists of models 
-     *             of "related" classes (equivalent, disjoints, and oneOfs), of connectives
-     *             (unions, intersections and complementOfs) and restrictions (allValuesF
-	 * @return GraphML String
-	 * @throws OntoGraphException 
-	 * 
-	 */
-	private static String handleRestriction(GraphRequestModel requestModel,  //NOSONAR - Acknowledging complexity
-			BlankAndRelatedNodesModel blankAndRelated, RelatedAndRestrictionModel relatedsAndRestrictions) 
-					throws OntoGraphException {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		String visualization = requestModel.getVisualization();
-		String blankNode = blankAndRelated.getBlankNode();
-		String entityName = blankAndRelated.getRelatedNode();
-		
-		List<RestrictionModel> restrictions = relatedsAndRestrictions.getRestrictions();
-		
-		// Get the restriction details and format them into a single String with line feeds
-		// TODO The restriction details are just written as predicate-object pairs - They should be parsed
-		//    into human-readable text. For now, this will have to be done manually, during graph layout.
- 		List<String> restrictionDetails = new ArrayList<>();
- 		boolean isClassRestriction = false;
-		for (RestrictionModel rm : restrictions) {
-			if (blankNode.equals(rm.getRestrictionName())) {
-				restrictionDetails.addAll(rm.getRestrictionDetails());
-				isClassRestriction = rm.isClassRestriction();
-				break;
-			}
-		}
-		
-	    StringBuilder restriction = new StringBuilder();
-	    // Need to know if the restriction references other classes using the predicates, some/allValuesFrom
-	    String valuesFrom = EMPTY_STRING;
-	    String typeOfValuesFrom = "someValuesFrom";
-		restriction.append("Restriction:");
-	    for (String rd : restrictionDetails) {
-	    	if (rd.contains("someValuesFrom ") || rd.contains("allValuesFrom ")) {
-	    		// Track the referenced class in order to define an edge later
-	    		valuesFrom = rd.substring(rd.indexOf("ValuesFrom ") + 11);
-	    		if (rd.contains("allValuesFrom ")) {
-	    			typeOfValuesFrom = "allValuesFrom";
-	    		}
-	    	} else {
-	    		// Just add the text for display in the node or note
-	    		restriction.append(NEW_LINE + rd);
-	    	}
-	    }
-		
-		// Get the height and width of the node/note
-	    NoteDetailsModel noteDetails = getRestrictionNoteDetails(visualization, restrictionDetails, valuesFrom);
-	    
-	    // Add the node/note
-        if (GRAFFOO.equals(visualization)) {
-        	sb.append(addGraffooIndividualOrNode(isClassRestriction, blankNode, restriction.toString(), 
-        			Integer.toString(noteDetails.getWidth()) + ".0", 
-        			Integer.toString(noteDetails.getHeight()) + ".0"));
-        } else {
-        	sb.append(addNote(visualization, noteDetails, blankNode, restriction.toString()));
-        }
-        
-        // Add an edge from the entityName to the node/note IF the entityName != blankNode
-        // Otherwise, only the node definition was needed
-    	EdgeDetailsModel edgeDetails = EdgeDetailsModel.createEdgeDetailsModelForRelationship(
-    			requestModel, "eq");
-    	resetEdgeDetails(edgeDetails);
-        if (!entityName.equals(blankNode) && !entityName.isEmpty()) {
-        	sb.append(addEdge(edgeDetails, entityName, blankNode, "restriction", 
-        			EdgeFlagsModel.createEdgeFlagsFalse()));
-        }
-        
-    	// Is this a someValuesFrom, allValuesFrom?  
-    	if (!valuesFrom.isEmpty()) {
-    		sb.append(processValuesFrom(requestModel, edgeDetails, blankNode, valuesFrom, typeOfValuesFrom,
-    				relatedsAndRestrictions));
-    	} 
-    	
-    	return sb.toString();
-	}
-
 	/**
 	 * Adds an image, node or note about a complementOf, unionOf or intersectionOf definition
 	 * and then adds an edge from a class to that image/node/note
@@ -994,14 +1113,16 @@ public class GraphMLUtils extends GraphMLOutputDetails {
 	 * @param  typeOfValuesFrom String defining the details as for "someValuesFrom" or "allValuesFrom"
      * @param  relatedsAndRestrictions RelatedAndRestrictionModel containing lists of models 
      *             of "related" classes (equivalent, disjoints, and oneOfs), of connectives
-     *             (unions, intersections and complementOfs) and restrictions (allValuesF
+     *             (unions, intersections and complementOfs) and restrictions (allValuesFrom,
+     *             someValuesFrom, min/maxInclusive, ...)
 	 * @return GraphML String
 	 * @throws OntoGraphException 
 	 * 
 	 */
-	private static String processValuesFrom(GraphRequestModel requestModel, EdgeDetailsModel edgeDetails,
-			final String blankNode, final String valuesFrom, final String typeOfValuesFrom, 
-			RelatedAndRestrictionModel relatedsAndRestrictions) throws OntoGraphException {
+	private static String processValuesFrom(GraphRequestModel requestModel, List<ClassModel> classes, 
+			EdgeDetailsModel edgeDetails, final String blankNode, final String valuesFrom,
+			final String typeOfValuesFrom, RelatedAndRestrictionModel relatedsAndRestrictions) 
+					throws OntoGraphException {
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -1014,8 +1135,8 @@ public class GraphMLUtils extends GraphMLOutputDetails {
             	String rd = rm2.getRestrictionDetails().get(0);
             	if (!rd.contains(ONE_OF)) {
             		// Is another restriction, so process it
-            		sb.append(handleRestriction(requestModel, 
-            				BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(valuesFrom, valuesFrom), 
+            		sb.append(handleRestriction(requestModel, classes,
+            				EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(valuesFrom, valuesFrom), 
             				relatedsAndRestrictions));
             		break;
             	}
@@ -1028,7 +1149,7 @@ public class GraphMLUtils extends GraphMLOutputDetails {
             			individuals.add(tvm.getValue());	
             	}
             	sb.append(addEnumerationIndividuals(requestModel, false, 
-            			BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(valuesFrom, blankNode), 
+            			EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(valuesFrom, blankNode), 
             			individuals, typeOfValuesFrom));
             	return sb.toString();
             }
@@ -1040,5 +1161,29 @@ public class GraphMLUtils extends GraphMLOutputDetails {
         		EdgeFlagsModel.createEdgeFlagsFalse()));
         
         return sb.toString();
+	}
+	
+	/**
+	 * Sets the designated values in the EdgeDetailsModel.
+	 * 
+	 * @param edgeDetails EdgeDetailsModel
+	 * @param sourceArrow String
+	 * @param targetArrow String
+	 * @param lineType String
+	 * @param lineColor String
+	 * @param vowlBackground String
+	 * 
+	 */
+	private static void setEdgeDetails(EdgeDetailsModel edgeDetails, final String sourceArrow, 
+			final String targetArrow, final String lineType, final String lineColor, 
+			final String vowlBackground) {
+
+        edgeDetails.setSourceArrow(sourceArrow);
+        edgeDetails.setTargetArrow(targetArrow);
+        edgeDetails.setLineType(lineType);
+        edgeDetails.setLineColor(lineColor);
+        if (VOWL.equals(edgeDetails.getVisualization())) {
+            edgeDetails.setEdgeLabelBackground(vowlBackground);
+        }
 	}
 }

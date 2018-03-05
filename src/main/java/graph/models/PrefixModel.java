@@ -37,7 +37,7 @@ public class PrefixModel {
     @NonNull private String prefixName;
     @NonNull private String url;
     
-    /* Comparator for sorting the prefixes alphabetically, by prefix name */
+    // Comparator for sorting the prefixes alphabetically, by prefix name 
     public static final Comparator<PrefixModel> prefixSort = 
     		(PrefixModel pm1, PrefixModel pm2)->pm1.getPrefixName().compareTo(pm2.getPrefixName());
     

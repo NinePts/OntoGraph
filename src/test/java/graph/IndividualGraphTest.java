@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 
 package graph;
@@ -36,6 +37,12 @@ import org.xml.sax.SAXException;
 
 import graph.models.GraphRequestModel;
 
+/**
+ * Each individual test case generates a basic graph using Graffoo, UML and default custom settings.
+ * The generated graph is then compared to the expected output. Since the output is static, this is
+ * easily supported.
+ * 
+ */
 @RunWith(Parameterized.class)
 @ContextConfiguration("classpath:test-context.xml")
 @TestPropertySource("classpath:test.properties")
@@ -66,9 +73,8 @@ public class IndividualGraphTest {
      * (Note that no explicit class type is specified for the individuals - and reasoning is 
      * used to determine the class type)
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
      */
     @Test
     public void testIndividualsImplicitIntersectionWithReasoning() throws Exception {
@@ -88,9 +94,8 @@ public class IndividualGraphTest {
      * Tests two defined individuals of one type, with a third external individual.
      * Includes one object and one datatype property (the range of the datatype is a string).
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
      */
     @Test
     public void testIndividualsA() throws Exception {
@@ -105,10 +110,8 @@ public class IndividualGraphTest {
     
     /**
      * Same as testIndividualsA, but with labels, and the range of the datatype is removed.
+     * @throws Exception (IOException, OntoGraphException, SAXException)
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
      */
     @Test
     public void testIndividualsB() throws Exception {
@@ -125,9 +128,8 @@ public class IndividualGraphTest {
      * Same as testIndividualsA, but the individuals are not types of owl:NamedIndividual
      * Also, the datatype property is an unsignedInt.
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
      */
     @Test
     public void testIndividualsC() throws Exception {
@@ -142,10 +144,8 @@ public class IndividualGraphTest {
     
     /**
      * Same as testIndividualsC, but the properties are not defined.
+     * @throws Exception (IOException, OntoGraphException, SAXException)
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
      */
     @Test
     public void testIndividualsD() throws Exception {
@@ -160,10 +160,8 @@ public class IndividualGraphTest {
     
     /**
      * Pizza example with an undefined individual referenced as an object property.
+     * @throws Exception (IOException, OntoGraphException, SAXException)
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
      */
     @Test
     public void testPizzaTest() throws Exception {
@@ -178,10 +176,8 @@ public class IndividualGraphTest {
     
     /**
      * Turtle primer with individuals with restrictions.
+     * @throws Exception (IOException, OntoGraphException, SAXException)
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
      */
     @Test
     public void testTurtlePrimer() throws Exception {
@@ -195,14 +191,33 @@ public class IndividualGraphTest {
     }
     
     /**
+     * Turtle primer with individuals with restrictions, graphed with reasoning
+     * 
+     * @throws IOException
+     * @throws OntoGraphException
+     * @throws SAXException
+     */
+    @Test
+    public void testTurtlePrimerWithReasoning() throws Exception {
+        
+        List<String> prefixes = Arrays.asList("f", "g", "owl", "owl2", "rdf", "rdfs", "xsd");
+        List<String> titleEntries = Arrays.asList("Title:  Test Individuals", 
+                "Ontology URI:  http://example.com/owl/families", "Generated: ");
+
+        GraphRequestModel requestModel = createIndividualGraphRequestModel(vis, 
+        		"TestTurtlePrimer.ttl");
+        requestModel.setReasoning("reasoningTrue");
+        createGraphMLAndCompareToMaster(requestModel, "TestTurtlePrimerWithReasoning",
+        		 prefixes, titleEntries);
+    }
+    
+    /**
 	 * Compares the test-generated GraphML output to the master reference for individual graphs.
 	 * 
 	 * @param  GraphRequestModel GraphRequestModel 
 	 * @param  fileName String identifying the unique part of the file names that hold the 
 	 *              expected values for nodes and edges
-	 * @throws OntoGraphException 
-	 * @throws IOException
-	 * @throws SAXException 
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
 	 * 
 	 */
 	private void createGraphMLAndCompareToMaster(GraphRequestModel requestModel, final String fileName, 
@@ -215,10 +230,7 @@ public class IndividualGraphTest {
 	
 	/**
      * Sets up a graph request for the specified test input (fileName) and vis.
-     * 
-     * @param  visualization (String)
-     * @param  fileName (String) holding the RDF triples 
-     * @throws IOException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
      * 
      */
     private static GraphRequestModel createIndividualGraphRequestModel(final String visualization, 
@@ -257,7 +269,11 @@ public class IndividualGraphTest {
             requestModel.setObjPropTargetShape("triangleSolid");
             requestModel.setObjPropEdgeColor("#000000");
             requestModel.setObjPropEdgeType("solid");
+        } else if ("uml".equals(visualization)) {
+        	requestModel.setUmlNodeColor("#FFFFFF");
+        	requestModel.setUmlDataNodeColor("#FFFFFF");
         }
+        
         
         return requestModel;
     }

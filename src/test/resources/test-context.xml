@@ -5,6 +5,6 @@
 	
 	<bean id="appContextUtil" class="graph.AppContextUtil" />
 	<bean id="controller" class="graph.GraphController" />
-	<bean id="graphDAO" class="graph.GraphDAO" />
+	<bean id="graphDBAccess" class="graph.GraphDBAccess" />
 
 </beans>

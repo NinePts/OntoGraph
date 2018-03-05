@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 
 package graph;
@@ -31,7 +32,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.TestPropertySource;
-import org.xml.sax.SAXException;
 
 import graph.models.GraphRequestModel;
 
@@ -69,10 +69,8 @@ public class PropertyGraphTest {
 
 	/**
 	 * Tests an annotation  property 
-	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
     @Test
 	public void testAnnotationProperties() throws Exception {
@@ -90,9 +88,8 @@ public class PropertyGraphTest {
 	 * Tests a datatype property with an undefined domain
 	 * The range of the datatype property is two datatypes
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testDataPropertyNoDomain() throws Exception {
@@ -110,9 +107,8 @@ public class PropertyGraphTest {
 	 * Tests a datatype property with an undefined range
 	 * The domain of the datatype property is an intersection-of declaration
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testDataPropertyNoRange() throws Exception {
@@ -130,9 +126,8 @@ public class PropertyGraphTest {
 	 * Tests a datatype property defined with a standard domain and a range that is a
 	 * datatype restriction
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testDatatypeRestrictions() throws Exception {
@@ -148,10 +143,8 @@ public class PropertyGraphTest {
 
 	/**
 	 * Tests the graphing of FOAF property definitions
-	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testFOAF() throws Exception {
@@ -167,10 +160,8 @@ public class PropertyGraphTest {
 
 	/**
 	 * Tests the graphing of FOAF property definitions, with collapsed edges
-	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testFOAFCollapsed() throws Exception {
@@ -190,9 +181,8 @@ public class PropertyGraphTest {
 	 * Tests both datatype and object properties where some are external to the ontology namespace
 	 * No domains or ranges are defined
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testPropertiesMixed() throws Exception {
@@ -211,9 +201,8 @@ public class PropertyGraphTest {
 	 *    with collapsed edges
 	 * No domains or ranges are defined
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testPropertiesMixedCollapsed() throws Exception {
@@ -231,11 +220,9 @@ public class PropertyGraphTest {
 
 	/**
 	 * Tests an object property with an undefined domain
-	 * The range of the object property is a union-of two classes
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testObjPropertyNoDomain() throws Exception {
@@ -253,9 +240,8 @@ public class PropertyGraphTest {
      * Tests an object property with an undefined range
      * The domain of the object property is a one-of declaration
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
      */
     @Test
     public void testObjPropertyNoRange() throws Exception {
@@ -274,9 +260,8 @@ public class PropertyGraphTest {
 	 * domains and ranges.  Other object properties are defined that test the inverse functional,
 	 * asymmetric, symmetric, reflexive, irreflexive and transitive flags.
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testPropertiesAndFlags() throws Exception {
@@ -295,9 +280,8 @@ public class PropertyGraphTest {
 	 * domains and ranges.  Other object properties are defined that test the inverse functional,
 	 * asymmetric, symmetric, reflexive, irreflexive and transitive flags, with collapsed edges.
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testPropertiesAndFlagsCollapsed() throws Exception {
@@ -317,9 +301,8 @@ public class PropertyGraphTest {
      * Tests two object properties - one with multiple domains and one with multiple ranges
      * (The test file also includes angle brackets in the Class1 label)
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
      */
     @Test
     public void testPropertiesImplicitIntersection() throws Exception {
@@ -337,9 +320,8 @@ public class PropertyGraphTest {
      * Tests a datatype and an object property with undefined domains and ranges
      * Both properties are functional properties
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
      */
     @Test
     public void testPropertiesNoDomainsNoRangesFunctional() throws Exception {
@@ -356,9 +338,8 @@ public class PropertyGraphTest {
     /**
 	 * Tests the W3C Turtle primer file
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
+     * @throws Exception (IOException, OntoGraphException, SAXException)
+     * 
 	 */
 	@Test
 	public void testTurtlePrimer() throws Exception {
@@ -378,9 +359,7 @@ public class PropertyGraphTest {
      * @param  GraphRequestModel GraphRequestModel 
      * @param  fileName String identifying the unique part of the file names that hold the 
      *              expected values for nodes and edges
-     * @throws OntoGraphException 
-     * @throws IOException
-     * @throws SAXException 
+     * @throws Exception (IOException, OntoGraphException, SAXException)
      * 
      */
     private void createGraphMLAndCompareToMaster(GraphRequestModel requestModel, final String fileName, 
@@ -432,6 +411,10 @@ public class PropertyGraphTest {
             requestModel.setAnnPropTargetShape("angleBracket");
             requestModel.setAnnPropEdgeColor("#000000");
             requestModel.setAnnPropEdgeType("solid");
+            requestModel.setRdfPropSourceShape("none");
+            requestModel.setRdfPropTargetShape("angleBracket");
+            requestModel.setRdfPropEdgeColor("#000000");
+            requestModel.setRdfPropEdgeType("solid");
         }
         
         return requestModel;

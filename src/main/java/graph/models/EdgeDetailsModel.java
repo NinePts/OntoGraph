@@ -88,21 +88,20 @@ public class EdgeDetailsModel {
 	    String lineType = "solid";
 		String edgeLabel = "owl:equivalentClass";
 	
-		// Graffoo equivalent and disjoint classes are connected by a single edge with
-		//    the label, owl:equivalentClass or owl:disjointWith. This is supported in OntoGraph  
-		//    between two non-blank nodes. But when equivalence or disjointness involves a blank node,
-		//    then the blank node should be drawn as a class restriction using Manchester OWL syntax.
-		//    Manchester OWL is not currently output and it is confusing. So, a note is added instead.
+		// Graffoo equivalent and disjoint classes are connected by a single edge with the label,
+		//    owl:equivalentClass or owl:disjointWith. This is supported in OntoGraph between two 
+		//    non-blank nodes. But when equivalence or disjointness involves a blank node, then the 
+		//    blank node should be drawn as a class restriction using Manchester OWL syntax. This 
+		//    syntax is confusing to domain experts and not used. A note is added instead.
 		// TODO Determine how to address lack of compliance with Graffoo
 		if ("uml".equals(visualization)) {
 		    targetArrow = "angleBracket";
 		}
 		if (VOWL.equals(visualization)) {
-			// VOWL equivalent class has double circle border around a single class (that is defined in 
-			//    the ontology namespace and then other equivalents are listed in the next line), 
-			//    but this is not natively supported in yEd. For now, this is drawn similar to VOWL's
-			//    "Subclass of" relationship. This also easily supports the equivalent/disjoint class 
-			//    being a blank node.
+			// A VOWL equivalent class has a double circle border around a single class (that is defined in 
+			//    the ontology namespace and then other equivalents are listed in the next line), but this
+			//    is not natively supported in yEd. For now, this is drawn similar to VOWL's "Subclass of" 
+			//    relationship. This also easily supports the equivalent/disjoint class being a blank node.
 			// TODO Determine how to address lack of compliance with VOWL
 			targetArrow = "triangleEmpty";
 			lineType = "dashed";

@@ -32,6 +32,10 @@ public class GraphRequestValidator {
     
     // Frequently used strings
 	private static final String CLASS = "class";
+	private static final String DATATYPE_NODE_SHAPE = "datatype node shape";
+	private static final String DATATYPE_NODE_FILL_COLOR = "datatype node fill color";
+	private static final String DATATYPE_NODE_TEXT_COLOR = "datatype node text color";
+	private static final String DATATYPE_NODE_BORDER_COLOR = "datatype node border color";
 	private static final String EMPTY_STRING = "";
 	private static final String INDIVIDUAL = "individual";
 	
@@ -75,25 +79,28 @@ public class GraphRequestValidator {
         errorString = validateString(requestModel.getInputFile(), null, "input file", errorString);
         errorString = validateString(visualization, visualizationTypes, "visualization type", errorString);
         errorString = validateString(graphType, graphTypes, "graph type", errorString);
-        errorString = validateString(graphType, graphTypes, "graph type", errorString);
         
-        if ("uml".equals(visualization) && !INDIVIDUAL.equals(graphType)) {
-        	// Class, property or both class and property all translate to a class diagram for UML
-        	requestModel.setGraphType(CLASS);
+        if ("uml".equals(visualization)) {
+        	errorString = validateColor(requestModel.getUmlNodeColor(), "UML node fill color", errorString);
+        	errorString = validateColor(requestModel.getUmlDataNodeColor(), "UML datatype node fill color", errorString);
+        	if (!INDIVIDUAL.equals(graphType)) {
+        		// Class, property or both class and property all translate to a class diagram for UML
+        		requestModel.setGraphType(CLASS);
+        	}
         }
         
         if ("vowl".equals(visualization)) {
         	if (INDIVIDUAL.equals(graphType)) {
 	        	// Cannot have an individual graph type for VOWL, since instances/individuals are not defined 
 	        	//   in VOWL 2
-	        	String vowlError1 = "A selection of an 'Individual' graph type is not valid for a VOWL visualization.";
-	    	    errorString = updateErrorString(errorString, vowlError1);
+	    	    errorString = updateErrorString(errorString, 
+	    	    		"A selection of an 'Individual' graph type is not valid for a VOWL visualization.");
         	}
         	if ("collapseTrue".equals(requestModel.getCollapseEdges())) {
         		// Collapsing edges is not supported by VOWL, it uses class and property splitting instead
-	        	String vowlError2 = "Defining collapsed edges is not valid for a VOWL visualization since it mandates "
-	        			+ "the use of class and property splitting.";
-	    	    errorString = updateErrorString(errorString, vowlError2);
+	    	    errorString = updateErrorString(errorString, 
+	    	    		"Defining collapsed edges is not valid for a VOWL visualization since it mandates "
+	        			+ "the use of class and property splitting.");
         	}
         }
         
@@ -174,6 +181,10 @@ public class GraphRequestValidator {
 	    		nodeShapes, "class node shape", errorString);
 	    errorString = validateString(requestModel.getClassBorderType(),
 	    		lineTypes, "class node border type", errorString);
+	    errorString = validateString(requestModel.getDataNodeShape(), 
+	    		nodeShapes, DATATYPE_NODE_SHAPE, errorString);
+	    errorString = validateString(requestModel.getDataBorderType(),
+	    		lineTypes, "datatype node border type", errorString);
 	    
 	    errorString = validateString(requestModel.getSubclassOfSourceShape(),
 	    		arrowTypes, "subclassOf source arrow shape", errorString);
@@ -185,8 +196,11 @@ public class GraphRequestValidator {
 	    errorString = validateColor(requestModel.getClassFillColor(), "class node fill color", errorString);
 	    errorString = validateColor(requestModel.getClassTextColor(), "class node text color", errorString);
 	    errorString = validateColor(requestModel.getClassBorderColor(), "class node border color", errorString);
-	    return validateColor(requestModel.getSubclassOfLineColor(), "subclassOf line color", errorString);
-	    
+	    errorString = validateColor(requestModel.getSubclassOfLineColor(), "subclassOf line color", errorString);
+
+	    errorString = validateColor(requestModel.getDataFillColor(), DATATYPE_NODE_FILL_COLOR, errorString);
+	    errorString = validateColor(requestModel.getDataTextColor(), DATATYPE_NODE_TEXT_COLOR, errorString);
+	    return validateColor(requestModel.getDataBorderColor(), DATATYPE_NODE_BORDER_COLOR, errorString);
 	}
 
 	/**
@@ -203,7 +217,7 @@ public class GraphRequestValidator {
 
 	    String errorString = currentError;
 	    errorString = validateString(requestModel.getDataNodeShape(), 
-	    		nodeShapes, "datatype node shape", errorString);
+	    		nodeShapes, DATATYPE_NODE_SHAPE, errorString);
 	    errorString = validateString(requestModel.getIndividualNodeShape(), 
 	    		nodeShapes, "individual node shape", errorString);
 	    errorString = validateString(requestModel.getClassNodeShape(), 
@@ -236,11 +250,11 @@ public class GraphRequestValidator {
 	    		lineTypes, "object property line type", errorString);
 
 	    errorString = validateColor(requestModel.getDataFillColor(),
-	            "datatype node fill color", errorString);
+	            DATATYPE_NODE_FILL_COLOR, errorString);
 	    errorString = validateColor(requestModel.getDataTextColor(),
-	            "datatype node text color", errorString);
+	            DATATYPE_NODE_TEXT_COLOR, errorString);
 	    errorString = validateColor(requestModel.getDataBorderColor(),
-	            "datatype node border color", errorString);
+	            DATATYPE_NODE_BORDER_COLOR, errorString);
 	    errorString = validateColor(requestModel.getIndividualFillColor(),
 	            "individual node fill color", errorString);
 	    errorString = validateColor(requestModel.getIndividualTextColor(),
@@ -277,7 +291,7 @@ public class GraphRequestValidator {
 	    		"collapse edges T/F", errorString);
 
 	    errorString = validateString(requestModel.getDataNodeShape(), 
-	    		nodeShapes, "datatype node shape", errorString);
+	    		nodeShapes, DATATYPE_NODE_SHAPE, errorString);
 	    errorString = validateString(requestModel.getObjNodeShape(), 
 	    		nodeShapes, "object node shape", errorString);
 
@@ -299,6 +313,12 @@ public class GraphRequestValidator {
 	    		arrowTypes, "object property target arrow shape", errorString);
 	    errorString = validateString(requestModel.getObjPropEdgeType(),
 	    		lineTypes, "object property line type", errorString);
+	    errorString = validateString(requestModel.getRdfPropSourceShape(),
+	    		arrowTypes, "RDF property source arrow shape", errorString);
+	    errorString = validateString(requestModel.getRdfPropTargetShape(),
+	    		arrowTypes, "RDF property target arrow shape", errorString);
+	    errorString = validateString(requestModel.getRdfPropEdgeType(),
+	    		lineTypes, "RDF property line type", errorString);
 	    if (!isOnlyProperty) {
 		    errorString = validateString(requestModel.getSubclassOfSourceShape(),
 		    		arrowTypes, "subclassOf source arrow shape", errorString);
@@ -309,16 +329,17 @@ public class GraphRequestValidator {
 		    errorString = validateColor(requestModel.getSubclassOfLineColor(), "subclassOf line color", errorString);
 	    }
 
-	    errorString = validateColor(requestModel.getDataFillColor(), "datatype node fill color", errorString);
-	    errorString = validateColor(requestModel.getDataTextColor(), "datatype node text color", errorString);
+	    errorString = validateColor(requestModel.getDataFillColor(), DATATYPE_NODE_FILL_COLOR, errorString);
+	    errorString = validateColor(requestModel.getDataTextColor(), DATATYPE_NODE_TEXT_COLOR, errorString);
 	    errorString = validateColor(requestModel.getObjFillColor(), "object node fill color", errorString);
 	    errorString = validateColor(requestModel.getObjTextColor(), "object node text color", errorString);
-	    errorString = validateColor(requestModel.getDataBorderColor(), "datatype node border color", errorString);
+	    errorString = validateColor(requestModel.getDataBorderColor(), DATATYPE_NODE_BORDER_COLOR, errorString);
 	    errorString = validateColor(requestModel.getObjBorderColor(), "object node border color", errorString);
 	    errorString = validateColor(requestModel.getAnnPropEdgeColor(),
 	            "annotation property line color", errorString);
 	    errorString = validateColor(requestModel.getDataPropEdgeColor(), "data property line color", errorString);
-	    return validateColor(requestModel.getObjPropEdgeColor(), "object property line color", errorString);
+	    errorString = validateColor(requestModel.getObjPropEdgeColor(), "object property line color", errorString);
+	    return validateColor(requestModel.getRdfPropEdgeColor(), "RDF property line color", errorString);
 	}
 
 	/**

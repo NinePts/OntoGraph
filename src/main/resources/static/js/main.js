@@ -134,14 +134,25 @@ function cancelCustomization(customizationType) {
 	document.getElementById(customizationType).style.display = 'none';
 	if (customizationType === 'propertyCustomization') {
 		document.getElementById('classAndPropertyCustomization').style.display = 'none';
-		var propTitle = $('#propertyCustomizationTitle').val();
-		$('#propertyCustomizationTitle').val(propTitle.replace('Class and Property', 'XXX'));
-		$('#propertyCustomizationTitle').val(propTitle.replace('Property', 'XXX'));
+		var propTitle = document.getElementById('propertyCustomizationTitle').innerHTML;
+		propTitle = propTitle.replace('Class and Property', 'XXX');
+		propTitle = propTitle.replace('Property', 'XXX');
+		document.getElementById('propertyCustomizationTitle').innerHTML = propTitle;
 	} else if (customizationType === 'stdCustomization') {
-		var stdTitle = $('#stdCustomizationTitle').val();
-		$('#stdCustomizationTitle').val(stdTitle.replace('Graffoo', 'XXX'));
-		$('#stdCustomizationTitle').val(stdTitle.replace('UML', 'XXX'));
+		var stdTitle = document.getElementById('stdCustomizationTitle').innerHTML;
+		stdTitle = stdTitle.replace('Graffoo', 'XXX');
+		stdTitle = stdTitle.replace('UML', 'XXX');
+		document.getElementById('stdCustomizationTitle').innerHTML = stdTitle;
+		document.getElementById('collapseCustomization').style.display = 'none';
+		document.getElementById('umlCustomization').style.display = 'none';
 	}
+}
+
+function createTitleForStdCustomization(typeOfGraph, file) {
+	var stdTitle = document.getElementById('stdCustomizationTitle').innerHTML;
+	stdTitle = stdTitle.replace('XXX', typeOfGraph);
+	stdTitle = stdTitle.substring(0, stdTitle.indexOf(',') + 2) + file.name;
+	document.getElementById('stdCustomizationTitle').innerHTML = stdTitle;
 }
 
 function displayCustomization(customizationType) {
@@ -241,6 +252,21 @@ function isValidInput(value) {
 	return value !== null && value !== undefined && value.length > 0;
 }
 
+function modelToGUI(isNode, prefix) {
+	if (isNode) {
+		$('#' + prefix + 'NodeShape').val(model.get(prefix + 'NodeShape'));
+		$('#' + prefix + 'FillColor').val(model.get(prefix + 'FillColor'));
+		$('#' + prefix + 'TextColor').val(model.get(prefix + 'TextColor'));
+		$('#' + prefix + 'BorderColor').val(model.get(prefix + 'BorderColor'));
+		$('#' + prefix + 'BorderType').val(model.get(prefix + 'BorderType'));
+	} else {
+		$('#' + prefix + 'SourceShape').val(model.get(prefix + 'SourceShape'));
+		$('#' + prefix + 'TargetShape').val(model.get(prefix + 'TargetShape'));
+		$('#' + prefix + 'LineColor').val(model.get(prefix + 'LineColor'));
+		$('#' + prefix + 'LineType').val(model.get(prefix + 'LineType'));
+	}
+}
+
 function processCustomization(graphType, file) {
 	if (graphType === 'class') {
 		var classTitle = document.getElementById('classCustomizationTitle').innerHTML;
@@ -271,15 +297,9 @@ function processCustomization(graphType, file) {
 }
 
 function setClassCustomization() {
-	$('#classNodeShape').val(model.get('classNodeShape'));
-	$('#classFillColor').val(model.get('classFillColor'));
-	$('#classTextColor').val(model.get('classTextColor'));
-	$('#classBorderColor').val(model.get('classBorderColor'));
-	$('#classBorderType').val(model.get('classBorderType'));
-	$('#subclassOfSourceShape').val(model.get('subclassOfSourceShape'));
-	$('#subclassOfTargetShape').val(model.get('subclassOfTargetShape'));
-	$('#subclassOfLineColor').val(model.get('subclassOfLineColor'));
-	$('#subclassOfLineType').val(model.get('subclassOfLineType'));
+	modelToGUI(true, 'class');
+	modelToGUI(true, 'classData');
+	modelToGUI(false, 'subclassOf');
 }
 
 function setDefaultsAndDisplayPage() {
@@ -291,6 +311,7 @@ function setDefaultsAndDisplayPage() {
 
 	// Add the various option blocks
 	$('#classNodeShape').append(nodeShapeOptions);
+	$('#classDataNodeShape').append(nodeShapeOptions);
 	$('#dataNodeShape').append(nodeShapeOptions);
 	$('#indDataNodeShape').append(nodeShapeOptions);
 	$('#individualNodeShape').append(nodeShapeOptions);
@@ -298,6 +319,7 @@ function setDefaultsAndDisplayPage() {
 	$('#typeNodeShape').append(nodeShapeOptions);
 
 	$('#classBorderType').append(borderTypeOptions);
+	$('#classDataBorderType').append(borderTypeOptions);
 	$('#dataBorderType').append(borderTypeOptions);
 	$('#indDataBorderType').append(borderTypeOptions);
 	$('#individualBorderType').append(borderTypeOptions);
@@ -309,6 +331,7 @@ function setDefaultsAndDisplayPage() {
 	$('#indDataPropEdgeType').append(lineTypeOptions);
 	$('#indObjPropEdgeType').append(lineTypeOptions);
 	$('#objPropEdgeType').append(lineTypeOptions);
+	$('#rdfPropEdgeType').append(lineTypeOptions);
 	$('#subclassOfLineType').append(lineTypeOptions);
 	$('#subclassOfLineTypeBoth').append(lineTypeOptions);
 	$('#typeOfLineType').append(lineTypeOptions);
@@ -323,6 +346,8 @@ function setDefaultsAndDisplayPage() {
 	$('#indObjPropTargetShape').append(arrowTypeOptions);
 	$('#objPropSourceShape').append(arrowTypeOptions);
 	$('#objPropTargetShape').append(arrowTypeOptions);
+	$('#rdfPropSourceShape').append(arrowTypeOptions);
+	$('#rdfPropTargetShape').append(arrowTypeOptions);
 	$('#subclassOfSourceShape').append(arrowTypeOptions);
 	$('#subclassOfTargetShape').append(arrowTypeOptions);
 	$('#subclassOfSourceShapeBoth').append(arrowTypeOptions);
@@ -340,35 +365,13 @@ function setDefaultsAndDisplayPage() {
 }
 
 function setIndividualCustomization() {
-	$('#typeNodeShape').val(model.get('typeNodeShape'));
-	$('#typeFillColor').val(model.get('typeFillColor'));
-	$('#typeTextColor').val(model.get('typeTextColor'));
-	$('#typeBorderColor').val(model.get('typeBorderColor'));
-	$('#typeBorderType').val(model.get('typeBorderType'));
-	$('#individualNodeShape').val(model.get('individualNodeShape'));
-	$('#individualFillColor').val(model.get('individualFillColor'));
-	$('#individualTextColor').val(model.get('individualTextColor'));
-	$('#individualBorderColor').val(model.get('individualBorderColor'));
-	$('#individualBorderType').val(model.get('individualBorderType'));
-	$('#indDataNodeShape').val(model.get('indDataNodeShape'));
-	$('#indDataFillColor').val(model.get('indDataFillColor'));
-	$('#indDataTextColor').val(model.get('indDataTextColor'));
-	$('#indDataBorderColor').val(model.get('indDataBorderColor'));
-	$('#indDataBorderType').val(model.get('indDataBorderType'));
+	modelToGUI(true, 'type');
+	modelToGUI(true, 'individual');
+	modelToGUI(true, 'indData');
 
-	$('#typeOfSourceShape').val(model.get('typeOfSourceShape'));
-	$('#typeOfTargetShape').val(model.get('typeOfTargetShape'));
-	$('#typeOfLineColor').val(model.get('typeOfLineColor'));
-	$('#typeOfLineType').val(model.get('typeOfLineType'));
-
-	$('#indObjPropSourceShape').val(model.get('indObjPropSourceShape'));
-	$('#indObjPropTargetShape').val(model.get('indObjPropTargetShape'));
-	$('#indObjPropEdgeColor').val(model.get('indObjPropEdgeColor'));
-	$('#indObjPropEdgeType').val(model.get('indObjPropEdgeType'));
-	$('#indDataPropSourceShape').val(model.get('indDataPropSourceShape'));
-	$('#indDataPropTargetShape').val(model.get('indDataPropTargetShape'));
-	$('#indDataPropEdgeColor').val(model.get('indDataPropEdgeColor'));
-	$('#indDataPropEdgeType').val(model.get('indDataPropEdgeType'));
+	modelToGUI(false, 'typeOf');
+	modelToGUI(false, 'indObjProp');
+	modelToGUI(false, 'indDataProp');
 }
 
 function setPropertyCustomization() {
@@ -380,42 +383,33 @@ function setPropertyCustomization() {
 	var collapse = model.get('collapseEdges');
 	document.getElementById(collapse).checked = true;
 	$('#collapseEdges').val(collapse);
-	$('#objNodeShape').val(model.get('objNodeShape'));
-	$('#objFillColor').val(model.get('objFillColor'));
-	$('#objTextColor').val(model.get('objTextColor'));
-	$('#objBorderColor').val(model.get('objBorderColor'));
-	$('#objBorderType').val(model.get('objBorderType'));
-	$('#dataNodeShape').val(model.get('dataNodeShape'));
-	$('#dataFillColor').val(model.get('dataFillColor'));
-	$('#dataTextColor').val(model.get('dataTextColor'));
-	$('#dataBorderColor').val(model.get('dataBorderColor'));
-	$('#dataBorderType').val(model.get('dataBorderType'));
-	$('#objPropSourceShape').val(model.get('objPropSourceShape'));
-	$('#objPropTargetShape').val(model.get('objPropTargetShape'));
-	$('#objPropEdgeColor').val(model.get('objPropEdgeColor'));
-	$('#objPropEdgeType').val(model.get('objPropEdgeType'));
-	$('#dataPropSourceShape').val(model.get('dataPropSourceShape'));
-	$('#dataPropTargetShape').val(model.get('dataPropTargetShape'));
-	$('#dataPropEdgeColor').val(model.get('dataPropEdgeColor'));
-	$('#dataPropEdgeType').val(model.get('dataPropEdgeType'));
-	$('#annPropSourceShape').val(model.get('annPropSourceShape'));
-	$('#annPropTargetShape').val(model.get('annPropTargetShape'));
-	$('#annPropEdgeColor').val(model.get('annPropEdgeColor'));
-	$('#annPropEdgeType').val(model.get('annPropEdgeType'));
+
+	modelToGUI(true, 'obj');
+	modelToGUI(true, 'data');
+
+	modelToGUI(false, 'objProp');
+	modelToGUI(false, 'dataProp');
+	modelToGUI(false, 'annProp');
+	modelToGUI(false, 'rdfProp');
 }
 
 function setStdCustomization() {
-	var collapse = model.get("collapseEdges");
+	// Collapse edges
+	var collapse = model.get('collapseEdges');
 	if (collapse === 'collapseTrue') {
 		document.getElementById('collapseStdTrue').checked = true;
 	} else {
 		document.getElementById('collapseStdFalse').checked = true;
 	}
 	$('#collapseEdgesStd').val(collapse);
+
+	// UML Node fill colors
+	$('#umlNodeColor').val(model.get('umlNodeColor'));
+	$('#umlDataNodeColor').val(model.get('umlDataNodeColor'));
 }
 
 function toggleDetails(id1, id2, text) {
-    if (document.getElementById(id1).style.display == 'none') {
+    if (document.getElementById(id1).style.display === 'none') {
         document.getElementById(id1).style.display = 'block';
         document.getElementById(id2).innerHTML = text + ' <span class="dropup"><span class="caret"></span></span>';
     }
@@ -482,21 +476,22 @@ $(document).ready(function() {
 					// Show correct customization options based on the graphType
 					processCustomization(graphType, file);
 				} else {
-					// Not custom, just need to know whether edges are collapsed for Graffoo 
+					// Not custom, just need to know whether edges are collapsed for Graffoo
 					///   or UML property graphs
-					if ((visualization === 'uml' && graphType !== 'individual') 
-							|| (visualization === 'graffoo' 
-								&& (graphType === 'property' || graphType === 'both'))) {
-						var stdTitle = document.getElementById('stdCustomizationTitle').innerHTML;
-						stdTitle = stdTitle.replace('XXX', 'Graffoo');
-						stdTitle = stdTitle.substring(0, stdTitle.indexOf(',') + 2) + file.name;
-						if (visualization === 'uml') {	//NOSONAR - 4 levels of nested if/else
-							stdTitle = stdTitle.replace('Graffoo', 'UML');
-						}
-						document.getElementById('stdCustomizationTitle').innerHTML = stdTitle;
+					if (visualization === 'uml') {
+						createTitleForStdCustomization('UML', file);
 						displayCustomization('stdCustomization');
+						displayCustomization('umlCustomization');
+						if (graphType !== 'individual') {
+							displayCustomization('collapseCustomization');
+						}
+					} else if (visualization === 'graffoo'
+								&& (graphType === 'property' || graphType === 'both')) {
+						createTitleForStdCustomization('Graffoo', file);
+						displayCustomization('stdCustomization');
+						displayCustomization('collapseCustomization');
 					} else {
-						// Set the model property to False 
+						// Set the model property to False
 						model.set('collapseEdges', 'collapseFalse');
 						generateGraph();
 					}
@@ -511,61 +506,50 @@ $(document).ready(function() {
 
 	// Handle canceling customization
 	$('#cancelClassDiagram').on('click', function() {
-		 cancelCustomization('classCustomization');
-	});
+		 cancelCustomization('classCustomization'); });
 	$('#cancelIndividualDiagram').on('click', function() {
-		 cancelCustomization('individualCustomization');
-	});
+		 cancelCustomization('individualCustomization'); });
 	$('#cancelPropertyDiagram').on('click', function() {
-		 cancelCustomization('propertyCustomization');
-	});
+		 cancelCustomization('propertyCustomization'); });
 	$('#cancelStdDiagram').on('click', function() {
-		 cancelCustomization('stdCustomization');
-	});
+		 cancelCustomization('stdCustomization'); });
 
 	// Handle display various customization details
 	$('#toggleClass1').on('click', function() {
-		toggleDetails('class-node-custom', 'toggleClass1', 'Class Node Customization');
-	});
+		toggleDetails('class-node-custom', 'toggleClass1', 'Class Node Customization'); });
 	$('#toggleClass2').on('click', function() {
-		toggleDetails('class-subclassOf-edge-custom', 'toggleClass2', 'Subclass-Of Edge Customization');
-	});
+		toggleDetails('class-datatype-node-custom', 'toggleClass2', 'Datatype Node Customization'); });
+	$('#toggleClass3').on('click', function() {
+		toggleDetails('class-subclassOf-edge-custom', 'toggleClass3', 'Subclass-Of Edge Customization'); });
 	$('#toggleIndividual1').on('click', function() {
-		toggleDetails('individual-node-custom', 'toggleIndividual1', 'Individual Node Customization');
-	});
+		toggleDetails('individual-node-custom', 'toggleIndividual1', 'Individual Node Customization'); });
 	$('#toggleIndividual2').on('click', function() {
-		toggleDetails('individual-class-node-custom', 'toggleIndividual2', "Individual's Type Node Customization");
-	});
+		toggleDetails('individual-class-node-custom', 'toggleIndividual2', "Individual's Type Node Customization"); });
 	$('#toggleIndividual3').on('click', function() {
-		toggleDetails('individual-data-node-custom', 'toggleIndividual3', "Individual's Data Value Customization");
-	});
+		toggleDetails('individual-data-node-custom', 'toggleIndividual3', "Individual's Data Value Customization"); });
 	$('#toggleIndividual4').on('click', function() {
-		toggleDetails('individual-typeOf-edge-custom', 'toggleIndividual4', 'Type-Of Edge Customization');
-	});
+		toggleDetails('individual-typeOf-edge-custom', 'toggleIndividual4', 'Type-Of Edge Customization'); });
 	$('#toggleIndividual5').on('click', function() {
-		toggleDetails('individual-individual-edge-custom', 'toggleIndividual5', 'Individual-Individual (Object Property) Edge Customization');
-	});
+		toggleDetails('individual-individual-edge-custom', 'toggleIndividual5',
+				'Individual-Individual (Object Property) Edge Customization'); });
 	$('#toggleIndividual6').on('click', function() {
-		toggleDetails('individual-data-edge-custom', 'toggleIndividual6', 'Individual-Data Value (Datatype or Annotation Property) Edge Customization');
-	});
+		toggleDetails('individual-data-edge-custom', 'toggleIndividual6',
+				'Individual-Data Value (Datatype or Annotation Property) Edge Customization'); });
 	$('#toggleProperty1').on('click', function() {
-		toggleDetails('property-class-node-custom', 'toggleProperty1', 'Domain/Range Class Node Customization');
-	});
+		toggleDetails('property-class-node-custom', 'toggleProperty1', 'Domain/Range Class Node Customization'); });
 	$('#toggleProperty2').on('click', function() {
-		toggleDetails('property-data-node-custom', 'toggleProperty2', 'Datatype Node (Datatype Property Range) Customization');
-	});
+		toggleDetails('property-data-node-custom', 'toggleProperty2',
+				'Datatype Node (Datatype Property Range) Customization'); });
 	$('#toggleProperty3').on('click', function() {
-		toggleDetails('property-subclassOf-edge-custom', 'toggleProperty3', 'Subclass-Of Edge Customization');
-	});
+		toggleDetails('property-subclassOf-edge-custom', 'toggleProperty3', 'Subclass-Of Edge Customization'); });
 	$('#toggleProperty4').on('click', function() {
-		toggleDetails('property-object-edge-custom', 'toggleProperty4', 'Object Property Edge Customization');
-	});
+		toggleDetails('property-object-edge-custom', 'toggleProperty4', 'Object Property Edge Customization'); });
 	$('#toggleProperty5').on('click', function() {
-		toggleDetails('property-datatype-edge-custom', 'toggleProperty5', 'Datatype Property Edge Customization');
-	});
+		toggleDetails('property-datatype-edge-custom', 'toggleProperty5', 'Datatype Property Edge Customization'); });
 	$('#toggleProperty6').on('click', function() {
-		toggleDetails('property-annotation-edge-custom', 'toggleProperty6', 'Annotation Property Edge Customization');
-	});
+		toggleDetails('property-annotation-edge-custom', 'toggleProperty6', 'Annotation Property Edge Customization'); });
+	$('#toggleProperty7').on('click', function() {
+		toggleDetails('property-rdf-edge-custom', 'toggleProperty7', 'RDF Property Edge Customization'); });
 
 	// Handle processing customization
 	$('#classDiagram').on('click', function() {
@@ -576,6 +560,11 @@ $(document).ready(function() {
 			classTextColor: adjustColorValue($('#classTextColor').val()),
 			classBorderColor: adjustColorValue($('#classBorderColor').val()),
 			classBorderType: adjustLineValue($('#classBorderType').val()),
+			classDataNodeShape: adjustNodeValue($('#classDataNodeShape').val()),
+			classDataFillColor: adjustColorValue($('#classDataFillColor').val()),
+			classDataTextColor: adjustColorValue($('#classDataTextColor').val()),
+			classDataBorderColor: adjustColorValue($('#classDataBorderColor').val()),
+			classDataBorderType: adjustLineValue($('#classDataBorderType').val()),
 			subclassOfSourceShape: adjustArrowValue($('#subclassOfSourceShape').val()),
 			subclassOfTargetShape: adjustArrowValue($('#subclassOfTargetShape').val()),
 			subclassOfLineColor: adjustColorValue($('#subclassOfLineColor').val()),
@@ -642,6 +631,10 @@ $(document).ready(function() {
 			annPropTargetShape: adjustArrowValue($('#annPropTargetShape').val()),
 			annPropEdgeColor: adjustColorValue($('#annPropEdgeColor').val()),
 			annPropEdgeType: adjustLineValue($('#annPropEdgeType').val()),
+			rdfPropSourceShape: adjustArrowValue($('#rdfPropSourceShape').val()),
+			rdfPropTargetShape: adjustArrowValue($('#rdfPropTargetShape').val()),
+			rdfPropEdgeColor: adjustColorValue($('#rdfPropEdgeColor').val()),
+			rdfPropEdgeType: adjustLineValue($('#rdfPropEdgeType').val()),
 			subclassOfSourceShape: adjustArrowValue($('#subclassOfSourceShapeBoth').val()),
 			subclassOfTargetShape: adjustArrowValue($('#subclassOfTargetShapeBoth').val()),
 			subclassOfLineColor: adjustColorValue($('#subclassOfLineColorBoth').val()),
@@ -652,7 +645,9 @@ $(document).ready(function() {
 	$('#stdDiagram').on('click', function() {
 		// Update the GraphRequestModel with the data from the browser
 		model.set({
-			collapseEdges: $('input[name="collapseEdgesStd"]:checked').val()
+			collapseEdges: $('input[name="collapseEdgesStd"]:checked').val(),
+			umlNodeColor: adjustColorValue($('#umlNodeColor').val()),
+			umlDataNodeColor: adjustColorValue($('#umlDataNodeColor').val())
 		});
 		generateGraph();
 	});

@@ -38,5 +38,8 @@ public class ClassModel {
     @NonNull private String classLabel;
     @NonNull private String fullClassName;
     private List<String> superClasses;
+    // Distinguishes between an owl or rdfs Class and an rdfs:Datatype 
+    //    where the classType is set to 'd' for a datatype
+    private char classType;
     
 }

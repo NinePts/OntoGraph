@@ -43,92 +43,107 @@ public final class ClassesGraphCreation {
 
     
     /**
-     * Create a class hierarchy graph (classes, superclasses, enumerations, equivalences, ...) in GraphML.
-     * 
-     * @param  requestModel GraphRequestModel defining visualization settings
-     * @param  ontologyPrefix String holding the URI of the loaded ontology
-     * @param  classes List of ClassModels
-     * @param  relatedsAndRestrictions RelatedAndRestrictionModel containing lists of models 
-     *             of "related" classes (equivalent, disjoints, and oneOfs), of connectives
-     *             (unions, intersections and complementOfs) and restrictions (allValuesFrom,
-     *             someValuesFrom, min/maxInclusive, ...)
-     * @return String GraphMLString
-     * @throws OntoGraphException 
-     * 
-     */
-    public static String processClassHierarchy(GraphRequestModel requestModel, 
-    		final String ontologyPrefix, List<ClassModel> classes,
-    		RelatedAndRestrictionModel relatedsAndRestrictions)
-    			throws OntoGraphException {
-        
-        StringBuilder sb = new StringBuilder();
-        // The TypeAndValueModel is used here where the "type" is the class name and the 
-        //   "value" is the superclass
-        Set<TypeAndValueModel> blankNodeSuperClasses = new HashSet<>();  
-        
-        for (ClassModel cl : classes) {
-            String className = cl.getClassName();
-            // Add the classes to the graph
-            sb.append(addClass(requestModel, ontologyPrefix, className, cl.getClassLabel()));
-            
-            List<String> superClasses = cl.getSuperClasses();
-            if (!superClasses.isEmpty()) {
-            	// Add subclassOf edges
-            	sb.append(GraphMLUtils.addSubclassOfEdges(requestModel, className, superClasses));
-            }
-        
-            // Find any superclasses that are blank nodes
-            for (String sc : superClasses) {
-            	if (!sc.contains(":")) {
-            		blankNodeSuperClasses.add(TypeAndValueModel.createTypeAndValueModel(className, sc));
-            	}
-            }
-        }
-        
-        Set<String> referencedClasses = new HashSet<>();  // Not needed for class definitions, but used in
-                      								      // the method calls below
-        // Add any blank node superclasses
-        sb.append(GraphMLUtils.addBlankNodeSuperclasses(requestModel, classes, blankNodeSuperClasses,
-        		relatedsAndRestrictions, referencedClasses));
-        
-        // Add any equivalent, disjoint, ... classes and oneOf individuals
-        for (Map.Entry<String, List<TypeAndValueModel>> entry : 
-        		relatedsAndRestrictions.getEquivalentsDisjointsOneOfs().entrySet()) {
-            String className = entry.getKey();
-            List<TypeAndValueModel> relatedList = entry.getValue();
-            sb.append(GraphMLUtils.addRelated(requestModel, classes, className, relatedList, 
-            		relatedsAndRestrictions, referencedClasses));
-        }
-        
-        return sb.toString();
-    }
-    
-    /**
-     * Add all classes defined in the ontology.
-     * 
-     * @param  requestModel GraphRequestModel defining visualization settings
-     * @param  ontologyPrefix String that is the prefix of the owl:Ontology URI
-     * @param  className String of the class name (beginning with a prefix and ":")
-     * @param  classLabel String 
-     * @return String GraphMLString
-     * 
-     */
-    private static String addClass(GraphRequestModel requestModel, final String ontologyPrefix,
-    		final String className, final String classLabel) {
-        
-    	String visualization = requestModel.getVisualization();
-    	
-        // Defaults
-        NodeDetailsModel nodeDetails = NodeDetailsModel.createNodeDetailsModel(requestModel, "class");
-        		
-        // Get display changes based on the class name and visualization
-        // TODO: Allow selection between label, label (prefixed name), prefixed name or 
-        //     local name for a custom display
-        String label = GraphMLUtils.getLabelForDisplay(ontologyPrefix, visualization, className, 
-        		classLabel, true);
-        GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, className, label);
-        
-        // Generate node
-        return GraphMLOutputDetails.addNode(nodeDetails, className, label);
-    }
+	 * Create a class hierarchy graph (classes, superclasses, enumerations, equivalences, ...) in GraphML.
+	 * 
+	 * @param  requestModel GraphRequestModel defining visualization settings
+	 * @param  ontologyPrefix String holding the URI of the loaded ontology
+	 * @param  classes List of ClassModels
+	 * @param  relatedsAndRestrictions RelatedAndRestrictionModel containing lists of models 
+	 *             of "related" classes (equivalent, disjoints, and oneOfs), of connectives
+	 *             (unions, intersections and complementOfs) and restrictions (allValuesFrom,
+	 *             someValuesFrom, min/maxInclusive, ...)
+	 * @return String GraphMLString
+	 * @throws OntoGraphException 
+	 * 
+	 */
+	public static String processClassHierarchy(GraphRequestModel requestModel, 
+			final String ontologyPrefix, List<ClassModel> classes,
+			RelatedAndRestrictionModel relatedsAndRestrictions)
+				throws OntoGraphException {
+	    
+	    StringBuilder sb = new StringBuilder();
+	    // The TypeAndValueModel is used here where the "type" is the class name and the 
+	    //   "value" is the superclass
+	    Set<TypeAndValueModel> blankNodeSuperClasses = new HashSet<>();  
+	    
+	    for (ClassModel cl : classes) {
+	        String className = cl.getClassName();
+	        // Add the classes to the graph
+	        sb.append(addClass(requestModel, ontologyPrefix, className, cl.getClassLabel(), 
+	        		(cl.getClassType() == 'c' ? false : true)));
+	        
+	        List<String> superClasses = cl.getSuperClasses();
+	        if (!superClasses.isEmpty()) {
+	        	// Add subclassOf edges
+	        	sb.append(GraphMLUtils.addSubclassOfEdges(requestModel, className, superClasses));
+	        }
+	    
+	        // Find any superclasses that are blank nodes
+	        for (String sc : superClasses) {
+	        	if (!sc.contains(":")) {
+	        		blankNodeSuperClasses.add(TypeAndValueModel.createTypeAndValueModel(className, sc));
+	        	}
+	        }
+	    }
+	    
+	    Set<String> referencedClasses = new HashSet<>();  
+	    // Add any blank node superclasses
+	    sb.append(GraphMLUtils.addBlankNodeSuperclasses(requestModel, classes, blankNodeSuperClasses,
+	    		relatedsAndRestrictions, referencedClasses));
+	    
+	    // Add any equivalent, disjoint, ... classes and oneOf individuals
+	    for (Map.Entry<String, List<TypeAndValueModel>> entry : 
+	    		relatedsAndRestrictions.getEquivalentsDisjointsOneOfs().entrySet()) {
+	        String className = entry.getKey();
+	        List<TypeAndValueModel> relatedList = entry.getValue();
+	        sb.append(GraphMLUtils.addRelated(requestModel, classes, className, relatedList, 
+	        		relatedsAndRestrictions, referencedClasses));
+	    }
+	
+	    // Need to add any classes referenced in complement, union or intersectionOf declarations that are
+	    //   NOT found - since they will be missing from the graph
+	    NodeDetailsModel nodeDetails = NodeDetailsModel.createNodeDetailsModel(requestModel, "class");
+	    for (String refClass : referencedClasses) {
+	    	if (!sb.toString().contains("<node id=\"" + refClass + "\"")) {
+				// Reset the node shape in case it was manipulated
+		        nodeDetails.setNodeShape(requestModel.getClassNodeShape());
+	    		sb.append(GraphMLUtils.addReferencedClass(ontologyPrefix, nodeDetails, refClass));
+	    	}
+	    }
+	    
+	    return sb.toString();
+	}
+
+
+	/**
+	 * Add all classes defined in the ontology.
+	 * 
+	 * @param  requestModel GraphRequestModel defining visualization settings
+	 * @param  ontologyPrefix String that is the prefix of the owl:Ontology URI
+	 * @param  className String of the class name (beginning with a prefix and ":")
+	 * @param  classLabel String 
+	 * @param  isDatatype boolean indicating (if true) that the "class" is really a subtype 
+	 *              of an rdfs:Datatype
+	 * @return String GraphMLString
+	 * 
+	 */
+	private static String addClass(GraphRequestModel requestModel, final String ontologyPrefix,
+			final String className, final String classLabel, boolean isDatatype) {
+	    
+		String visualization = requestModel.getVisualization();
+		
+	    // Defaults
+	    NodeDetailsModel nodeDetails = NodeDetailsModel.createNodeDetailsModel(requestModel, 
+	    		(isDatatype ? "data" : "class"));
+	    		
+	    // Get display changes based on the class name and visualization
+	    // TODO: Allow selection between label, label (prefixed name), prefixed name or 
+	    //     local name for a custom display
+	    String label = GraphMLUtils.getLabelForDisplay(ontologyPrefix, visualization, className, 
+	    		classLabel, true);
+	    GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, className, label, isDatatype);
+	    
+	    // Generate node
+	    return GraphMLOutputDetails.addNode(nodeDetails, className, label);
+	}
 }

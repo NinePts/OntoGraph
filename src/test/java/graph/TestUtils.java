@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 
 package graph;
@@ -126,8 +127,7 @@ public class TestUtils {
      * @throws IOException
      * 
      */
-    public static void writeFile(String path, String input) 
-            throws IOException {
+    public static void writeFile(String path, String input) throws IOException {
         
         File file = new File(path);
         FileWriter fw = new FileWriter(file);
@@ -149,6 +149,7 @@ public class TestUtils {
      * @param  attributeName String identifying the specific attribute of the sub-node to be checked
      * @param  compareValue String specifying the value of the value or sub-node
      * @return error String
+     * 
      */
     private static String checkAttributeOrValue(final String xmlDetails, final boolean forNode, 
     		final String id, final String element, final String attributeName, final String compareValue) {
@@ -195,7 +196,7 @@ public class TestUtils {
     		}
     		if (!elementDetails.contains(">" + cv)) {
     			error.append(", the value of the element, " + element + " is not the expected value ("
-    					+ compareValue + ").");
+    					+ compareValue + "). ");
     		} else {
     			error.setLength(0);
     		}
@@ -264,7 +265,7 @@ public class TestUtils {
     		}
     	}
     	if (!missingExpected.toString().isEmpty()) {
-    		sb.append(String.format("The output GraphML does not contain the expected node label(s): %s", 
+    		sb.append(String.format("The output GraphML does not contain the expected node label(s): %s ", 
     				missingExpected.toString()));
     	}
     	
@@ -283,7 +284,7 @@ public class TestUtils {
     		}
     	}
     	if (!otherLabels.toString().isEmpty()) {
-    		sb.append(String.format("The output GraphML contains additional node label(s): %s", 
+    		sb.append(String.format("The output GraphML contains additional node label(s): %s ", 
     				otherLabels.toString()));
     	}
     	
@@ -341,7 +342,7 @@ public class TestUtils {
 			}
 		}
 		if (!foundEdge) {
-			sb.append("Did not find the edge, " + id + ", in the list of expected edges.");
+			sb.append("Did not find the edge, " + id + ", in the list of expected edges. ");
 		}
 		
 		return sb.toString();
@@ -484,7 +485,7 @@ public class TestUtils {
 			}
 		}
 		if (!foundNode) {
-			sb.append("Did not find the node, " + id + ", in the list of expected nodes.");
+			sb.append("Did not find the node, " + id + ", in the list of expected nodes. ");
 		}
 		
 		return sb.toString();

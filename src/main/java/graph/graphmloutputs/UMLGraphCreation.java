@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 
 package graph.graphmloutputs;
@@ -24,7 +25,8 @@ import java.util.Map;
 import java.util.Set;
 
 import graph.OntoGraphException;
-import graph.models.BlankAndRelatedNodesModel;
+import graph.models.AttributeLinesAndLength;
+import graph.models.EntityAndRelatedNodesModel;
 import graph.models.ClassModel;
 import graph.models.EdgeDetailsModel;
 import graph.models.EdgeFlagsModel;
@@ -66,7 +68,7 @@ public final class UMLGraphCreation {
      * @throws OntoGraphException 
      * 
      */
-    public static String processUMLClassGraph(GraphRequestModel requestModel, //NOSONAR - Acknowledging complexity
+    public static String processUMLClassGraph(GraphRequestModel requestModel, 
     		List<ClassModel> origClasses, List<UMLClassModel> classes, List<PropertyModel> properties, 
     		List<PropertyModel> collProperties, RelatedAndRestrictionModel relatedsAndRestrictions) 
     				throws OntoGraphException {
@@ -85,21 +87,28 @@ public final class UMLGraphCreation {
         for (UMLClassModel umlModel : classes) {
         	String className = umlModel.getClassName();
             List<String> superClasses = umlModel.getSuperClasses();
+            char classType = umlModel.getClassType();
             
             // Fix up the attributes to include their range(s) in the property label
-            List<String> attributeList = getAttributesWithPropDetails(umlModel.getAttributes(),
-            		properties, referencedBlankNodes);
+            Set<String> specificBlankNodes = new HashSet<>();
+	        List<String> attributeList = getAttributesWithPropDetails(umlModel.getAttributes(),
+	            	properties, specificBlankNodes);
+	        
             // If there are any referenced blank nodes as attribute types, then add an edge to them, 
             //    which is necessary since the type will be an arbitrary identifier and have no 
     		//    inherent meaning (the details are added by the blankNodeProcessing below)
-            for (String rbn : referencedBlankNodes) {
+            for (String rbn : specificBlankNodes) {
             		edgeDetails.setEdgeLabel("Attribute type: " + getBlankNodeId(rbn));
 	                sb.append(GraphMLOutputDetails.addEdge(edgeDetails, className, rbn, "typeOf", 
 	                		EdgeFlagsModel.createEdgeFlagsFalse()));
             }
+            // Add the specific blank nodes to the overall list
+            referencedBlankNodes.addAll(specificBlankNodes);
             
-            // Add each class with its attributes (datatype properties) 
-            sb.append(addClassOrInstance(className, umlModel.getClassLabel(), attributeList));
+	        // Add each class with its attributes (datatype properties) 
+	        sb.append(addClassOrInstance(className, umlModel.getClassLabel(), attributeList, 
+	            		(classType == 'd' ? requestModel.getUmlDataNodeColor() : requestModel.getUmlNodeColor())));
+	        
             // Add edges to the superclasses
             sb.append(GraphMLUtils.addSubclassOfEdges(requestModel, className, superClasses));
         
@@ -111,8 +120,6 @@ public final class UMLGraphCreation {
             }
         }
 
-        // referencedClasses is used in the method calls below, but not needed for a UML diagram
-        //    (only for property only diagrams)
         Set<String> referencedClasses = new HashSet<>();
         // Add any blank node superclasses
         if (!blankNodeSuperClasses.isEmpty()) {
@@ -124,16 +131,17 @@ public final class UMLGraphCreation {
         for (String node : referencedBlankNodes) {
     		// Add the node details
 			sb.append(GraphMLUtils.blankNodeProcessing(requestModel, origClasses, 
-					BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(node, ""),
+					EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(node, ""),
 					"", relatedsAndRestrictions, referencedClasses));
         }
         
         // Add object properties
-        // Functional and inverse functional mean cardinality of [0..1] at one of the arrows
-        //     of the property edge, but this can't be done with the base yEd definitions. Instead the
-        //      phrase, "(functional)" or "(inverseFunctional)", is appended to the property name.
+        // Functional and inverse functional mean cardinality of [0..1] at one of the arrows of the 
+        //     property edge, but this can't be done with the base yEd definitions. Similarly, cardinalities
+        //     are not supported. Instead the phrase, "(functional)" or "(inverseFunctional)", is appended 
+        //     to the property name.
         // This also allows the support of transitive, reflexive, symmetric, ... declarations.
-        // TODO Determine how to address lack of compliance with UML
+        // TODO Determine how to address lack of compliance with UML, and how to support cardinalities in general
         if ("collapseTrue".equals(requestModel.getCollapseEdges())) {
         	sb.append(addProperties(requestModel, collProperties, origClasses, relatedsAndRestrictions));
         } else {
@@ -148,6 +156,16 @@ public final class UMLGraphCreation {
             sb.append(GraphMLUtils.addRelated(requestModel, origClasses, className,
             		relatedList, relatedsAndRestrictions, referencedClasses));
         }
+	
+	    // Need to add any classes referenced in complement, union or intersectionOf declarations that are
+	    //   NOT found - since they will be missing from the graph
+        List<String> attributeList = new ArrayList<>();
+        String nodeColor = requestModel.getUmlNodeColor();
+	    for (String refClass : referencedClasses) {
+	    	if (!sb.toString().contains("<node id=\"" + refClass + "\"")) {
+	    		sb.append(addClassOrInstance(refClass, refClass, attributeList, nodeColor));
+	    	}
+	    }
         
         return sb.toString();
     }
@@ -163,73 +181,77 @@ public final class UMLGraphCreation {
 	 *             of "related" classes (equivalent, disjoints, and oneOfs), of connectives
 	 *             (unions, intersections and complementOfs) and restrictions (allValuesFrom,
 	 *             someValuesFrom, min/maxInclusive, ...)
-     * @param  instances List<IndividualModel> 
+     * @param  individuals List<IndividualModel> 
      * @return GraphML String
      * @throws OntoGraphException 
      * 
      */
-    public static String processUMLInstanceGraph(GraphRequestModel requestModel, //NOSONAR - Acknowledging complexity
+    public static String processUMLIndividualGraph(GraphRequestModel requestModel,
     		List<ClassModel> classes, RelatedAndRestrictionModel relatedsAndRestrictions,
-    		List<IndividualModel> instances) throws OntoGraphException {
+    		List<IndividualModel> individuals) throws OntoGraphException {
         
         StringBuilder sb = new StringBuilder();
+        String nodeColor = requestModel.getUmlNodeColor();
 
         // Set up an EdgeDetailsModel in case there are any blank nodes as the "type" of 1+ individuals
         EdgeDetailsModel edgeDetails = setupUMLEdgeDetailsModel(requestModel);
         
         // Keep track of known/graphed instances and those that are referenced in object properties
         //   since the latter may not be (fully) defined in the ontology
-        Set<String> createdInstances = new HashSet<>();
-        Set<String> referencedInstances = new HashSet<>();
+        Set<String> createdIndividuals = new HashSet<>();
+        Set<String> referencedIndividuals = new HashSet<>();
         // Keep track of blank nodes that are a "type" of one or more individuals
         Set<String> referencedBlankNodes = new HashSet<>();
         
-        for (IndividualModel instance : instances) {
-            String instanceName = instance.getIndividualName();
-            String instanceLabel = processInstanceLabel(instance, referencedBlankNodes);
-            createdInstances.add(instanceName);
+        for (IndividualModel indiv : individuals) {
+            String individualName = indiv.getIndividualName();
+            createdIndividuals.add(individualName);
             
-            List<String> attributeList = getAttributesWithValues(instance);
+            List<String> attributeList = getAttributesWithValues(indiv);
             
             // Add the individual node
-            sb.append(addClassOrInstance(instanceName, instanceLabel, attributeList));
+            sb.append(addClassOrInstance(individualName, processIndividualLabel(indiv, referencedBlankNodes), 
+            		attributeList, nodeColor));
             // Check the individual's types for a blank node
-            for (String type : instance.getTypeLabels()) {
+            for (String type : indiv.getTypeLabels()) {
             	if (!"".equals(type) && !type.contains(":")) {
             		// If the type is a blank node, then add an edge to it, which is necessary
             		//    since the type will be an arbitrary identifier and will have no inherent 
             		//    meaning (the details are added by the blankNodeProcessing below)
             		referencedBlankNodes.add(type);
             		edgeDetails.setEdgeLabel("Type: " + getBlankNodeId(type));
-	                sb.append(GraphMLOutputDetails.addEdge(edgeDetails, instanceName, type, "typeOf", 
+	                sb.append(GraphMLOutputDetails.addEdge(edgeDetails, individualName, type, "typeOf", 
 	                		EdgeFlagsModel.createEdgeFlagsFalse()));
             	}
             }
            
             // Create property models for relationships and build edges
-            for (TypeAndValueModel r : instance.getObjectProperties()) {
+            // Don't need to worry about RDF properties since we have already separated 
+            //    class-class relationships from class-datatype relationships
+            // In UML, only the class-class relationships are graphed
+            for (TypeAndValueModel r : indiv.getObjectProperties()) {
                 String propName = r.getType();
                 String propVal = r.getValue();
                 PropertyModel p = PropertyModel.builder()
                         .propertyName(propName)
                         .propertyLabel(propName)
                         .fullPropertyName(propName)
-                        .propertyType("o")
-                        .domains(Arrays.asList(instanceName))
+                        .propertyType('o')
+                        .domains(Arrays.asList(individualName))
                         .ranges(Arrays.asList(propVal))
                         .edgeFlags(EdgeFlagsModel.createEdgeFlagsFalse())
                         .build();
                 sb.append(GraphMLUtils.addPropertyEdges(requestModel, "", p));
-                referencedInstances.add(propVal);
+                referencedIndividuals.add(propVal);
             }
         }
         
         // Create nodes for any instances that are referenced in an object property, but are
         //    not defined with a "type"
-        for (String ref : referencedInstances) {
-            if (!createdInstances.contains(ref)) {
+        for (String ref : referencedIndividuals) {
+            if (!createdIndividuals.contains(ref)) {
                 String refLabel = ref + " : Unknown";
-                sb.append(addClassOrInstance(ref, refLabel, Arrays.asList("")));
+                sb.append(addClassOrInstance(ref, refLabel, Arrays.asList(""), nodeColor));
             }
         }
         
@@ -238,7 +260,7 @@ public final class UMLGraphCreation {
         for (String node : referencedBlankNodes) {
     		// Add the node details
 			sb.append(GraphMLUtils.blankNodeProcessing(requestModel, classes, 
-					BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(node, ""),
+					EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(node, ""),
 					"", relatedsAndRestrictions, referencedClasses));
         }
         
@@ -249,7 +271,7 @@ public final class UMLGraphCreation {
         for (String refClass : referencedClasses) {
         	if (!referencedBlankNodes.contains(refClass)) {
         		sb.append(addClassOrInstance(GraphMLUtils.getPrefixedNameFromLabel(refClass), 
-        				refClass, attributes));
+        				refClass, attributes, nodeColor));
         	}
         }
         
@@ -263,20 +285,27 @@ public final class UMLGraphCreation {
      * @param  entityName String
      * @param  entityLabel String
      * @param  attributes List of (datatype) properties as Strings
+     * @param  nodeColor String
      * @return GraphML String
      * 
      */
-    private static String addClassOrInstance(final String entityName,   
-    		final String entityLabel, List<String> attributes) {
+    private static String addClassOrInstance(final String entityName, final String entityLabel,
+    		List<String> attributes, final String nodeColor) {
         
         // Get box sizes
         double len = entityLabel.length();
+        int attribLines = 0;
         for (String attribute : attributes) {
-        	if (attribute.length() > len) {
-        		len = attribute.length();
+        	// Check for line feeds and determine the max length based on the text with line feeds
+        	// The first value in the List is the number of lines > 1, the second value is the max length
+        	AttributeLinesAndLength attribDetails = GraphMLUtils.getAttributeDetails(attribute);
+        	attribLines += attribDetails.getNumberOfLines();
+        	if (attribDetails.getMaxLength() > len) {
+        		len = attribDetails.getMaxLength();
         	}
         }
-        int size = attributes.size();
+        
+        int size = attributes.size() + attribLines;
         double width = len * 9;
         double height;
         
@@ -289,7 +318,7 @@ public final class UMLGraphCreation {
         }
         
         // Add new node
-        return GraphMLOutputDetails.addUMLNode(entityName, entityLabel, attributes, width, height);
+        return GraphMLOutputDetails.addUMLNode(entityName, entityLabel, attributes, nodeColor, width, height);
     }
     
     /**
@@ -321,41 +350,69 @@ public final class UMLGraphCreation {
         }
 	    
 	    for (PropertyModel propModel : properties) {
-	        // Skip if it's not an object property
-	        if (!"o".equals(propModel.getPropertyType())) {
+	        // Skip if it's a datatype or annotation property (only object properties are graphed for OWL classes, 
+	    	//   since datatype and annotation properties are shown "inside" the box for the class)
+	    	char propType = propModel.getPropertyType();
+	        if (propType == 'd' || propType == 'a') {
 	        	continue;
 	        }
 	        
+	        // Know that the property is an OWL object or an RDF property
+	    	// Need to check the ranges for RDF properties to determine which are class-class
+	    	//   relationships and which are class-datatype relationships
+	        
 	        // Get classes used as domains and ranges from model
 	        List<String> domainsAndRanges = new ArrayList<>();
-	        domainsAndRanges.addAll(propModel.getDomains());
-	        domainsAndRanges.addAll(propModel.getRanges());
-        
-	        // Add any classes used as domains or ranges, that are not defined in the owlClasses 
-	        //   or not already added
-	        for (String dar : domainsAndRanges) {
-	        	String prefixedName = GraphMLUtils.getPrefixedNameFromLabel(dar);
-	        	// If the class name list does not have the class in it ... 
-	        	// And the class has not already been added ...
-	        	if (!classLabels.contains(dar) && !classLabels.contains(prefixedName)   
-	        			&& !addedClasses.contains(dar)) {
-	        		addedClasses.add(dar);
-	        		if (!dar.contains(":")) {   //NOSONAR - Acknowledging 4 levels of nesting
-		                // Is a blank node ... 
-		                // Passing in an empty string for the "related" class name since this is not a class only
-		                //   diagram (we want to reuse all the logic, but not make an edge to the related class)
-		                sb.append(GraphMLUtils.addRelated(requestModel, classes, "", 
-		                        Arrays.asList(TypeAndValueModel.createTypeAndValueModel("eq", dar)),	
-		                        relatedsAndRestrictions, new HashSet<>()));
-	                } else {
-	                	sb.append(addClassOrInstance(GraphMLUtils.getPrefixedNameFromLabel(dar), 
-	                			dar, attributes));
-	                }
+	        if (propType == 'o') {
+	        	// For object properties, both the domain and range are classes
+		        domainsAndRanges.addAll(propModel.getDomains());
+		        domainsAndRanges.addAll(propModel.getRanges());
+	        } else {
+	        	// Is an RDF property - check the range to determine if it is a class and therefore,
+	        	//    an edge is needed
+	        	List<String> classRanges = new ArrayList<>();
+	        	// If the range does not start with the RDFS, RDF or XSD prefix, then it is a class
+	        	for (String range : propModel.getRanges()) {
+	        		if (!range.equals("rdfs:Class") && !range.equals("rdfs:Resource")
+	        				&& (range.contains("rdfs:") || range.contains("rdf:") || range.contains("xsd:"))) {
+	        			continue;
+	        		}
+	        		classRanges.add(range);
+	        	}
+	        	if (!classRanges.isEmpty()) {
+	        		domainsAndRanges.addAll(propModel.getDomains());
+	        		domainsAndRanges.addAll(classRanges);
 	        	}
 	        }
-	        
-	        // Second parameter is empty since a UML graph does not need the ontologyPrefix
-	        sb.append(GraphMLUtils.addPropertyEdges(requestModel, "", propModel));
+        
+	        // Only add an edge if there are actually domains/ranges defined
+	        // Also add any classes used as domains or ranges, that are not defined in the owlClasses 
+	        //   or not already added
+	        if (!domainsAndRanges.isEmpty()) {
+		        for (String dar : domainsAndRanges) {
+		        	String prefixedName = GraphMLUtils.getPrefixedNameFromLabel(dar);
+		        	// If the class name list does not have the class in it ... 
+		        	// And the class has not already been added ...
+		        	if (!classLabels.contains(dar) && !classLabels.contains(prefixedName)   
+		        			&& !addedClasses.contains(dar)) {
+		        		addedClasses.add(dar);
+		        		if (!dar.contains(":")) {   
+			                // Is a blank node ... 
+			                // Passing in an empty string for the "related" class name since this is not a class only
+			                //   diagram (we want to reuse all the logic, but not make an edge to the related class)
+			                sb.append(GraphMLUtils.addRelated(requestModel, classes, "", 
+			                        Arrays.asList(TypeAndValueModel.createTypeAndValueModel("eq", dar)),	
+			                        relatedsAndRestrictions, new HashSet<>()));
+		                } else {
+		                	sb.append(addClassOrInstance(GraphMLUtils.getPrefixedNameFromLabel(dar), 
+		                			dar, attributes, requestModel.getUmlNodeColor()));
+		                }
+		        	}
+		        }
+		        
+		        // Second parameter is empty since a UML graph does not need the ontologyPrefix
+		        sb.append(GraphMLUtils.addPropertyEdges(requestModel, "", propModel));
+	        }
 	    }
 	    
 	    return sb.toString();
@@ -423,8 +480,14 @@ public final class UMLGraphCreation {
         for (TypeAndValueModel attr : attributes) {
             // Process the value to separate val and datatype
             String fullVal = attr.getValue();
-            String val = fullVal.substring(1, fullVal.lastIndexOf('"'));
-            String dataType = fullVal.substring(fullVal.indexOf(':') + 1);
+            String val = fullVal;
+            String dataType = "";
+            if (fullVal.contains("\"")) {
+            	val = fullVal.substring(1, fullVal.lastIndexOf('"'));
+            }
+            if (fullVal.contains("xsd:")) {
+            	dataType = fullVal.substring(fullVal.indexOf("xsd:") + 4);
+            }
             
             attributeList.add(attr.getType() + " : " + dataType + " = " + val);
         }
@@ -486,13 +549,13 @@ public final class UMLGraphCreation {
 	 * @return String defining the instance label
 	 * 
 	 */
-	private static String processInstanceLabel(IndividualModel instance, Set<String> referencedBlankNodes) {
+	private static String processIndividualLabel(IndividualModel individual, Set<String> referencedBlankNodes) {
 		
 	    StringBuilder sb = new StringBuilder();
 	    
-	    List<String> types = instance.getTypeLabels();
+	    List<String> types = individual.getTypeLabels();
 	    
-        sb.append(instance.getIndividualLabel() + " : ");
+        sb.append(individual.getIndividualLabel() + " : ");
         
         if (types.isEmpty() || "".equals(types.get(0))) {
         	// The "type" is not defined in the ontology - Listed as "Unknown"

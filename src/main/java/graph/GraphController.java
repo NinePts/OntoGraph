@@ -36,6 +36,7 @@ import org.apache.commons.codec.binary.Base64;
 import graph.models.GraphRequestModel;
 import graph.models.GraphResponseModel;
 import graph.models.IndividualModel;
+import graph.models.EntityAndRelatedNodesModel;
 import graph.models.ClassModel;
 import graph.models.EdgeFlagsModel;
 import graph.models.PrefixModel;
@@ -69,16 +70,19 @@ public class GraphController extends RestExceptionHandler {
 	//   disjoint property, sub-property and sub-annotation-property, ontology details (versionInfo, 
 	//   imports, backwardCompatibleWith, incompatibleWith, priorVersion), differentFrom, AllDifferent, 
 	//   distinct, annotatedSource, annotatedTarget, annotatedProperty
-	// Other concepts not yet supported: SWRL rules
+	// TODO Other concepts not yet supported: rdfs:SeeAlso and :comment for classes and properties, 
+	//   rdfs:isDefinedBy for all entities, SWRL rules
     
-    @Autowired private GraphDAO dao;
+    @Autowired private GraphDBAccess dbAccess;
     
     // Frequently used strings
+    private static final String ANGLE_BRACKET = "angleBracket";
     private static final String BLACK = "#000000";
     private static final String CLASS = "class";
     private static final String EMPTY_STRING = "";
     private static final String GRAFFOO = "graffoo";
     private static final String GRAFFOO_CLASS = "Graffoo Class";
+    private static final String GRAFFOO_DATATYPE = "Graffoo Datatype";
     private static final String INDIVIDUAL = "individual";
     private static final String NONE = "none";
     private static final String PROPERTY = "property";
@@ -90,6 +94,7 @@ public class GraphController extends RestExceptionHandler {
     private static final String VOWL = "vowl";
     private static final String VOWL_CLASS = "VOWL Class";
     private static final String VOWL_EDGE = "VOWL Edge";
+    private static final String VOWL_RDFS_DATATYPE = "VOWL RDFS Datatype";
     private static final String WHITE = "#FFFFFF";
     
     // Mapping of standard Graffoo and VOWL colors to RGB values
@@ -99,7 +104,7 @@ public class GraphController extends RestExceptionHandler {
         // From the various visualization types
     	colorMap.put(GRAFFOO_CLASS, "#FFFF00");
     	colorMap.put("Graffoo Individual", "#FF7FC1");
-    	colorMap.put("Graffoo Datatype", "#CCFFCC");
+    	colorMap.put(GRAFFOO_DATATYPE, "#CCFFCC");
     	colorMap.put("Graffoo Annotation Edge", "#993300");
     	colorMap.put("Graffoo Datatype Edge", "#008000");
     	colorMap.put("Graffoo Object Edge", "#000080");
@@ -109,9 +114,9 @@ public class GraphController extends RestExceptionHandler {
     	colorMap.put("VOWL External Class", "#3366CC");
     	colorMap.put("VOWL Object Label Fill", "#AACCFF");
     	colorMap.put("VOWL Datatype Label Fill", "#99CC66");
-    	colorMap.put("VOWL RDFS Datatype", "#FFCC33");
+    	colorMap.put(VOWL_RDFS_DATATYPE, "#FFCC33");
     	colorMap.put("VOWL Connectives", "#6699CC");
-    	colorMap.put(VOWL_EDGE, "#000000");
+    	colorMap.put(VOWL_EDGE, BLACK);
     	return colorMap;
     }
     
@@ -149,12 +154,47 @@ public class GraphController extends RestExceptionHandler {
 	    graphResponseModel.setGraphML(createGraph(requestModel));
 	    return graphResponseModel;
 	}
+	
+    /**
+     * Add any rdfs:Datatype restrictions into the GraphML output. 
+     * 
+     * @param  requestModel GraphRequestModel
+     * @param  classes List<ClassModel> with both class and datatype definitions
+     * @param  relatedsAndRestrictions RelatedAndRestrictionModel containing lists of models 
+     *             of "related" classes (equivalent, disjoints, and oneOfs), of connectives
+     *             (unions, intersections and complementOfs) and restrictions (allValuesFrom,
+     *             someValuesFrom, min/maxInclusive, ...)
+     * @return graphML String defining new nodes for the "additional" rdfs:Datatypes
+     * @throws OntoGraphException 
+     * 
+     */
+    private String addDatatypeRestrictions(GraphRequestModel requestModel, List<ClassModel> classes,
+    		RelatedAndRestrictionModel relatedsAndRestrictions) 
+    				throws OntoGraphException {
+    	
+    	StringBuilder sb = new StringBuilder();
+    	for (ClassModel cm : classes) {
+    		if ('d' == cm.getClassType()) {
+    			String className = cm.getClassName();
+    			EntityAndRelatedNodesModel entityAndRelated = EntityAndRelatedNodesModel.builder()
+    					 .entityNode(className)
+    					 .relatedNode("")
+    					 .build();
+    			// Add restriction details and edge
+        		sb.append(GraphMLUtils.handleRestriction(requestModel, classes, entityAndRelated, 
+        				relatedsAndRestrictions));
+    		}
+    	}
+    	
+    	return sb.toString();
+    }
 
 	/**
 	 * Defines the graphing conventions for a class/subclass hierarchy diagram
 	 * 
 	 * @param  requestModel GraphRequestModel holding all the details of the request from the browser. 
 	 *              It is modified to set the correct values if the graphType is Graffoo or VOWL.
+	 *              
 	 */
 	private static void createClassConventions(GraphRequestModel requestModel) {
 		
@@ -167,6 +207,11 @@ public class GraphController extends RestExceptionHandler {
 	    	requestModel.setClassTextColor(BLACK);
 	    	requestModel.setClassBorderColor(BLACK);
 	    	requestModel.setClassBorderType(SOLID);
+	    	requestModel.setDataNodeShape("parallelogramRight");
+	    	requestModel.setDataFillColor(colors.get(GRAFFOO_DATATYPE));
+	    	requestModel.setDataTextColor(BLACK);
+	    	requestModel.setDataBorderColor(BLACK);
+	    	requestModel.setDataBorderType(SOLID);
 	    	requestModel.setSubclassOfSourceShape(NONE);
 	    	requestModel.setSubclassOfTargetShape(TRIANGLE_ARROW);
 	    	requestModel.setSubclassOfLineColor(BLACK);
@@ -180,6 +225,11 @@ public class GraphController extends RestExceptionHandler {
 	    	requestModel.setClassTextColor(BLACK);
 	    	requestModel.setClassBorderColor(BLACK);
 	    	requestModel.setClassBorderType(SOLID);
+	    	requestModel.setDataNodeShape("squareRectangle");
+	    	requestModel.setDataFillColor(colors.get(VOWL_RDFS_DATATYPE));
+	    	requestModel.setDataTextColor(BLACK);
+	    	requestModel.setDataBorderColor(BLACK);
+	    	requestModel.setDataBorderType(SOLID);
 	    	requestModel.setSubclassOfSourceShape(NONE);
 	    	requestModel.setSubclassOfTargetShape(TRIANGLE_ARROW_EMPTY);
 	    	requestModel.setSubclassOfLineColor(BLACK);
@@ -245,7 +295,7 @@ public class GraphController extends RestExceptionHandler {
 	    
 	    // Create the SnarlTemplate to access the DB, and the array to hold the namespace prefix info
 	    SnarlTemplate snarlTemplate = new SnarlTemplate();
-	    // Also add reasoning support to a template
+	    // Also create a SnarlTemplate with reasoning support
 	    SnarlTemplate reasoningTemplate = new SnarlTemplate();
 	    
 	    // Instantiate empty models for the onology prefixes and all related details (equivalents, disjoints, 
@@ -263,37 +313,40 @@ public class GraphController extends RestExceptionHandler {
 	        		relatedsAndRestrictions));
 
 	        // Get the classes, which are needed in almost all graphs
-	        List<ClassModel> classes = dao.getClasses(requestModel.getReasoning(), snarlTemplate, 
+	        List<ClassModel> classes = dbAccess.getClasses(requestModel.getReasoning(), snarlTemplate, 
 	        		reasoningTemplate, prefixes);
 	        // Get any classes that are defined as equivalents or superclasses that are NOT 
 	        //   defined as owl:Class in the ontology
-	        classes.addAll(dao.getExternallyDefinedClasses(snarlTemplate, prefixes));
-	        // Add any blank node oneOfs that are not defined as an equivalentClass
-	        classes.addAll(dao.getStandaloneBlankNodes(snarlTemplate));
-	        
+		    classes.addAll(dbAccess.getExternallyDefinedClasses(snarlTemplate, prefixes));
+		    // Add any blank node oneOfs that are not defined as an equivalentClass
+		    classes.addAll(dbAccess.getStandaloneBlankNodes(snarlTemplate));
+		    
 	        // Determine the ontology's prefix (needed for VOWL to distinguish "external" classes)
         	List<String> ontPrefixAndCurrGraphML = new ArrayList<>(
         			Arrays.asList(EMPTY_STRING, EMPTY_STRING));
 	        if (VOWL.equals(visualization)) {
 	        	// Need to know the ontology's URI (only need it for VOWL to distinguish "external" classes)
+	        	// TODO Get the "base" URI in case of RDF
 	        	ontPrefixAndCurrGraphML.set(0, getOntologyPrefix(snarlTemplate, prefixes));
 	        }
-	       
+       
 	        // Generate the graph based on user's selection
 	        sb.append(generateGraph(requestModel, ontPrefixAndCurrGraphML, snarlTemplate, reasoningTemplate, 
 	        		prefixes, classes, relatedsAndRestrictions));
 	        
+	        // Only drop the db based on a successful completion (the failure might be due to the 
+	        //   db name being in use)
+	        dbAccess.dropDatabase(cleanGraphTitle);
+	        
 	    } catch (Exception e) {   //NOSONAR - Logged as part of OntoGraphException handling
 			throw new OntoGraphException("Error creating the graph. Exception details: " + e.getMessage());
-		} finally {
-	        // Drop the database
-	        dao.dropDatabase(cleanGraphTitle);
-		}  
+		} 
 	    
 	    // Close the GraphML XML and return the output
 	    if (VOWL.equals(visualization)) {
 	    	try {
-				sb.append(GraphMLOutputDetails.closeVOWLGraph());
+	    		// Need to append the VOWL connective images before closing the graph
+	    		sb.append(GraphMLOutputDetails.closeVOWLGraph());
 			} catch (IOException e) {	//NOSONAR - Logged as part of OntoGraphException handling
 				throw new OntoGraphException("Error reading buffered image files to close a VOWL graph. "
 				        + "IO Exception details: " + e.getMessage());
@@ -382,7 +435,7 @@ public class GraphController extends RestExceptionHandler {
 			List<ClassModel> classes, RelatedAndRestrictionModel relatedsAndRestrictions) throws OntoGraphException {
 		
 	    // Get the individuals
-	    List<IndividualModel> individuals = dao.getIndividuals(requestModel.getReasoning(),
+	    List<IndividualModel> individuals = dbAccess.getIndividuals(requestModel.getReasoning(),
 	    		snarlTemplate, reasoningTemplate, prefixes);
 	    
 	    // Set the visualization conventions as needed
@@ -407,7 +460,7 @@ public class GraphController extends RestExceptionHandler {
 	    if (GRAFFOO.equals(visualization)) {
 	        // Set based on Graffo specs
 	    	requestModel.setDataNodeShape("parallelogramRight");
-	    	requestModel.setDataFillColor(colors.get("Graffoo Datatype"));
+	    	requestModel.setDataFillColor(colors.get(GRAFFOO_DATATYPE));
 	    	requestModel.setDataTextColor(BLACK);
 	    	requestModel.setDataBorderColor(BLACK);
 	    	requestModel.setDataBorderType(SOLID);
@@ -425,14 +478,19 @@ public class GraphController extends RestExceptionHandler {
 	    	requestModel.setObjPropEdgeColor(colors.get("Graffoo Object Edge"));
 	    	requestModel.setObjPropEdgeType(SOLID);
 	    	requestModel.setAnnPropSourceShape("backslash");
-	    	requestModel.setAnnPropTargetShape("angleBracket");
+	    	requestModel.setAnnPropTargetShape(ANGLE_BRACKET);
 	    	requestModel.setAnnPropEdgeColor(colors.get("Graffoo Annotation Edge"));
 	    	requestModel.setAnnPropEdgeType(SOLID);
+	    	// Not defined in Graffoo, but added for completeness
+	    	requestModel.setRdfPropSourceShape(NONE);
+	    	requestModel.setRdfPropTargetShape(ANGLE_BRACKET);
+	    	requestModel.setRdfPropEdgeColor(BLACK);
+	    	requestModel.setRdfPropEdgeType(SOLID);
 	        
 	    } else if (VOWL.equals(visualization)) {
 	        // Set based on VOWL specs
 	    	requestModel.setDataNodeShape("squareRectangle");
-	    	requestModel.setDataFillColor(colors.get("VOWL RDFS Datatype"));
+	    	requestModel.setDataFillColor(colors.get(VOWL_RDFS_DATATYPE));
 	    	requestModel.setDataTextColor(BLACK);
 	    	requestModel.setDataBorderColor(BLACK);
 	    	requestModel.setDataBorderType(SOLID);
@@ -453,6 +511,10 @@ public class GraphController extends RestExceptionHandler {
 	    	requestModel.setAnnPropTargetShape(TRIANGLE_ARROW);
 	    	requestModel.setAnnPropEdgeColor(colors.get(VOWL_EDGE));
 	    	requestModel.setAnnPropEdgeType(SOLID);
+	    	requestModel.setRdfPropSourceShape(NONE);
+	    	requestModel.setRdfPropTargetShape(TRIANGLE_ARROW);
+	    	requestModel.setRdfPropEdgeColor(colors.get(VOWL_EDGE));
+	    	requestModel.setRdfPropEdgeType(SOLID);
 	    	requestModel.setCollapseEdges("collapseFalse");
 	    } 
 	}
@@ -483,7 +545,7 @@ public class GraphController extends RestExceptionHandler {
 	        RelatedAndRestrictionModel relatedsAndRestrictions) throws OntoGraphException {
         
         // Get the domains, ranges, and linking properties
-        List<PropertyModel> properties = dao.getProperties(snarlTemplate, prefixes);
+        List<PropertyModel> properties = dbAccess.getProperties(snarlTemplate, prefixes);
         // If "collapse edges", then process the list of properties (VOWL does not allow collapsed edges)
         if (requestModel.getCollapseEdges().contains("True") 
         		&& !"vowl".equals(requestModel.getVisualization())) {
@@ -506,17 +568,23 @@ public class GraphController extends RestExceptionHandler {
 	private static void createUMLConventions(GraphRequestModel requestModel) {
 	    
 	    // Same conventions for class or individual diagrams
-	    requestModel.setClassFillColor(WHITE);
+	    requestModel.setClassFillColor("#FFFF99");
 	    requestModel.setClassBorderColor(BLACK);
+	    requestModel.setDataFillColor("#CCCC66");
+	    requestModel.setDataBorderColor(BLACK);
 	    requestModel.setSubclassOfSourceShape(NONE);
-	    requestModel.setSubclassOfTargetShape("triangleEmpty");
+	    requestModel.setSubclassOfTargetShape(TRIANGLE_ARROW_EMPTY);
 	    requestModel.setSubclassOfText(EMPTY_STRING);
 	    requestModel.setSubclassOfLineColor(BLACK);
 	    requestModel.setSubclassOfLineType(SOLID);
 	    requestModel.setObjPropEdgeColor(BLACK);
 	    requestModel.setObjPropEdgeType(SOLID);
 	    requestModel.setObjPropSourceShape(NONE);
-	    requestModel.setObjPropTargetShape("angleBracket");
+	    requestModel.setObjPropTargetShape(ANGLE_BRACKET);
+	    requestModel.setRdfPropEdgeColor(BLACK);
+	    requestModel.setRdfPropEdgeType(SOLID);
+	    requestModel.setRdfPropSourceShape(NONE);
+	    requestModel.setRdfPropTargetShape(ANGLE_BRACKET);
 	}
 
 	/**
@@ -545,15 +613,16 @@ public class GraphController extends RestExceptionHandler {
         
 	    if (INDIVIDUAL.equals(requestModel.getGraphType())) {
 	        // Get the instances
-	        List<IndividualModel> instances = dao.getIndividuals(requestModel.getReasoning(), 
+	        List<IndividualModel> instances = dbAccess.getIndividuals(requestModel.getReasoning(), 
 	        		snarlTemplate, reasoningTemplate, prefixes);
-	        return UMLGraphCreation.processUMLInstanceGraph(requestModel, origClasses, 
+	        sortTypeNames(instances);
+	        return UMLGraphCreation.processUMLIndividualGraph(requestModel, origClasses, 
 	        		relatedsAndRestrictions, instances);
 	    } else {
 	        // It doesn't matter if the graph type is class, property or both - the result is the same 
     	    // Get the UML entities
-    	    List<UMLClassModel> classes = dao.getClassesForUML(snarlTemplate, prefixes, origClasses);
-    	    List<PropertyModel> properties = dao.getProperties(snarlTemplate, prefixes);
+    	    List<UMLClassModel> classes = dbAccess.getClassesForUML(snarlTemplate, prefixes, origClasses);
+    	    List<PropertyModel> properties = dbAccess.getProperties(snarlTemplate, prefixes);
     	    List<PropertyModel> collProperties = new ArrayList<>();
     	    // If "collapse edges", then process the list of properties
             if (requestModel.getCollapseEdges().contains("True")) {
@@ -584,6 +653,7 @@ public class GraphController extends RestExceptionHandler {
      *             someValuesFrom, min/maxInclusive, ...)
 	 * @return GraphML String
 	 * @throws OntoGraphException
+	 * 
 	 */
 	private String generateGraph(GraphRequestModel requestModel, List<String> ontPrefixAndCurrGraphML, 
 			SnarlTemplate snarlTemplate, SnarlTemplate reasoningTemplate, List<PrefixModel> prefixes, 
@@ -593,39 +663,52 @@ public class GraphController extends RestExceptionHandler {
 		StringBuilder sb = new StringBuilder();
 		String graphType = requestModel.getGraphType();
 		String visualization = requestModel.getVisualization();
+		String ontPrefix = ontPrefixAndCurrGraphML.get(0);
 		
         if (UML.equals(visualization)) {
             sb.append(createUMLGraph(requestModel, snarlTemplate, reasoningTemplate, prefixes, classes, 
             		relatedsAndRestrictions));
+            if (!INDIVIDUAL.equals(graphType)) {
+		        // Add restriction details for rdfs:Datatypes
+		        sb.append(addDatatypeRestrictions(requestModel, classes, relatedsAndRestrictions));
+            }
             
         // Graffoo, VOWL or Custom visualization
-        } else if (CLASS.equals(graphType)) {
-            sb.append(createClassGraph(requestModel, ontPrefixAndCurrGraphML.get(0), classes,
+        } else if (CLASS.equals(graphType) || "both".equals(graphType)) {
+            sb.append(createClassGraph(requestModel, ontPrefix, classes,
                     relatedsAndRestrictions));
+	        // Add restriction details for rdfs:Datatypes
+	        sb.append(addDatatypeRestrictions(requestModel, classes, relatedsAndRestrictions));
+	        
+	        if ("both".equals(graphType)) {
+	        	// Both subclassOf conventions (handled above) and property edge conventions are needed
+	            // Track what is already captured in the GraphML output to avoid duplicate defns
+	            ontPrefixAndCurrGraphML.set(1, sb.toString());
+	            sb.append(createPropertiesGraph(requestModel, ontPrefixAndCurrGraphML, snarlTemplate, prefixes, classes,
+	                    relatedsAndRestrictions));
+	        } 
 
         } else if (INDIVIDUAL.equals(graphType)) {
-            sb.append(createIndividualsGraph(requestModel, ontPrefixAndCurrGraphML.get(0), snarlTemplate, 
+            sb.append(createIndividualsGraph(requestModel, ontPrefix, snarlTemplate, 
             		reasoningTemplate, prefixes, classes, relatedsAndRestrictions));
             
         } else if (PROPERTY.equals(graphType)) {
             sb.append(createPropertiesGraph(requestModel, ontPrefixAndCurrGraphML, snarlTemplate, prefixes, classes,
                     relatedsAndRestrictions));
             
-        } else if ("both".equals(graphType)) {
-        	// Note that both subclassOf conventions and property edge conventions are needed
-            sb.append(createClassGraph(requestModel, ontPrefixAndCurrGraphML.get(0), classes,
-                    relatedsAndRestrictions));
-            // Track what is already captured in the GraphML output to avoid duplicate defns
-            ontPrefixAndCurrGraphML.set(1, sb.toString());
-            sb.append(createPropertiesGraph(requestModel, ontPrefixAndCurrGraphML, snarlTemplate, prefixes, classes,
-                    relatedsAndRestrictions));
-        
-        // Error - unknown graph type
         } else {
         	throw new IllegalArgumentException("Unknown graph type: " + graphType); 	
         }
-        
-        return sb.toString();
+
+    	// Need to check if there are any un-necessary references to owl:Thing or rdfs:Resource 
+    	//    in the GraphML (for everything but UML)
+    	String currentGraphML = sb.toString();
+    	currentGraphML = GraphMLOutputDetails.checkForUnusedNode(currentGraphML, "owl:Thing");
+    	currentGraphML = GraphMLOutputDetails.checkForUnusedNode(currentGraphML, "rdfs:Class");
+    	currentGraphML = GraphMLOutputDetails.checkForUnusedNode(currentGraphML, "rdfs:Resource");
+    	
+    	// Remove any duplicate node or edge ids which may be introduced because of blank node processing
+    	return removeDuplicates(currentGraphML);
 	}
 	
 	/**
@@ -661,23 +744,23 @@ public class GraphController extends RestExceptionHandler {
         // Load the ontology into its own db in order to take advantage of prefix processing in Stardog
         // Track the database's "data source" for connection management
 		try {
-			dao.loadFileToDB(snarlTemplate, reasoningTemplate, 
+			dbAccess.loadFileToDB(snarlTemplate, reasoningTemplate, 
 					Base64.decodeBase64(requestModel.getFileData().split(",")[1]), cleanGraphTitle, 
 					fileFormat);
 	        // Do a query to check that some triples were loaded (that the ontology file is valid)
-	        dao.checkDBLoad(snarlTemplate, cleanGraphTitle);
+	        dbAccess.checkDBLoad(snarlTemplate, cleanGraphTitle);
         
 	        // Start the GraphML file
 	        sb.append(GraphMLOutputDetails.setUpGraph());
 
 		    // Get the ontology URI for the title box
-		    String ontologyURI = dao.getOntologyURI(snarlTemplate);
+		    String ontologyURI = dbAccess.getOntologyURI(snarlTemplate);
 		    if (ontologyURI == null) {
 		    	ontologyURI = "None defined";
 		    }
 	        
 	        // Get prefixes defined in the ontology 
-	        prefixes.addAll(dao.getPrefixes(snarlTemplate));
+	        prefixes.addAll(dbAccess.getPrefixes(snarlTemplate));
 	        
 	        // Add the title, prefix box 
 			Collections.sort(prefixes, PrefixModel.prefixSort);
@@ -690,9 +773,9 @@ public class GraphController extends RestExceptionHandler {
 	        // Get details on any equivalent classes, disjoints, propositional connectives, ... 
 	        // This info is needed in case blank nodes are used as superclasses, rdf:types for individuals, 
 	        //   in domain or range definitions, ...
-	        dao.getClassRelationships(snarlTemplate, prefixes, relatedsAndRestrictions);  
+	        dbAccess.getClassRelationships(snarlTemplate, prefixes, relatedsAndRestrictions);  
 	        // Also get details on restrictions
-	        relatedsAndRestrictions.setRestrictions(dao.getRestrictions(snarlTemplate, prefixes));
+	        relatedsAndRestrictions.setRestrictions(dbAccess.getRestrictions(snarlTemplate, prefixes));
 	        
 		} catch (Exception e) {  //NOSONAR - Logged as part of OntoGraphException handling
 			throw new OntoGraphException("Error loading and querying the database. Exception details: "
@@ -714,7 +797,7 @@ public class GraphController extends RestExceptionHandler {
 	private String getOntologyPrefix(SnarlTemplate snarlTemplate, List<PrefixModel> prefixes) {
 		
 		String ontologyPrefix = EMPTY_STRING;
-    	String ontologyURI = dao.getOntologyURI(snarlTemplate);
+    	String ontologyURI = dbAccess.getOntologyURI(snarlTemplate);
     	// Determine what prefix is associated with the URI
     	if (ontologyURI != null) {
 	    	for (PrefixModel prefix : prefixes) {
@@ -747,7 +830,7 @@ public class GraphController extends RestExceptionHandler {
 	    	String propName = pm.getPropertyName();
 	    	String flagsText = GraphMLOutputDetails.getEdgeFlagsText(pm.getEdgeFlags());
 	    	if (!flagsText.isEmpty()) {
-	    		propName += "(" + flagsText.replaceAll(" ", ", ");
+	    		propName += " (" + flagsText.replaceAll(" ", ", ");
 	    		propName = propName.substring(0, propName.length() - 2) + ")";
 	    	}
 	    	
@@ -770,7 +853,7 @@ public class GraphController extends RestExceptionHandler {
 	    			.propertyName(GraphMLUtils.getPrefixedNameFromLabel(domain) + 
 	    					GraphMLUtils.getPrefixedNameFromLabel(range))
 	    			.propertyLabel(entry.getValue()) 
-	    			.propertyType(key.substring(0, 1))
+	    			.propertyType(key.charAt(0))
 	    			.edgeFlags(EdgeFlagsModel.createEdgeFlagsFalse())
 	    			.domains(Arrays.asList(domain))
 	    			.ranges(Arrays.asList(range))
@@ -778,6 +861,120 @@ public class GraphController extends RestExceptionHandler {
 	    }
 	
 	    return reducedPropModels;
+	}
+	
+	/**
+	 * Removes any duplicate node or edge declarations from the GraphML string.
+	 * 
+	 * @param  graphML String
+	 * @return currGraphML String with the duplicates removed
+	 * 
+	 */
+	private String removeDuplicates(final String graphML) {
+		
+	    // Find duplicate node ids
+	    List<String> duplNodeIds = searchForDuplicates(graphML, "node");
+	    // Find duplicate edge ids
+	    List<String> duplEdgeIds = searchForDuplicates(graphML, "edge");
+	    
+	    // Remove the duplicates
+		String currGraphML = graphML;
+	    if (!duplNodeIds.isEmpty()) {
+	    	currGraphML = removeOccurrencesOfEntities(currGraphML, duplNodeIds, "node");
+		}
+	    if (!duplEdgeIds.isEmpty()) {
+	    	currGraphML = removeOccurrencesOfEntities(currGraphML, duplEdgeIds, "edge");
+	    }
+	    
+	    return currGraphML;
+	}
+	
+	/**
+	 * Removes the indicated (duplicate) node or edge declarations from the GraphML input string.
+	 * 
+	 * @param graphML String
+	 * @return duplicates List<String> holding either a list of duplicate node ids or edge ids
+	 *           (depending on the entityType). Note that this is truly a list, which may hold duplicate
+	 *           values, since a node may be repeated more than twice. Using a list allows easy removal -
+	 *           since the first occurrence can be (iteratively) removed from the GraphML String - leaving 
+	 *           only the last occurrence.
+	 * @param entityType String, either "node" or "edge"
+	 * @return graphML String with duplicates (identified in the duplicates parameter) removed  List<String> holding either a list of duplicate node ids or edge ids
+	 *           (depending on the entityType). Note that this is truly a list, which may hold duplicate
+	 *           values, since a node may be repeated more than once. Using a list allows easy removal -
+	 *           since the first occurrence can be (iteratively) removed - leaving only the last occurrence
+	 *           remaining in the string.
+	 *           
+	 */
+	private String removeOccurrencesOfEntities(String graphML, List<String> duplicates, final String entityType) {
+		
+		for (String dupl : duplicates) {
+			int indexOfEntity = graphML.indexOf("<" + entityType + " id=\"" + dupl + "\"");
+			int indexOfEndEntity = graphML.indexOf("</" + entityType + ">", indexOfEntity) + 7;
+			graphML = graphML.substring(0, indexOfEntity) + graphML.substring(indexOfEndEntity);
+		}
+		
+		return graphML;
+	}
+	
+	/**
+	 * Searches for duplicate node or edge ids in the GraphML String.
+	 * 
+	 * @param  graphML String
+	 * @param  entityType String, either "node" or "edge"
+	 * @return duplEntityIds List<String> holding either a list of duplicate node ids or edge ids
+	 *           (depending on the entityType). Note that this is truly a list, which may hold duplicate
+	 *           values, since a node may be repeated more than once. 
+	 *           
+	 */
+	private List<String> searchForDuplicates(final String graphML, final String entityType) {
+		
+		List<String> entityIds = new ArrayList<>();
+		List<String> duplEntityIds = new ArrayList<>();
+		
+		String endOfInitialSearchString = "\" ";
+		if ("node".equals(entityType)) {
+			endOfInitialSearchString = "\">";
+		}
+		
+		int currIndex = 0;
+		boolean moreToDo = true;
+		do {
+			int nextIndex = graphML.indexOf("<" + entityType + " id=", currIndex);
+			if (nextIndex >= 0) {
+				String id = graphML.substring(graphML.indexOf("id=", nextIndex) + 4, 
+						graphML.indexOf(endOfInitialSearchString, nextIndex));
+				if (entityIds.contains(id)) {
+					duplEntityIds.add(id); 
+				} else {
+					entityIds.add(id);
+				}
+				nextIndex = graphML.indexOf("</" + entityType + ">", nextIndex) + 7;
+				currIndex = nextIndex;
+			} else {
+				moreToDo = false;
+			}
+		} while (moreToDo);
+		
+		return duplEntityIds;
+	}
+	
+	/**
+	 * Sorts a list of type labels for an individual - since they may be returned in a query in any order
+	 * 
+	 * @param instances List<IndividualModel> defining the individuals whose typeLabels array should be
+	 *                    sorted
+	 * 
+	 */
+	private void sortTypeNames(List<IndividualModel> individuals) {
+		
+		for (IndividualModel indiv : individuals) {
+			List<String> types = indiv.getTypeLabels();
+			if (types.size() > 1) {
+				java.util.Collections.sort(types);
+				indiv.setTypeLabels(types);
+			}
+		}
 	}
 	
 	/** 

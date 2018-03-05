@@ -38,9 +38,9 @@ public class PropertyModel {
     @NonNull private String propertyName;
     @NonNull private String propertyLabel;
     @NonNull private String fullPropertyName;
-    // Value is "a" for annotation properties, "d" for datatype properties and
-    //   "o" for object properties
-    @NonNull private String propertyType;
+    // Value is 'a' for annotation properties, 'd' for datatype properties, 
+    //   'o' for object properties and 'r' for RDF properties
+    private char propertyType;
     // Flags indicating whether the property is functional/inverse functional/symmetric/
     //   asymmetric/transitive/reflexive/irreflexive
     private EdgeFlagsModel edgeFlags;

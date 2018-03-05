@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 
 package graph;
@@ -49,6 +50,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an empty request model
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
     @Test(expected = IllegalArgumentException.class)
     public void testEmptyGraphRequest() throws IllegalArgumentException {
@@ -58,7 +60,8 @@ public class ErrorTest {
 	
 	/**
 	 * Tests error handling for an empty ontology file
-	 * @throws IllegalArgumentException if successful
+	 * @throws OntoGraphException if successful
+	 * 
 	 */
     @Test(expected = OntoGraphException.class)
     public void testEmptyOntology() throws OntoGraphException {
@@ -68,7 +71,8 @@ public class ErrorTest {
 	
 	/**
 	 * Tests error handling for an ontology file with bad contents
-	 * @throws IllegalArgumentException if successful
+	 * @throws OntoGraphException if successful
+	 * 
 	 */
     @Test(expected = OntoGraphException.class)
     public void testInvalidOntology() throws OntoGraphException {
@@ -79,7 +83,8 @@ public class ErrorTest {
 	
 	/**
 	 * Tests error handling for an ontology file with a bad suffix
-	 * @throws IllegalArgumentException if successful
+	 * @throws OntoGraphException if successful
+	 * 
 	 */
     @Test(expected = OntoGraphException.class)
     public void testBadOntologySuffix() throws OntoGraphException {
@@ -91,6 +96,7 @@ public class ErrorTest {
     /**
 	 * Tests error handling for an incorrect annotation property edge color (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousAnnPropEdgeColor() throws IllegalArgumentException {
@@ -102,6 +108,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined annotation property edge type (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousAnnPropEdgeType() throws IllegalArgumentException {
@@ -113,6 +120,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined annotation property edge source arrow (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousAnnPropSourceShape() throws IllegalArgumentException {
@@ -124,6 +132,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined annotation property edge target arrow (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousAnnPropTargetShape() throws IllegalArgumentException {
@@ -135,6 +144,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect class node border color (class graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousClassBorderColor() throws IllegalArgumentException {
@@ -146,6 +156,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined class node border type (class graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousClassBorderType() throws IllegalArgumentException {
@@ -157,6 +168,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect class node fill color (class graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousClassFillColor() throws IllegalArgumentException {
@@ -168,6 +180,7 @@ public class ErrorTest {
 	/**
      * Tests error handling for an undefined class node shape (class graph)
      * @throws IllegalArgumentException if successful
+     * 
      */
     @Test(expected = IllegalArgumentException.class)
     public void testErroneousClassNodeShape() throws IllegalArgumentException {
@@ -179,6 +192,7 @@ public class ErrorTest {
     /**
 	 * Tests error handling for an incorrect class node text color (class graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousClassTextColor() throws IllegalArgumentException {
@@ -190,6 +204,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined collapse edge request (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousCollapseEdges() throws IllegalArgumentException {
@@ -201,6 +216,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect datatype node border color (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousDataBorderColor() throws IllegalArgumentException {
@@ -212,6 +228,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined datatype node border type (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousDataBorderType() throws IllegalArgumentException {
@@ -223,6 +240,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect datatype node fill color (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousDataFillColor() throws IllegalArgumentException {
@@ -234,6 +252,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined datatype node shape (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousDataNodeShape() throws IllegalArgumentException {
@@ -245,6 +264,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect datatype node text color (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousDataTextColor() throws IllegalArgumentException {
@@ -256,6 +276,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect datatype property edge color (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousDataPropEdgeColor() throws IllegalArgumentException {
@@ -267,6 +288,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined datatype property edge type (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousDataPropEdgeType() throws IllegalArgumentException {
@@ -278,6 +300,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined datatype property edge source arrow (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousDataPropSourceShape() throws IllegalArgumentException {
@@ -289,6 +312,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined datatype property edge target arrow (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousDataPropTargetShape() throws IllegalArgumentException {
@@ -300,6 +324,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect datatype node border color (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousIndDataBorderColor() throws IllegalArgumentException {
@@ -311,6 +336,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined datatype node border type (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousIndDataBorderType() throws IllegalArgumentException {
@@ -322,6 +348,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect datatype node border color (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousIndDataFillColor() throws IllegalArgumentException {
@@ -333,6 +360,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined datatype node shape (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousIndDataNodeShape() throws IllegalArgumentException {
@@ -344,6 +372,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect datatype node text color (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousIndDataTextColor() throws IllegalArgumentException {
@@ -355,6 +384,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect individual node border color (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousIndividualBorderColor() throws IllegalArgumentException {
@@ -366,6 +396,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined individual node border type (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousIndividualBorderType() throws IllegalArgumentException {
@@ -377,6 +408,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect individual node fill color (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousIndividualFillColor() throws IllegalArgumentException {
@@ -388,6 +420,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined individual node shape (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousIndividualNodeShape() throws IllegalArgumentException {
@@ -399,6 +432,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect individual node text color (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousIndividualTextColor() throws IllegalArgumentException {
@@ -410,6 +444,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect object node border color (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousObjBorderColor() throws IllegalArgumentException {
@@ -421,6 +456,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined object node border type (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousObjBorderType() throws IllegalArgumentException {
@@ -432,6 +468,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect object node fill color (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousObjFillColor() throws IllegalArgumentException {
@@ -443,6 +480,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined object node shape (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousObjNodeShape() throws IllegalArgumentException {
@@ -454,6 +492,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect object node text color (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousObjTextColor() throws IllegalArgumentException {
@@ -465,6 +504,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect object property edge color (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousObjPropEdgeColor() throws IllegalArgumentException {
@@ -476,6 +516,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined object property edge type (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousObjPropEdgeType() throws IllegalArgumentException {
@@ -487,6 +528,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined object property edge source arrow (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousObjPropSourceShape() throws IllegalArgumentException {
@@ -498,6 +540,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined object property edge target arrow (property graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousObjPropTargetShape() throws IllegalArgumentException {
@@ -509,6 +552,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined subclassOf edge line type (class graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousSubclassOfLineType() throws IllegalArgumentException {
@@ -520,6 +564,7 @@ public class ErrorTest {
 	/**
      * Tests error handling for an undefined subclassOf edge source shape (class graph)
      * @throws IllegalArgumentException if successful
+     * 
      */
     @Test(expected = IllegalArgumentException.class)
     public void testErroneousSubclassOfSourceShape() throws IllegalArgumentException {
@@ -531,6 +576,7 @@ public class ErrorTest {
     /**
      * Tests error handling for an undefined subclassOf edge target shape (class graph)
      * @throws IllegalArgumentException if successful
+     * 
      */
     @Test(expected = IllegalArgumentException.class)
     public void testErroneousSubclassOfTargetShape() throws IllegalArgumentException {
@@ -542,6 +588,7 @@ public class ErrorTest {
     /**
      * Tests error handling for an incorrect subclassOf line color (class graph)
      * @throws IllegalArgumentException if successful
+     * 
      */
     @Test(expected = IllegalArgumentException.class)
     public void testErroneousSubclassOfLineColor() throws IllegalArgumentException {
@@ -553,6 +600,7 @@ public class ErrorTest {
     /**
 	 * Tests error handling for an incorrect type node border color (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousTypeBorderColor() throws IllegalArgumentException {
@@ -564,6 +612,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined type node border type (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousTypeBorderType() throws IllegalArgumentException {
@@ -575,6 +624,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect type node fill color (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousTypeFillColor() throws IllegalArgumentException {
@@ -586,6 +636,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined type node shape (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousTypeNodeShape() throws IllegalArgumentException {
@@ -597,6 +648,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect type node text color (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousTypeTextColor() throws IllegalArgumentException {
@@ -608,6 +660,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an incorrect typeOf line color (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousTypeOfLineColor() throws IllegalArgumentException {
@@ -619,6 +672,7 @@ public class ErrorTest {
 	/**
 	 * Tests error handling for an undefined typeOf edge type (individual graph)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testErroneousTypeOfLineType() throws IllegalArgumentException {
@@ -630,6 +684,7 @@ public class ErrorTest {
 	/**
      * Tests error handling for an undefined typeOf edge source arrow (individual graph)
      * @throws IllegalArgumentException if successful
+     * 
      */
     @Test(expected = IllegalArgumentException.class)
     public void testErroneousTypeOfSourceShape() throws IllegalArgumentException {
@@ -641,6 +696,7 @@ public class ErrorTest {
     /**
      * Tests error handling for an undefined typeOf edge target arrow (individual graph)
      * @throws IllegalArgumentException if successful
+     * 
      */
     @Test(expected = IllegalArgumentException.class)
     public void testErroneousTypeOfTargetShape() throws IllegalArgumentException {
@@ -652,6 +708,7 @@ public class ErrorTest {
     /**
 	 * Tests error handling for a VOWL graph request with collapsed edges (not supported)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testVowlCollapsed() throws IllegalArgumentException {
@@ -664,6 +721,7 @@ public class ErrorTest {
     /**
 	 * Tests error handling for a VOWL graph request of individual graph (not supported)
 	 * @throws IllegalArgumentException if successful
+	 * 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testVowlIndividual() throws IllegalArgumentException {
@@ -675,6 +733,7 @@ public class ErrorTest {
 	/**
 	 * Creates a custom class GraphRequestModel with acceptable input
 	 * @return GraphRequestModel
+	 * 
 	 */
 	private GraphRequestModel createCustomClassGraphRequestModel() {
 	    GraphRequestModel requestModel = new GraphRequestModel("test", "reasoningFalse", "test.rdf", 
@@ -683,12 +742,17 @@ public class ErrorTest {
 	    // Set acceptable custom input
 	    requestModel.setClassNodeShape(NONE);
 	    requestModel.setClassBorderType(SOLID);
+	    requestModel.setDataNodeShape(NONE);
+	    requestModel.setDataBorderType(SOLID);
 	    requestModel.setSubclassOfSourceShape(NONE);
 	    requestModel.setSubclassOfTargetShape(NONE);
 	    requestModel.setSubclassOfLineType(SOLID);
 	    requestModel.setClassFillColor(WHITE);
 	    requestModel.setClassTextColor(BLACK);
 	    requestModel.setClassBorderColor(BLACK);
+	    requestModel.setDataFillColor(WHITE);
+	    requestModel.setDataTextColor(BLACK);
+	    requestModel.setDataBorderColor(BLACK);
 	    requestModel.setSubclassOfLineColor(BLACK);
 	    
 	    return requestModel;
@@ -701,6 +765,7 @@ public class ErrorTest {
 	 * @param  fileName
 	 * @param  ontContents
 	 * @return GraphRequestModel
+	 * 
 	 */
 	private GraphRequestModel createCustomGraphRequestModelWithDiffOntologyErrors(final String fileName, 
 			final String ontContents) {
@@ -710,12 +775,17 @@ public class ErrorTest {
 	    // Set acceptable custom input
 	    requestModel.setClassNodeShape(NONE);
 	    requestModel.setClassBorderType(SOLID);
+	    requestModel.setDataNodeShape(NONE);
+	    requestModel.setDataBorderType(SOLID);
 	    requestModel.setSubclassOfSourceShape(NONE);
 	    requestModel.setSubclassOfTargetShape(NONE);
 	    requestModel.setSubclassOfLineType(SOLID);
 	    requestModel.setClassFillColor(WHITE);
 	    requestModel.setClassTextColor(BLACK);
 	    requestModel.setClassBorderColor(BLACK);
+	    requestModel.setDataFillColor(WHITE);
+	    requestModel.setDataTextColor(BLACK);
+	    requestModel.setDataBorderColor(BLACK);
 	    requestModel.setSubclassOfLineColor(BLACK);
 	    
 	    return requestModel;
@@ -726,6 +796,7 @@ public class ErrorTest {
 	 * is not an allowed graph type)
 	 *    
 	 * @return GraphRequestModel
+	 * 
 	 */
 	private GraphRequestModel createCustomIndividualGraphRequestModel() {
 	    GraphRequestModel requestModel = new GraphRequestModel("test", "reasoningFalse", "test.rdf", 
@@ -767,6 +838,7 @@ public class ErrorTest {
 	 * Creates a custom property GraphRequestModel with acceptable input
 	 * 
 	 * @return GraphRequestModel
+	 * 
 	 */
 	private GraphRequestModel createCustomPropertyGraphRequestModel() {
 	    GraphRequestModel requestModel = new GraphRequestModel("test", "reasoningFalse", "test", 
@@ -785,6 +857,9 @@ public class ErrorTest {
 	    requestModel.setObjPropSourceShape(NONE);
 	    requestModel.setObjPropTargetShape(NONE);
 	    requestModel.setObjPropEdgeType(SOLID);
+	    requestModel.setRdfPropSourceShape(NONE);
+	    requestModel.setRdfPropTargetShape(NONE);
+	    requestModel.setRdfPropEdgeType(SOLID);
 	    requestModel.setDataFillColor(WHITE);
 	    requestModel.setObjFillColor(WHITE);
 	    requestModel.setDataTextColor(BLACK);
@@ -794,6 +869,7 @@ public class ErrorTest {
 	    requestModel.setAnnPropEdgeColor(BLACK);
 	    requestModel.setDataPropEdgeColor(BLACK);
 	    requestModel.setObjPropEdgeColor(BLACK);
+	    requestModel.setRdfPropEdgeColor(BLACK);
 	    
 	    return requestModel;
 	}

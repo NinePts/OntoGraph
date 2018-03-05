@@ -174,7 +174,9 @@ _:x25 rdf:type owl:Restriction ;
     owl:someValuesFrom _:x24 .
 _:x26 rdf:type owl:Class ;
     owl:intersectionOf (f:Person _:x25) .
-f:Teenager owl:equivalentClass _:x26 .
+f:Teenager owl:equivalentClass _:x26 ;
+    owl:equivalentClass _:x23 . 
+# Above added to test multiple references to blank nodes	
 
 f:Woman rdf:type owl:Class ;
     rdfs:subClassOf f:Parent .

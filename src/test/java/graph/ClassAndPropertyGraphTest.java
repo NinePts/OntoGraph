@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 
 package graph;
@@ -25,10 +26,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.TestPropertySource;
-import org.xml.sax.SAXException;
 
 import graph.GraphController;
-import graph.OntoGraphException;
 import graph.models.GraphRequestModel;
 
 import org.junit.runner.RunWith;
@@ -39,7 +38,7 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * Each class test case generates a basic graph using Graffoo, VOWL, UML and default custom settings.
+ * Each class test case generates a basic graph using Graffoo, VOWL, and default custom settings.
  * The generated graph is then compared to the expected output. Since the output is static, this is
  * easily supported.
  * 
@@ -70,10 +69,8 @@ public class ClassAndPropertyGraphTest {
     
     /**
 	 * Tests a property with a datatype restriction
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
 	 * 
-	 * @throws IOException
-	 * @throws OntoGraphException
-	 * @throws SAXException
 	 */
 	@Test
 	public void testDatatypeRestrictions() throws Exception {
@@ -88,10 +85,8 @@ public class ClassAndPropertyGraphTest {
 
 	/**
      * Tests FOAF
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
      * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
      */
     @Test
     public void testFOAF() throws Exception {
@@ -106,10 +101,8 @@ public class ClassAndPropertyGraphTest {
     
     /**
      * Tests FOAF with collapsed edges
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testFOAFCollapsed() throws Exception {
@@ -127,10 +120,8 @@ public class ClassAndPropertyGraphTest {
     
     /**
      * Tests the Turtle Primer
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testPrimer() throws Exception {
@@ -145,10 +136,8 @@ public class ClassAndPropertyGraphTest {
     
     /**
      * Tests FOAF with collapsed edges
-     * 
-     * @throws IOException
-     * @throws OntoGraphException
-     * @throws SAXException
+	 * @throws Exception (IOException, OntoGraphException, SAXException)
+	 * 
      */
     @Test
     public void testPrimerCollapsed() throws Exception {
@@ -165,7 +154,7 @@ public class ClassAndPropertyGraphTest {
     }
     
     /**
-	 * Sets up a graph request for the specified test input (fileName) and vis.
+	 * Sets up a graph request for the specified test input (fileName) and visualization.
 	 * 
 	 * @param  visualization (String)
 	 * @param  fileName (String) holding the RDF triples 
@@ -204,6 +193,10 @@ public class ClassAndPropertyGraphTest {
             requestModel.setAnnPropTargetShape("angleBracket");
             requestModel.setAnnPropEdgeColor("#000000");
             requestModel.setAnnPropEdgeType("solid");
+            requestModel.setRdfPropSourceShape("none");
+            requestModel.setRdfPropTargetShape("angleBracket");
+            requestModel.setRdfPropEdgeColor("#000000");
+            requestModel.setRdfPropEdgeType("solid");
 
             requestModel.setSubclassOfSourceShape("none");
             requestModel.setSubclassOfTargetShape("triangleEmpty");
@@ -224,9 +217,7 @@ public class ClassAndPropertyGraphTest {
      * @param  GraphRequestModel GraphRequestModel 
      * @param  fileName String identifying the unique part of the file names that hold the 
      *              expected values for nodes and edges
-     * @throws OntoGraphException 
-     * @throws IOException
-     * @throws SAXException 
+     * @throws Exception (IOException, OntoGraphException, SAXException)
      * 
      */
     private void createGraphMLAndCompareToMaster(GraphRequestModel requestModel, final String fileName, 

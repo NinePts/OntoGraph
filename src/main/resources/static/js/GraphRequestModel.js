@@ -36,6 +36,12 @@ var GraphRequestModel = Backbone.Model.extend({
 		"subclassOfTargetShape": "Triangle Outline",
 		"subclassOfLineColor": "#000000",
 		"subclassOfLineType": "Solid",
+		// Formatting for new data types defined as kinds of rdfs:Datatype
+		"classDataNodeShape": "None (Text Only)",
+		"classDataFillColor": "#FFFFFF",
+		"classDataTextColor": "#000000",
+		"classDataBorderColor": "#FFFFFF",
+		"classDataBorderType": "Solid",
 
 		// Individual customizations
 		// Where "type" is the formatting for the individual's type definition
@@ -45,7 +51,7 @@ var GraphRequestModel = Backbone.Model.extend({
 		"typeBorderColor" : "#000000",
 		"typeBorderType": "Solid",
 		"individualNodeShape": "Circle, Small",
-		"individualFillColor": "#AACCFF",
+		"individualFillColor": "#FF7FC1",
 		"individualTextColor" : "#000000",
 		"individualBorderColor" : "#000000",
 		"individualBorderType": "Solid",
@@ -99,7 +105,15 @@ var GraphRequestModel = Backbone.Model.extend({
 		"objPropSourceShape": "Circle Outline",
 		"objPropTargetShape": "Triangle Outline",
 		"objPropEdgeColor": "#000000",
-		"objPropEdgeType": "Solid"
+		"objPropEdgeType": "Solid",
+		"rdfPropSourceShape": "None",
+		"rdfPropTargetShape": "Angle Bracket",
+		"rdfPropEdgeColor": "#000000",
+		"rdfPropEdgeType": "Solid",
+
+		// UML Node customization
+		"umlNodeColor": "#FFFF99",
+		"umlDataNodeColor": "#CCCC66"
 	},
 
 	urlRoot: "graph"

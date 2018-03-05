@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 
 package graph.graphmloutputs;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import graph.OntoGraphException;
-import graph.models.BlankAndRelatedNodesModel;
+import graph.models.EntityAndRelatedNodesModel;
 import graph.models.ClassModel;
 import graph.models.GraphRequestModel;
 import graph.models.NodeDetailsModel;
@@ -61,7 +62,7 @@ public final class PropertiesGraphCreation {
      * @throws OntoGraphException 
      * 
      */
-    public static String processPropertyGraph(GraphRequestModel requestModel, 
+    public static String processPropertyGraph(GraphRequestModel requestModel, //NOSONAR - Complexity acceptable
     		List<String> ontPrefixAndCurrGraphML, List<ClassModel> classes, List<PropertyModel> properties,  
     		RelatedAndRestrictionModel relatedsAndRestrictions) throws OntoGraphException { 
         
@@ -72,9 +73,21 @@ public final class PropertiesGraphCreation {
         Set<String> datatypes = new HashSet<>();
         
         for (PropertyModel propModel : properties) {
+        	char propType = propModel.getPropertyType();
             // Get a unique list of all the domains and ranges across all the properties
         	domainOrRangeClasses.addAll(propModel.getDomains());
-        	if ("o".equals(propModel.getPropertyType())) {
+        	if (propType == 'r') {
+        		List<String> ranges = propModel.getRanges();
+        		for (String range : ranges) {
+        			if (!"rdfs:Class".equals(range) && !"rdfs:Resource".equals(range)
+        					&& (range.contains("rdf:") || range.contains("rdfs:") 
+        							|| range.contains("xsd:"))) {
+        				datatypes.add(range);
+        			} else {
+        				domainOrRangeClasses.add(range);
+        			}
+        		}
+        	} else if (propType == 'o') {
         	    domainOrRangeClasses.addAll(propModel.getRanges());
         	} else {
         		datatypes.addAll(propModel.getRanges());
@@ -95,34 +108,18 @@ public final class PropertiesGraphCreation {
         	if (!datatype.contains(":")) {
         		// Blank Node => datatype restriction
         		sb.append(GraphMLUtils.blankNodeProcessing(requestModel, classes, 
-        				BlankAndRelatedNodesModel.createBlankAndRelatedNodesModel(datatype, ""),
+        				EntityAndRelatedNodesModel.createEntityAndRelatedNodesModel(datatype, ""),
         				"", relatedsAndRestrictions, new HashSet<String>()));
         	} else {
         		xsdDatatypes.add(datatype);
         	}
         }
         
-        if ("vowl".equals(requestModel.getVisualization())) {
-        	// Need to check if there are any references to owl:Thing as a source or target of an edge 
-        	//    in the GraphML
-        	String currentGraphML = sb.toString();
-        	if (currentGraphML.contains("<node id=\"owl:Thing\">") 
-        			&& !currentGraphML.contains("source=\"owl:Thing\"")
-        			&& !currentGraphML.contains("target=\"owl:Thing\"")) {
-        		// If there is a node id="owl:Thing" but no other edge refs to owl:THing, then the
-            	//    node should be removed since all the references were updated by class splitting
-        		int indexOfThingNode = currentGraphML.indexOf("<node id=\"owl:Thing\">");
-        		int endIndexOfThingNode = currentGraphML.indexOf("</node>", indexOfThingNode + 5);
-        		return currentGraphML.substring(0, indexOfThingNode) + 
-        				currentGraphML.substring(endIndexOfThingNode + 7);
-        	}
-        } else {
-            // Already added the datatypes as part of VOWL property splitting, need to add the datatypes
-            //    for other visualizations
-        	if (!xsdDatatypes.isEmpty()) {
-        		sb.append(addDatatypeNodes(requestModel, datatypes));
-        	}
-        }
+        // Already added the datatypes as part of VOWL property splitting, need to add the datatypes
+        //    for other visualizations
+    	if (!xsdDatatypes.isEmpty() && !"vowl".equals(requestModel.getVisualization())) {
+    		sb.append(addDatatypeNodes(requestModel, xsdDatatypes));
+    	}
         
         return sb.toString();
     }  
@@ -148,7 +145,7 @@ public final class PropertiesGraphCreation {
 	 * @throws OntoGraphException 
 	 * 
 	 */
-    private static String addClassNodes(GraphRequestModel requestModel,  //NOSONAR - Acknowledging complexity
+    private static String addClassNodes(GraphRequestModel requestModel,  
     		List<String> ontPrefixAndCurrGraphML, List<ClassModel> classes,   
     		Set<String> domainOrRangeClasses, RelatedAndRestrictionModel relatedsAndRestrictions)
     				throws OntoGraphException {
@@ -184,12 +181,13 @@ public final class PropertiesGraphCreation {
 						relatedsAndRestrictions, referencedClasses));
 			} else {
 				// Not a blank node ...
-				// Reset the node shape in case it was manipulated (for example, "smallCircle" is reset
-				//    to "ellipse" with specific width and height)
+				// Reset the node shape and border in case it was manipulated (for example, "smallCircle" is reset
+				//    to "ellipse" with specific width and height, and the ellipse may be dashed or solid)
 		        nodeDetails.setNodeShape(requestModel.getObjNodeShape());
+		        nodeDetails.setBorderType(requestModel.getObjBorderType());
 		        
 		        label = GraphMLUtils.getLabelForDisplay(ontologyPrefix, visualization, className, label, true);
-		        GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, className, label);
+		        GraphMLOutputDetails.getNodeDetails(ontologyPrefix, nodeDetails, className, label, false);
 				sb.append(GraphMLOutputDetails.addNode(nodeDetails, className, label));
 			}
         }
@@ -216,7 +214,7 @@ public final class PropertiesGraphCreation {
         			break;
         		}
         	}
-        	if (!foundRefClass && !currentGraphML.contains("<node id=\"" + refClass + "\" ")) {
+        	if (!foundRefClass && !currentGraphML.contains("<node id=\"" + refClass + "\"")) {
 				// Reset the node shape in case it was manipulated
 		        nodeDetails.setNodeShape(requestModel.getObjNodeShape());
         		sb.append(GraphMLUtils.addReferencedClass(ontologyPrefix, nodeDetails, refClass));
@@ -245,12 +243,11 @@ public final class PropertiesGraphCreation {
         NodeDetailsModel nodeDetails = NodeDetailsModel.createNodeDetailsModel(requestModel, "data");
 	    
         for (String data : datatypes) {
-            String label = data;
         	// Get display changes based on the class name
             GraphMLOutputDetails.modifyNodeDetailsForNodeShape(nodeDetails, data);
 	        // Restore the nodeShape in case it was changed in modifyNodeDetails
             nodeDetails.setNodeShape(nodeShape);
-        	sb.append(GraphMLOutputDetails.addNode(nodeDetails, data, label));
+        	sb.append(GraphMLOutputDetails.addNode(nodeDetails, data, data));
         }
 	    
 	    return sb.toString();
@@ -268,6 +265,7 @@ public final class PropertiesGraphCreation {
      * @param  classGraphML holding the GraphML output for a class graph
      * @return String with any nodes or edges in the propertyGraphML String that are NOT in the 
      *              classGraphML String
+     *              
      */
     private static String addMissingNodesAndEdges(String propertyGraphML, String classGraphML) {
 
@@ -290,8 +288,8 @@ public final class PropertiesGraphCreation {
     	
     	return missingElements.toString();
     }
-    
-    /**
+
+	/**
      * Gets the details for a GraphML <elementName id= ...> ... </elementName> element 
      * 
      * @param  graphMLDetails String holding the defined GraphML elements ("node"s and "edge"s)
