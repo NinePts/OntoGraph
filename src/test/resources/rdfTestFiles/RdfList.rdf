@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Taken from https://www.w3schools.com/xml/xml_rdf.asp -->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+    xmlns:cd="http://example.org/cd/">
+
+  <rdf:Description rdf:about="http://recshop.fake/cd/Beatles">
+    <cd:artist rdf:parseType="Collection">
+      <rdf:Description rdf:about="http://recshop.fake/cd/Beatles/George"/>
+      <rdf:Description rdf:about="http://recshop.fake/cd/Beatles/John"/>
+      <rdf:Description rdf:about="http://recshop.fake/cd/Beatles/Paul"/>
+      <rdf:Description rdf:about="http://recshop.fake/cd/Beatles/Ringo"/>
+    </cd:artist>
+  </rdf:Description>
+  
+</rdf:RDF>

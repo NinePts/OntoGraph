@@ -1,0 +1,50 @@
+@prefix ninepts: <http://purl.org/ninepts/test#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://purl.org/ninepts/test> a owl:Ontology .
+
+ninepts:Document a owl:Class ;
+    rdfs:subClassOf dcterms:Text ;
+    owl:equivalentClass [ a owl:Class ;
+                          owl:unionOf ( fabio:Book fabio:InstructionManual fabio:ConferenceProceedings fabio:JournalArticle fabio:MetadataDocument 
+                                        fabio:NewspaperNewsItem fabio:Spreadsheet fabio:WebPage ) ] .
+
+:NetworkLocation a owl:Class .
+
+ninepts:datatypeUnion1 a rdfs:Datatype ; 
+    owl:unionOf ( xsd:string xsd:integer ) .
+
+ninepts:datatypeUnion2 a rdfs:Datatype ; 
+    owl:unionOf ( xsd:integer xsd:long ) .
+
+ninepts:datatypeMultipleRestrictions rdf:type rdfs:Datatype ;
+    owl:onDatatype xsd:integer ;
+    owl:withRestrictions ( [ xsd:minInclusive "5"^^xsd:integer ]
+                           [ xsd:maxExclusive "10"^^xsd:integer ] ) . 
+
+ninepts:datatypeMultipleValues a rdfs:Datatype ;
+    owl:oneOf ( "39"^^xsd:integer "49"^^xsd:integer ) . 
+
+:ipV4Address a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "IPV4 address"@en ;
+    rdfs:comment "A string defining an IPV4 address in dotted decimal format (e.g., 169.23.24.00)."@en ;
+    rdfs:domain :NetworkLocation ;
+    rdfs:range [ a rdfs:Datatype ;
+                 owl:onDatatype xsd:string ;
+                 owl:withRestrictions ( [ xsd:pattern "(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])" ] ) ] .
+
+:ipV6Address a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "IPV6 address"@en ;
+    rdfs:comment "A string defining an IPV6 address using hexadecimals (e.g., ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff)."@en ;
+    rdfs:domain :NetworkLocation ;
+    rdfs:range [ a rdfs:Datatype ;
+                 owl:onDatatype xsd:string ;
+                 owl:withRestrictions ( [ xsd:pattern "([A-f0-9:]+:+)+[A-f0-9]+" ] ) ] .
+
+:another a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain :NetworkLocation ;
+    rdfs:range rdfs:Literal .

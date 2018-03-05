@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd"> 
+
+<key attr.name="Description" attr.type="string" for="graph" id="d0"/><key for="port" id="d1" yfiles.type="portgraphics"/>
+<key for="port" id="d2" yfiles.type="portgeometry"/>
+<key for="port" id="d3" yfiles.type="portuserdata"/>
+<key attr.name="url" attr.type="string" for="node" id="d4"/>
+<key attr.name="description" attr.type="string" for="node" id="d5"/>
+<key for="node" id="d6" yfiles.type="nodegraphics"/>
+<key for="graphml" id="d7" yfiles.type="resources"/>
+<key attr.name="url" attr.type="string" for="edge" id="d8"/>
+<key attr.name="description" attr.type="string" for="edge" id="d9"/>
+<key for="edge" id="d10" yfiles.type="edgegraphics"/>
+
+<graph edgedefault="directed" id="G">
+  <data key="d0"/>
+<node id="title" yfiles.foldertype="group">
+  <data key="d4"/>
+  <data key="d6">
+    <y:ProxyAutoBoundsNode>
+      <y:Realizers active="0">
+        <y:GroupNode>
+          <y:Geometry height="112.2" width="449.12" x="123.59" y="878.39"/>
+          <y:Fill color="#FFFFFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="21.67" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="449.12" x="0.0" y="0.0">Graph Information   </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+          <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
+          <y:State closed="false" closedHeight="74.51" closedWidth="387.83" innerGraphDisplayEnabled="false"/>
+          <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+          <y:BorderInsets bottom="0" bottomF="0.0" left="4" leftF="4.47" right="0" rightF="0.0" top="0" topF="0.0"/>
+        </y:GroupNode>
+        <y:GroupNode>
+          <y:Geometry height="50.0" width="50.0" x="-25.0" y="-25.0"/>
+          <y:Fill color="#F2F0D8" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.67" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.76" x="-6.88" y="0.0"> </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+          <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
+          <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+          <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+          <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+        </y:GroupNode>
+      </y:Realizers>
+    </y:ProxyAutoBoundsNode>
+  </data>
+  <graph edgedefault="directed" id="title:">
+    <node id="title::n0">
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="25.0" width="150.0" x="310.0" y="934.20"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="90.53" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="140.44" x="-5.04" y="-19.145">Title:  Test RDF
+
+Ontology URI:  None defined
+
+Generated:  Sun Mar 04 19:45:22 EST 2018</y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+  </graph>
+</node>
+<node id="prefixes" yfiles.foldertype="group">
+  <data key="d4"/>
+  <data key="d6">
+    <y:ProxyAutoBoundsNode>
+      <y:Realizers active="0">
+        <y:GroupNode>
+          <y:Geometry height="112.2" width="449.12" x="123.59" y="878.39"/>
+          <y:Fill color="#FFFFFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="21.67" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="449.12" x="0.0" y="0.0">Prefixes   </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+          <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
+          <y:State closed="false" closedHeight="74.51" closedWidth="387.83" innerGraphDisplayEnabled="false"/>
+          <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+          <y:BorderInsets bottom="0" bottomF="0.0" left="4" leftF="4.47" right="0" rightF="0.0" top="0" topF="0.0"/>
+        </y:GroupNode>
+        <y:GroupNode>
+          <y:Geometry height="50.0" width="50.0" x="-25.0" y="-25.0"/>
+          <y:Fill color="#F2F0D8" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.67" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.76" x="-6.88" y="0.0"> </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+          <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
+          <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+          <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+          <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+        </y:GroupNode>
+      </y:Realizers>
+    </y:ProxyAutoBoundsNode>
+  </data>
+  <graph edgedefault="directed" id="prefixes:">
+    <node id="prefixes::n0">
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="25.0" width="150.0" x="310.0" y="934.20"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="90.53" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="140.44" x="-5.04" y="-19.145">dc
+dcterms
+owl
+rdf
+rdfs
+xsd
+</y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="prefixes::n1">
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="25.0" width="430.0" x="148.09" y="934.20"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="90.53" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="140.44" x="-66.3" y="-19.145">http://purl.org/dc/elements/1.1/
+http://purl.org/dc/terms/
+http://www.w3.org/2002/07/owl#
+http://www.w3.org/1999/02/22-rdf-syntax-ns#
+http://www.w3.org/2000/01/rdf-schema#
+http://www.w3.org/2001/XMLSchema#
+</y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+  </graph>
+</node>
+<node id="AnIntroductiontotheResourceDescriptionFramework^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="737.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"An Introduction to the Resource Description Framework"^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:titlehttp://www.dlib.org/dlib/may98/miller/05miller.htmlAnIntroductiontotheResourceDescriptionFramework^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="AnIntroductiontotheResourceDescriptionFramework^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:title</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="EricJ.Miller^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="308.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"Eric J. Miller"^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:creatorhttp://www.dlib.org/dlib/may98/miller/05miller.htmlEricJ.Miller^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="EricJ.Miller^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:creator</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="TheResourceDescriptionFramework(RDF)isaninfrastructurexxx.^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="517.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"The Resource Description Framework (RDF) is an
+       infrastructure xxx."^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:descriptionhttp://www.dlib.org/dlib/may98/miller/05miller.htmlTheResourceDescriptionFramework(RDF)isaninfrastructurexxx.^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="TheResourceDescriptionFramework(RDF)isaninfrastructurexxx.^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:description</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="CorporationforNationalResearchInitiatives^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="649.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"Corporation for National Research Initiatives"^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:publisherhttp://www.dlib.org/dlib/may98/miller/05miller.htmlCorporationforNationalResearchInitiatives^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="CorporationforNationalResearchInitiatives^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:publisher</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="machine-readablecatalogrecordformats">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="429.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">machine-readable catalog record formats</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:subject(1inBagcontainer)http://www.dlib.org/dlib/may98/miller/05miller.htmlmachine-readablecatalogrecordformats" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="machine-readablecatalogrecordformats">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:subject (1 in Bag container)</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="applicationsofcomputerfileorganizationandaccessmethods">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="671.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">applications of computer file organization and access methods</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:subject(2inBagcontainer)http://www.dlib.org/dlib/may98/miller/05miller.htmlapplicationsofcomputerfileorganizationandaccessmethods" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="applicationsofcomputerfileorganizationandaccessmethods">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:subject (2 in Bag container)</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="Copyright©1998EricMiller^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="462.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"Copyright © 1998 Eric Miller"^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:rightshttp://www.dlib.org/dlib/may98/miller/05miller.htmlCopyright©1998EricMiller^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="Copyright©1998EricMiller^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:rights</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="ElectronicDocument^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="363.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"Electronic Document"^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:typehttp://www.dlib.org/dlib/may98/miller/05miller.htmlElectronicDocument^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="ElectronicDocument^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:type</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="text/html^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="253.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"text/html"^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:formathttp://www.dlib.org/dlib/may98/miller/05miller.htmltext/html^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="text/html^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:format</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="en^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="176.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"en"^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:languagehttp://www.dlib.org/dlib/may98/miller/05miller.htmlen^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="en^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:language</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<edge id="dcterms:isPartOfhttp://www.dlib.org/dlib/may98/miller/05miller.htmlhttp://www.dlib.org/dlib/may98/05contents.html" source="http://www.dlib.org/dlib/may98/miller/05miller.html" target="http://www.dlib.org/dlib/may98/05contents.html">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dcterms:isPartOf</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="Sometitle^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="264.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"Some title"^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:titlehttp://www.dlib.org/dlib/may98/miller/06foo.htmlSometitle^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/06foo.html" target="Sometitle^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:title</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="alt-1">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="55.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">alt-1</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:subject(1inAlternativescontainer)http://www.dlib.org/dlib/may98/miller/06foo.htmlalt-1" source="http://www.dlib.org/dlib/may98/miller/06foo.html" target="alt-1">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:subject (1 in Alternatives container)</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="alt-2">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="55.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">alt-2</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:subject(2inAlternativescontainer)http://www.dlib.org/dlib/may98/miller/06foo.htmlalt-2" source="http://www.dlib.org/dlib/may98/miller/06foo.html" target="alt-2">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:subject (2 in Alternatives container)</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="Someothertitle^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="330.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"Some other title"^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:titlehttp://www.dlib.org/dlib/may98/miller/07bar.htmlSomeothertitle^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/07bar.html" target="Someothertitle^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:title</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="seq-1">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="55.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">seq-1</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:subject(1inSequencecontainer)http://www.dlib.org/dlib/may98/miller/07bar.htmlseq-1" source="http://www.dlib.org/dlib/may98/miller/07bar.html" target="seq-1">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:subject (1 in Sequence container)</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="seq-2">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="55.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">seq-2</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:subject(2inSequencecontainer)http://www.dlib.org/dlib/may98/miller/07bar.htmlseq-2" source="http://www.dlib.org/dlib/may98/miller/07bar.html" target="seq-2">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:subject (2 in Sequence container)</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="Foo^^xsd:string">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="187.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">"Foo"^^xsd:string</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:titlehttp://www.dlib.org/dlib/may98/miller/08foobar.htmlFoo^^xsd:string" source="http://www.dlib.org/dlib/may98/miller/08foobar.html" target="Foo^^xsd:string">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:title</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="alt-1-li">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="88.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">alt-1-li</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:subject(inAlternativescontainer)http://www.dlib.org/dlib/may98/miller/08foobar.htmlalt-1-li" source="http://www.dlib.org/dlib/may98/miller/08foobar.html" target="alt-1-li">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:subject (in Alternatives container)</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="alt-2-li">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="88.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">alt-2-li</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="dc:subject(inAlternativescontainer)http://www.dlib.org/dlib/may98/miller/08foobar.htmlalt-2-li" source="http://www.dlib.org/dlib/may98/miller/08foobar.html" target="alt-2-li">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">dc:subject (in Alternatives container)</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="value:2.4units:http://www.example.org/units/kilograms">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="99.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFFFFF" transparent="false"/>
+      <y:BorderStyle color="#FFFFFF" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">value:2.4
+   units: http://www.example.org/units/kilograms</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="http://www.example.org/terms/weighthttp://www.dlib.org/dlib/may98/miller/08foobar.htmlvalue:2.4units:http://www.example.org/units/kilograms" source="http://www.dlib.org/dlib/may98/miller/08foobar.html" target="value:2.4units:http://www.example.org/units/kilograms">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="line" width="1.0"/>
+      <y:Arrows source="none" target="delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">http://www.example.org/terms/weight</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="http://www.dlib.org/dlib/may98/05contents.html">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="20.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FF7FC1" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="eight_pos" modelPosition="e" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">http://www.dlib.org/dlib/may98/05contents.html</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="http://www.dlib.org/dlib/may98/miller/08foobar.html">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="20.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FF7FC1" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="eight_pos" modelPosition="e" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">http://www.dlib.org/dlib/may98/miller/08foobar.html</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="http://www.dlib.org/dlib/may98/miller/05miller.html">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="20.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FF7FC1" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="eight_pos" modelPosition="e" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">http://www.dlib.org/dlib/may98/miller/05miller.html</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="http://www.dlib.org/dlib/may98/miller/06foo.html">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="20.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FF7FC1" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="eight_pos" modelPosition="e" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">http://www.dlib.org/dlib/may98/miller/06foo.html</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="http://www.dlib.org/dlib/may98/miller/07bar.html">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="20.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FF7FC1" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="eight_pos" modelPosition="e" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">http://www.dlib.org/dlib/may98/miller/07bar.html</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="http://www.example.org/units/kilograms">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="20.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FF7FC1" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="1.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="eight_pos" modelPosition="e" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">http://www.example.org/units/kilograms</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+</graph>
+<data key="d7">
+   <y:Resources/>
+</data>
+</graphml>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:s="http://example.org/students/vocab#"
+		 xmlns:exterms="http://www.example.org/terms/">
+
+   <rdf:Description rdf:about="http://example.org/courses/6.001">
+      <s:students rdf:parseType="Collection">
+          <rdf:Description rdf:about="http://example.org/students/Amy"/>
+          <rdf:Description rdf:about="http://example.org/students/Mohamed"/>
+          <rdf:Description rdf:about="http://example.org/students/Johann"/>
+      </s:students>
+   </rdf:Description>
+   
+   <rdf:Description rdf:about="http://www.example.com/2002/04/products#item10245">
+      <exterms:weight rdf:parseType="Resource">
+          <rdf:value rdf:datatype="&xsd;decimal">2.4</rdf:value>
+          <exterms:units rdf:resource="http://www.example.org/units/kilograms"/>
+      </exterms:weight>
+   </rdf:Description>
+	 
+   <rdf:Description rdf:about="http://example.org/courses/6.001">
+	  <s:students>
+	      <rdf:Bag>
+	         <rdf:li rdf:resource="http://example.org/students/Amy"/>
+	         <rdf:li rdf:resource="http://example.org/students/Mohamed"/>
+	         <rdf:li rdf:resource="http://example.org/students/Johann"/>
+	         <rdf:li rdf:resource="http://example.org/students/Maria"/>
+	         <rdf:li rdf:resource="http://example.org/students/Phuong"/>
+	      </rdf:Bag>
+	   </s:students>
+   </rdf:Description>
+		
+</rdf:RDF>

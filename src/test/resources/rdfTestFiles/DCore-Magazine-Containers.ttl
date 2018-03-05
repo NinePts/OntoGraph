@@ -1,0 +1,51 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.               
+@prefix dc: <http://purl.org/dc/elements/1.1/>.        
+@prefix dcterms: <http://purl.org/dc/terms/>.        
+
+# Taken from https://www.w3.org/2007/02/turtle/primer/
+
+<http://www.dlib.org/dlib/may98/miller/05miller.html>
+   dc:title         "An Introduction to the Resource Description Framework";
+   dc:creator       "Eric J. Miller";
+   dc:description 
+      """The Resource Description Framework (RDF) is an
+       infrastructure xxx.""";
+    dc:publisher     "Corporation for National Research Initiatives";
+    dc:subject [
+        a rdf:Bag;
+        rdf:_1 "machine-readable catalog record formats";
+        rdf:_2 "applications of computer file organization and access methods"
+    ];
+    dc:rights        "Copyright © 1998 Eric Miller";
+    dc:type          "Electronic Document";
+    dc:format        "text/html";
+    dc:language      "en";
+    dcterms:isPartOf <http://www.dlib.org/dlib/may98/05contents.html>.
+	
+<http://www.dlib.org/dlib/may98/miller/06foo.html>
+	   dc:title         "Some title";
+	   dc:subject [
+	        a rdf:Alt;
+	        rdf:_1 "alt-1";
+	        rdf:_2 "alt-2"
+	    ].
+		
+<http://www.dlib.org/dlib/may98/miller/07bar.html>
+	   dc:title         "Some other title";
+	   dc:subject [
+	        a rdf:Seq;
+	        rdf:_1 "seq-1";
+	        rdf:_2 "seq-2"
+	    ].
+		
+<http://www.dlib.org/dlib/may98/miller/08foobar.html>
+	   dc:title         "Foo";
+	   dc:subject [
+	        a rdf:Alt;
+	        rdf:li "alt-1-li";
+	        rdf:li "alt-2-li"
+	    ];
+		<http://www.example.org/terms/weight> [
+		    rdf:value 2.4 ;
+		    <http://www.example.org/terms/units> <http://www.example.org/units/kilograms>
+		].

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE go:go PUBLIC "-//Gene Ontology//Custom XML/RDF Version 2.0//EN" "http://www.geneontology.org/dtd/go.dtd">
+<!-- Taken from http://geneontology.org/page/go-rdfxml-file-format#RDF-XML_Format_Guide
+     Removed the go:go node at the beginning since that is not "legal" RDF, but is "legal" XML
+     No other changes were made -->
+<rdf:RDF xmlns:go="http://www.geneontology.org/dtd/go.dtd#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <go:term rdf:about="http://www.geneontology.org/go#GO:0000001">
+            <go:accession>GO:0000001</go:accession>
+            <go:name>mitochondrion inheritance</go:name>
+            <go:synonym>mitochondrial inheritance</go:synonym>
+            <go:definition>The distribution of mitochondria, including the
+            mitochondrial genome, into daughter cells after mitosis or meiosis,
+            mediated by interactions between mitochondria and the cytoskeleton.
+            </go:definition>
+            <go:is_a rdf:resource="http://www.geneontology.org/go#GO:0048308" />
+            <go:part_of rdf:resource="http://www.geneontology.org/go#GO:0009530" />
+            <go:negatively_regulates
+                rdf:resource="http://www.geneontology.org/go#GO:0006312" />
+        </go:term>
+        <go:term rdf:about="http://www.geneontology.org/go#GO:0000002">
+            <go:accession>GO:0000002</go:accession>
+            <go:name>mitochondrial genome maintenance</go:name>
+            <go:definition>The maintenance of the structure and integrity of the
+            mitochondrial genome; includes replication and segregation of the
+            mitochondrial chromosome.</go:definition>
+            <go:is_a rdf:resource="http://www.geneontology.org/go#GO:0007005" />
+            <go:dbxref rdf:parseType="Resource">
+                <go:database_symbol>InterPro</go:database_symbol>
+                <go:reference>IPR009446</go:reference>
+            </go:dbxref>
+            <go:dbxref rdf:parseType="Resource">
+                <go:database_symbol>Pfam</go:database_symbol>
+                <go:reference>PF06420</go:reference>
+            </go:dbxref>
+        </go:term>
+        <go:term rdf:about="http://www.geneontology.org/go#GO:0000003">
+            <go:accession>GO:0000003</go:accession>
+            <go:name>reproduction</go:name>
+            <go:synonym>GO:0019952</go:synonym>
+            <go:synonym>GO:0050876</go:synonym>
+            <go:synonym>reproductive physiological process</go:synonym>
+            <go:definition>The production by an organism of new individuals that
+            contain some portion of their genetic material inherited from that
+            organism.</go:definition>
+            <go:is_a rdf:resource="http://www.geneontology.org/go#GO:0008150" />
+            <go:dbxref rdf:parseType="Resource">
+                <go:database_symbol>Wikipedia</go:database_symbol>
+                <go:reference>Reproduction</go:reference>
+            </go:dbxref>
+        </go:term>
+</rdf:RDF>

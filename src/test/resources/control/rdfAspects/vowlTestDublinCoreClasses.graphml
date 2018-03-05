@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd"> 
+
+<key attr.name="Description" attr.type="string" for="graph" id="d0"/><key for="port" id="d1" yfiles.type="portgraphics"/>
+<key for="port" id="d2" yfiles.type="portgeometry"/>
+<key for="port" id="d3" yfiles.type="portuserdata"/>
+<key attr.name="url" attr.type="string" for="node" id="d4"/>
+<key attr.name="description" attr.type="string" for="node" id="d5"/>
+<key for="node" id="d6" yfiles.type="nodegraphics"/>
+<key for="graphml" id="d7" yfiles.type="resources"/>
+<key attr.name="url" attr.type="string" for="edge" id="d8"/>
+<key attr.name="description" attr.type="string" for="edge" id="d9"/>
+<key for="edge" id="d10" yfiles.type="edgegraphics"/>
+
+<graph edgedefault="directed" id="G">
+  <data key="d0"/>
+<node id="title" yfiles.foldertype="group">
+  <data key="d4"/>
+  <data key="d6">
+    <y:ProxyAutoBoundsNode>
+      <y:Realizers active="0">
+        <y:GroupNode>
+          <y:Geometry height="112.2" width="449.12" x="123.59" y="878.39"/>
+          <y:Fill color="#FFFFFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="21.67" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="449.12" x="0.0" y="0.0">Graph Information   </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+          <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
+          <y:State closed="false" closedHeight="74.51" closedWidth="387.83" innerGraphDisplayEnabled="false"/>
+          <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+          <y:BorderInsets bottom="0" bottomF="0.0" left="4" leftF="4.47" right="0" rightF="0.0" top="0" topF="0.0"/>
+        </y:GroupNode>
+        <y:GroupNode>
+          <y:Geometry height="50.0" width="50.0" x="-25.0" y="-25.0"/>
+          <y:Fill color="#F2F0D8" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.67" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="63.76" x="-6.88" y="0.0"> </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+          <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
+          <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+          <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+          <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+        </y:GroupNode>
+      </y:Realizers>
+    </y:ProxyAutoBoundsNode>
+  </data>
+  <graph edgedefault="directed" id="title:">
+    <node id="title::n0">
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="25.0" width="150.0" x="310.0" y="934.20"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" borderDistance="0.0" fontFamily="Dialog" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="90.53" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="140.44" x="-5.04" y="-19.145">Title:  Test RDF
+
+Ontology URI:  None defined
+
+Generated:  Sun Mar 04 22:33:44 EST 2018</y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+  </graph>
+</node>
+<node id="dcterms:Agent">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Agent
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:AgentClass">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Agent Class
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOfdcterms:AgentClassrdfs:Class" source="dcterms:AgentClass" target="rdfs:Class">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">Subclass of</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:BibliographicResource">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Bibliographi...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:FileFormat">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">File Format
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOfdcterms:FileFormatdcterms:MediaType" source="dcterms:FileFormat" target="dcterms:MediaType">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">Subclass of</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:MediaType">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Media Type
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOfdcterms:MediaTypedcterms:MediaTypeOrExtent" source="dcterms:MediaType" target="dcterms:MediaTypeOrExtent">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">Subclass of</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:Frequency">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Frequency
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:Jurisdiction">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Jurisdiction
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOfdcterms:Jurisdictiondcterms:LocationPeriodOrJurisdiction" source="dcterms:Jurisdiction" target="dcterms:LocationPeriodOrJurisdiction">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">Subclass of</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:LocationPeriodOrJurisdiction">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Location, Pe...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:LicenseDocument">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">License Docu...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOfdcterms:LicenseDocumentdcterms:RightsStatement" source="dcterms:LicenseDocument" target="dcterms:RightsStatement">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">Subclass of</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:RightsStatement">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Rights State...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:LinguisticSystem">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Linguistic S...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:Location">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Location
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOfdcterms:Locationdcterms:LocationPeriodOrJurisdiction" source="dcterms:Location" target="dcterms:LocationPeriodOrJurisdiction">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">Subclass of</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:MediaTypeOrExtent">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Media Type o...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:MethodOfAccrual">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Method of Ac...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:MethodOfInstruction">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Method of In...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:PeriodOfTime">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Period of Time
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOfdcterms:PeriodOfTimedcterms:LocationPeriodOrJurisdiction" source="dcterms:PeriodOfTime" target="dcterms:LocationPeriodOrJurisdiction">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">Subclass of</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:PhysicalMedium">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Physical Medium
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOfdcterms:PhysicalMediumdcterms:MediaType" source="dcterms:PhysicalMedium" target="dcterms:MediaType">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">Subclass of</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:PhysicalResource">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Physical Res...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:Policy">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Policy
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:ProvenanceStatement">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Provenance S...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:SizeOrDuration">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Size or Dura...
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="subClassOfdcterms:SizeOrDurationdcterms:MediaTypeOrExtent" source="dcterms:SizeOrDuration" target="dcterms:MediaTypeOrExtent">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="true">Subclass of</y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:Standard">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="150.0" width="150.0" x="385.3" y="187.0"/>
+      <y:Fill color="#3366CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#FFFFFF" visible="true" width="44.84" x="18.56" y="10.58">Standard
+(external)</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="rdfs:Datatype">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="20.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Datatype</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<node id="dcterms:Box">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">DCMI Box
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:Boxrdfs:Datatype" source="dcterms:Box" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:ISO3166">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">ISO 3166
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:ISO3166rdfs:Datatype" source="dcterms:ISO3166" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:ISO639-2">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">ISO 639-2
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:ISO639-2rdfs:Datatype" source="dcterms:ISO639-2" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:ISO639-3">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">ISO 639-3
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:ISO639-3rdfs:Datatype" source="dcterms:ISO639-3" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:Period">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="121.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">DCMI Period
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:Periodrdfs:Datatype" source="dcterms:Period" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:Point">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="110.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">DCMI Point
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:Pointrdfs:Datatype" source="dcterms:Point" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:RFC1766">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">RFC 1766
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:RFC1766rdfs:Datatype" source="dcterms:RFC1766" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:RFC3066">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">RFC 3066
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:RFC3066rdfs:Datatype" source="dcterms:RFC3066" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:RFC4646">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">RFC 4646
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:RFC4646rdfs:Datatype" source="dcterms:RFC4646" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:RFC5646">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">RFC 5646
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:RFC5646rdfs:Datatype" source="dcterms:RFC5646" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:URI">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">URI
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:URIrdfs:Datatype" source="dcterms:URI" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="dcterms:W3CDTF">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="40.0" width="100.0" x="385.3" y="187.0"/>
+      <y:Fill color="#FFCC33" transparent="false"/>
+      <y:BorderStyle color="#000000" type="line" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">W3C-DTF
+(external)</y:NodeLabel>
+      <y:Shape type="rectangle"/>
+    </y:ShapeNode>
+  </data>
+</node>
+<edge id="datatypedcterms:W3CDTFrdfs:Datatype" source="dcterms:W3CDTF" target="rdfs:Datatype">
+  <data key="d10">
+    <y:PolyLineEdge>
+      <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+      <y:LineStyle color="#000000" type="dotted" width="2.0"/>
+      <y:Arrows source="none" target="white_delta"/>
+      <y:EdgeLabel alignment="center" backgroundColor="#FFFFFF" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.84" modelName="centered" modelPosition="center" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" width="76.16" x="102.14" y="-11.42" visible="false"> </y:EdgeLabel>
+      <y:BendStyle smoothed="false"/>
+    </y:PolyLineEdge>
+  </data>
+</edge>
+<node id="rdfs:Class">
+  <data key="d6">
+    <y:ShapeNode>
+      <y:Geometry height="90.0" width="90.0" x="385.3" y="187.0"/>
+      <y:Fill color="#CC99CC" transparent="false"/>
+      <y:BorderStyle color="#000000" type="dashed" width="2.0"/>
+      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="44.84" x="18.56" y="10.58">Class</y:NodeLabel>
+      <y:Shape type="ellipse"/>
+    </y:ShapeNode>
+  </data>
+</node>
+</graph>
+<data key="d7">
+   <y:Resources>
+      <y:Resource id="complement" type="java.awt.image.BufferedImage">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&#13;
+YII=</y:Resource>
+      <y:Resource id="intersection" type="java.awt.image.BufferedImage">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&#13;
+CAAAAABJRU5ErkJggg==</y:Resource>
+      <y:Resource id="union" type="java.awt.image.BufferedImage">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</y:Resource>
+      <y:Resource id="disjoint" type="java.awt.image.BufferedImage">iVBORw0KGgoAAAANSUhEUgAAAIQAAABuCAYAAADmm7tDAAAKFUlEQVR42u1dPYjkRhbuyGDfLj5Y&#13;
+LlhjsxuNwXeHDIuDjWawwQJ7Fh0HNqwTbTRwTtrsGjoxzCamwRjkwNBM1JERGEyDkw7lrIPzncIK&#13;
+5YsUKlRyvnd66i6p9Nej/5ZUr+CxPzNq1ff0vd8qVc/++zsACcnv/4NwzH78FYCE5J+/ESFIiBAk&#13;
+RAgSIgQJEYKECEFChCAhQpAQIUhkJ8Q3P9jw8uaX8E8ZlP/9z87g8J6EEKiIZy++gz8/uoCHb78L&#13;
+s9msUP70xsPw9z7+7IvREkXEizJkvL0RApWCIBHwMYXcJn+4+0e4ePIMrm+sUZDgNsIPDW/nhEDF&#13;
+IKA8sPfPHsGjy6tQPvzHt3D5/CYh/GcPlHN45dU7mevRkobmNRDvexd/y8wV5494zx5fhpgef/p8&#13;
+kHg7I8Ta8uCTq5cZpaBC8OHrhgVXN79WErzuL+8/hTv37ic+FwmHD+KURMjDy0l/rl+PBm8nhEAW&#13;
+p0MDMr+OUooEP0+0InStX367OVkyLOLFeeH8nn798+jwtk4InCROlk8cPUKbihEFCZZWFMbtPsnw&#13;
++fU6gRfdfZvE7xtvq4TAyYlWgq6yC8Wk5e9f/ZBQErrUPsiQxot5wNjxtkaIT66uE8rBSfehHNF6&#13;
+7r15Fs0BE7suySDixftOBW8rhEC3KSqnK5dZRkkYovhcPno67yxMTBVvY0JgQsVj6CmVIwpm9lxJ&#13;
++PDaTiCnjLcRIbDU4so5RZgo607bqt1lwNuIEGIbtq+Eqk7ihSVhG4SQAW9tQmArVewxDEk5XPCh&#13;
+8TliEtiEDLLgrU0Ibi3YRRtCHL0tvqKrR5ff1DtMHW8tQohZdl+9hlNajUx4axGCr+ChtQxZOVx4&#13;
+aVbXamTCW5kQuKgyFmsREy4+56r9f9nwViaE/tyIbjbkWJoWvmJ4fqlXUpBseCsT4r1zLWrKjEU5&#13;
+ohutWpLJhrcyIbi14AaPMSkI9xbUadzIhrcSIcRafGiNmTJStb0rG95GhBhTPE0rqGw5JhveyoQQ&#13;
+6/GxKUds2pRVkGx4KxNC3AMwZgW98+gcCG+LhMAbjVFBuL2tDiFkwVubEPfeelsqQsiCV9qQgb0F&#13;
+wktJJSWVXZadXW2tH2rZKQNeqRpT2EeQqTFVB2+j1vVQdw111bqWBW/9xa2RZd7RYs/9B/UWtyTB&#13;
+W5kQYqI1prj6ymt3a727IBte2iBDeJtvoXtwpoQ3u3vvjVGVX6/deb3WnkqZ8NYihJh9D32fQBub&#13;
+bGXCW3sbPrZDwzeYglg1hm3pmFw12YYvC95Jv6gjll5N33mUBW+jV/lwA+dQE67w1bZDpl219JIZ&#13;
+b+OXffHm3JUO6eVXTAB5YtXmy75Tx9vKcQA4iSHFV2wi1S27ZMfbyoEhOInoAI1gcqeyHHw44lkJ&#13;
+TV/wLYv3VA2rLvC2dqSQ2NFDy+l7MQhJKFpK1RdUmuLt2wi6wtvqoWOikvpMvJB8PKHq8iih20hx&#13;
+8ezl6PG2fiyhGGP5fsSurAdd9dnjJwkStn2EUJlyNI23qxDSB95ODi7F/j9v98bnVT5pTVHheY1P&#13;
+rhJW0mY1UccIRLw4L8TbliH0ibfTs64xyRGtB+Xhuxfw+NMXlcmBSkGXjIoWFcNdZpMuZJd4sRxE&#13;
+vFWrkVPh7fzw8/0Z0Ne5h59jUoSAkf0oly9uIuH/99cPPktk0okcJUikTn3GdR5esYGVPvcaBTEh&#13;
+NnzgQ8Pb69cj4Kv16VBSVbAxhBYyNCLkEQPjO99gMxa8J/kCFVFZuGjEu39pQfeLP8ffQzINnQRl&#13;
+8RYZxRDwDu47t2T5eqWh4qUvYSMhQpAQIUiIECRECBIiBAkRgoQIQUKEIDktIX76FwAJyb//cyAE&#13;
+0KAhDCIEDSIEDSIEDSIEDSIEDSIEjYkRwncdYI5b/vd9H3wJHoznMGDM7R3raQnhWaCE+wrnUIYS&#13;
+bL3fuKquGP8f0A/7Etesuupca7nf16iuayreh42+v7+6Zq2qxjb2+y/nW1ceQnBlLqxyoJm53+au&#13;
+ceX7NqgNCMEJNlPN2oRYq80JkcEVfjQDLcSmge1LQAifmYddxwtwayvOA8tcgWGsYFfDkFzLhMVi&#13;
+Acu1Vds1s+AzDMMAc+e2Swj0EpywC2vqhPDB1PaWpZmsseKOJBxhzuF5Xr0Hfri29vUlc58IV1oX&#13;
+UUidwcadMCFi76DCzstJLdgWdEV8d0EBY2uDnSGEC+u5BqqqwUYIGb5rg6GrmfcfFuYu8VB8tgFN&#13;
+VUFbbJMPy3fAXGSv15ebjDfbrebB/VVYbuI5GZoCiroE5rnB56Re2FHnYDn+4TYbUBXhPsHfVVWB&#13;
+uUCM7Xz/M2W5my4h7NVBCVo2dnv26ta3muIcgsdZIYfwdpFV5UpwT+9YDhFcrx29vy7E9MDTqcVz&#13;
+Kpa9Ifhsnfvz+caJ9bHjXyg7B2eahPCiRCzj+hPKVGBtsdDVOrYZJY/J67JVhmPq0YOznMOj94Nc&#13;
+w4jfu+SJO3fVMSHiUIZiWCx68LY5jx/afJsNfTlzCi17vgbmBiEnmMN2GXuDVciqfUiyVofqybDC&#13;
+fxeGDWeKhBCtOpU+u9tFpDAzXTU4m1KEiB7yzEh5n8CVK3vrtIoI4W5jKzWz2rejz1YPXuIWQmQ8&#13;
+oAtLJWsMhTnEHjjMczzHhDxEUe9AsE4trwzMcc95hFjHMVvRl7DdMXA9/2gyxwkRE1KH3CpWIMz+&#13;
+fscJscrUi3m/f1uynH/NdAghuMAiQhRVHvxhHyNEUEsmwouYsC1WmyDRKyYEM7UjhMy733FCZHsj&#13;
+RIgcK9ukrKwCITKKK1C+74b9CV3Nf9t64/gFhNCPE8K3U0ksEaKXkKHkNmLKKh97D+JlHjDbgrVQ&#13;
+/qmGnU8IHm4UA7x8RlYKGUSIikllOsbultyic9q1/i4KBcXKjxOwVU6/d2eoibWLNCF8oeQ1c5II&#13;
+JlQwzIf2CZHrGYNElPdBzEl6iLzkMN2wQre9AtePG0WGWqbsjD97phrg+IluV5Thqyu7oOwUS0Y9&#13;
+0Q53d0J/JPJg7RJipptZzySs15jMnyIhjjemrIWS6FDqupZpNInKTzemohXMw/XhtapaKofYX79I&#13;
+/C5er2ri9YH38o6HMa0qIdbJbqa4UBZ7rcArydC6znp2Hywjez4TNni25iLlWlkUIkTrSTSRUh1C&#13;
+03YLq4zYG6zzu51hOzo5V75im52TAnmLuJzwifAQVEZaASEiA4maYZNc3PJgpR6Pi77nBsmgDbbN&#13;
+wHFruEpMJllwPXP2n5Oz2eR4VeGDg9fjtTsbmON1byiHxbjccOHAlAkhusLyy9+t1ztm0/0QXc+P&#13;
+5xab3u45iA0yS6tnSgQuei7kBbwMHRgdonDY56apE2+h4y6xXy+RXmVc2d7g6OCYWqIikoMQyAln&#13;
+H9/7vSmDjWmCaW5TSeJwhu8y2AX5U9/To234NIgQNIgQNIgQNIgQNIgQNIgQNIgQNPoa/wcgdmh6&#13;
+oO4NEQAAAABJRU5ErkJggg==</y:Resource>
+   </y:Resources>
+</data>
+</graphml>

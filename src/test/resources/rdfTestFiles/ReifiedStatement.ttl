@@ -1,0 +1,13 @@
+@prefix ninepts: <http://purl.org/ninepts/test#> .
+@prefix doco: <http://purl.org/spar/doco/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ninepts:statement1 a rdf:Statement ;
+    rdf:subject ninepts:subjectIRI ;
+    rdf:predicate ninepts:predicateIRI ;
+    rdf:object ninepts:objectIRI ;
+    ninepts:datatypeProp "string"@en ;
+    ninepts:objectProp ninepts:objectPropIRI .

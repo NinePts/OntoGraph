@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Taken from RDF Examples at http://wiki.collex.org/index.php/RDF_samples 
+     Removed one chapter and one figure to simplify the diagram -->
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" 
+         xmlns:ra="http://www.rossettiarchive.org/schema#" 
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:role="http://www.loc.gov/loc.terms/relators/"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+         xmlns:collex="http://www.collex.org/schema#" 
+         xmlns:dcterms="http://purl.org/dc/terms/">
+   <ra:rad rdf:about="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad">
+      <collex:archive>rossetti</collex:archive>
+      <collex:source rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.xml"/>
+      <rdfs:seeAlso rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.html"/>
+      <collex:text rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.txt"/>
+      <dc:title>Dante Gabriel Rossetti, An Illustrated Memorial of His Art and Life</dc:title>
+      <role:AUT>H. C. Marillier</role:AUT>
+      <role:PBL>George Bell and Sons</role:PBL>
+      <collex:genre>Primary</collex:genre>
+      <collex:genre>Paratext</collex:genre>
+      <dcterms:hasPart rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.radheader"/>
+      <dcterms:hasPart rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad#front0.2"/>
+      <dcterms:hasPart rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad#0.1"/>
+      <dcterms:hasPart rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad#0.2"/>
+      <dcterms:hasPart rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad#0.3"/>
+      <dcterms:hasPart rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad#back.0.1"/>
+      <dc:relation rdf:resource="http://www.rossettiarchive.org/img/op12.m"/>
+      <dc:relation rdf:resource="http://www.rossettiarchive.org/img/printersdevice"/>
+      <dc:relation rdf:resource="http://www.rossettiarchive.org/img/s117b.m"/>
+      <dc:relation rdf:resource="http://www.rossettiarchive.org/img/s442.m"/>
+      <dc:date>
+         <collex:date>
+            <rdfs:label>1899</rdfs:label>
+            <rdf:value>1899</rdf:value>
+         </collex:date>
+      </dc:date>
+   </ra:rad>
+   <ra:header rdf:about="http://www.rossettiarchive.org/docs/nd497.r8.m33.radheader">
+      <collex:archive>rossetti</collex:archive>
+      <collex:source rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.xml"/>
+      <rdfs:seeAlso rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.radheader.html"/>
+      <dc:title>Commentary for Dante Gabriel Rossetti, An Illustrated Memorial of His Art and Life</dc:title>
+      <dc:source>Dante Gabriel Rossetti, An Illustrated Memorial of His Art and Life</dc:source>
+      <role:AUT>Jerome J. McGann</role:AUT>
+      <dc:date>2006</dc:date>
+      <collex:genre>Secondary</collex:genre>
+      <dcterms:isPartOf rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad"/>
+   </ra:header>
+   <ra:div rdf:about="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad#front0.2">
+      <collex:archive>rossetti</collex:archive>
+      <collex:source rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.xml"/>
+      <rdfs:seeAlso rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.html#front0.2"/>
+      <rdfs:seeAlso rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.html"/>
+      <collex:text rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.front0.2.txt"/>
+      <dc:title>In an Artist's Studio</dc:title>
+      <dc:source>Dante Gabriel Rossetti, An Illustrated Memorial of His Art and Life</dc:source>
+      <role:AUT>H. C. Marillier</role:AUT>
+      <dc:date>
+         <collex:date>
+            <rdfs:label>1899</rdfs:label>
+            <rdf:value>1899</rdf:value>
+         </collex:date>
+      </dc:date>
+      <collex:genre>Poetry</collex:genre>
+      <dcterms:isPartOf rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad"/>
+   </ra:div>
+   <ra:div rdf:about="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad#0.1">
+      <collex:archive>rossetti</collex:archive>
+      <collex:source rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.xml"/>
+      <rdfs:seeAlso rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.html#0.1"/>
+      <rdfs:seeAlso rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.html"/>
+      <collex:text rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.0.1.txt"/>
+      <dc:title>Chapter I.</dc:title>
+      <dc:source>Dante Gabriel Rossetti, An Illustrated Memorial of His Art and Life</dc:source>
+      <role:AUT>H. C. Marillier</role:AUT>
+      <dc:date>
+         <collex:date>
+            <rdfs:label>1899</rdfs:label>
+            <rdf:value>1899</rdf:value>
+         </collex:date>
+      </dc:date>
+      <collex:genre>Paratext</collex:genre>
+      <dcterms:isPartOf rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad"/>
+   </ra:div>
+   <ra:div rdf:about="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad#0.2">
+      <collex:archive>rossetti</collex:archive>
+      <dcterms:isPartOf rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad"/>
+   </ra:div>
+   <ra:div rdf:about="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad#0.3">
+      <collex:archive>rossetti</collex:archive>
+      <dcterms:isPartOf rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad"/>
+   </ra:div>
+   <ra:div rdf:about="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad#back.0.1">
+      <collex:archive>rossetti</collex:archive>
+      <collex:source rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.xml"/>
+      <rdfs:seeAlso rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.html#back.0.1"/>
+      <rdfs:seeAlso rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.html"/>
+      <collex:text rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.back.0.1.txt"/>
+      <dc:title>Appendix: A Chronological List of Pictures and Drawings by Dante Gabriel Rossetti</dc:title>
+      <dc:source>Dante Gabriel Rossetti, An Illustrated Memorial of His Art and Life</dc:source>
+      <role:AUT>H. C. Marillier</role:AUT>
+      <dc:date>
+         <collex:date>
+            <rdfs:label>1899</rdfs:label>
+            <rdf:value>1899</rdf:value>
+         </collex:date>
+      </dc:date>
+      <collex:genre>Paratext</collex:genre>
+      <dcterms:isPartOf rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad"/>
+   </ra:div>
+   <ra:figure rdf:about="http://www.rossettiarchive.org/img/op12.m">
+      <collex:archive>rossetti</collex:archive>
+      <collex:source rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.xml"/>
+      <rdfs:seeAlso rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad.html"/>
+      <dc:title>DGR by Watts</dc:title>
+      <role:AUT>H. C. Marillier</role:AUT>
+      <dc:date>
+         <collex:date>
+            <rdfs:label>1899</rdfs:label>
+            <rdf:value>1899</rdf:value>
+         </collex:date>
+      </dc:date>
+      <collex:genre>Visual Art</collex:genre>
+      <collex:thumbnail rdf:resource="http://www.rossettiarchive.org/img/thumbs_small/op12.m.jpg"/>
+      <collex:image rdf:resource="http://www.rossettiarchive.org/img/op12.m.jpg"/>
+      <dcterms:isPartOf rdf:resource="http://www.rossettiarchive.org/docs/nd497.r8.m33.rad"/>
+   </ra:figure>
+</rdf:RDF>
