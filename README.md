@@ -14,7 +14,7 @@ Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/
 <br><br>
 
 ### Try OntoGraph
-You can download OntoGraph's source from this page (and customize it for your environment, following the instructions below), or just download the executable jar (and Stardog) and run it yourself. All of the "how-to" details are below. Alternately, you can access OntoGraph directly from your browser (either Firefox or Chrome) using [our server](http://45.76.26.91:8181). The choice is yours!
+You can download OntoGraph's source from this page (and customize it for your environment, following the instructions below), or just download the executable jar (and Stardog) and run it yourself. All of the "how-to" details are below. 
 <br><br>
 
 ### Overview
